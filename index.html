@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Habit Witness · 习惯记录</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2/assets/css/atcb.min.css">
 </head>
 <body>
 <!--APP_STYLE_START-->
@@ -171,6 +172,18 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .auth-guest{margin-top:20px;border-top:1px dashed var(--line);padding-top:16px}
 .auth-warn{font-size:12px;color:#A0792C;background:#FFF6E0;border:1px solid #F0E3C0;border-radius:10px;padding:9px 11px;line-height:1.7;margin-bottom:12px}
 .import-progress{margin:14px 0 4px}
+.cal-actions{display:flex;gap:8px;flex-wrap:wrap}
+.sync-summary{font-size:13px;font-weight:700;color:#4A4233;background:#F6F2E4;border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:12px 0;line-height:1.6}
+.sync-actions{display:flex;gap:8px;flex-wrap:wrap}
+.sync-actions .btn{flex:1;min-width:150px}
+.sync-list{margin-top:12px;max-height:260px;overflow-y:auto;border-top:1px dashed var(--line);padding-top:10px}
+.sync-event{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #F1ECDF}
+.sync-ev-info{min-width:0;flex:1}
+.sync-ev-info b{display:block;font-size:13.5px;color:#2E2A24;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sync-ev-info span{font-size:11.5px;color:var(--muted)}
+.sync-empty{font-size:13px;color:var(--muted);padding:12px 0;text-align:center}
+.sync-more{font-size:12px;color:#A0792C;padding:8px 0}
+.sync-tip{margin-top:12px;font-size:11.5px;color:var(--muted);line-height:1.7;background:#F6F2E8;border-radius:10px;padding:8px 10px}
 @media (max-width:640px){#app{padding:14px 12px 60px}.habit-grid{grid-template-columns:1fr}.tab-btn{padding:9px 15px;font-size:13px}}
 </style>
 <!--APP_STYLE_END--><!--APP_HTML_START-->
@@ -237,7 +250,10 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
     <section class="tab" id="tab-cal">
       <div class="cal-head">
         <div class="cal-navs"><button id="calPrev" type="button" aria-label="上一月">‹</button><span id="calTitle"></span><button id="calNext" type="button" aria-label="下一月">›</button></div>
-        <button class="btn btn-soft btn-sm" id="icsBtn" type="button">📅 导出打卡记录 .ics</button>
+        <div class="cal-actions">
+          <button class="btn btn-soft btn-sm" id="icsBtn" type="button">📅 导出打卡 .ics</button>
+          <button class="btn btn-primary btn-sm" id="syncCalBtn" type="button">🗓️ 同步到手机日历</button>
+        </div>
       </div>
       <div class="cal-week"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
       <div class="cal-grid" id="calGrid"></div>
@@ -346,6 +362,26 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
         <button class="btn btn-soft" id="importSkip" type="button">跳过</button>
         <button class="btn btn-primary" id="importOk" type="button">确认导入</button>
       </div>
+    </div>
+  </div>
+  <div class="mask" id="syncCalMask">
+    <div class="modal" style="max-width:440px">
+      <div class="modal-head"><h3>🗓️ 同步到手机日历</h3><button class="x" id="syncCalX" type="button">✕</button></div>
+      <label class="f-label" for="syncRange">选择时间范围</label>
+      <select class="f-input" id="syncRange">
+        <option value="month">本月</option>
+        <option value="last">上月</option>
+        <option value="all">全部历史</option>
+        <option value="custom">指定月份…</option>
+      </select>
+      <input class="f-input" id="syncMonth" type="month" style="display:none;margin-top:8px">
+      <div class="sync-summary" id="syncSummary"></div>
+      <div class="sync-actions">
+        <button class="btn btn-primary" id="syncDownloadBtn" type="button">⬇️ 下载日历文件 (.ics)</button>
+        <button class="btn btn-soft" id="syncAddBtn" type="button">📲 添加到手机日历</button>
+      </div>
+      <div class="sync-list" id="syncList" style="display:none"></div>
+      <div class="sync-tip">💡 下载 .ics 后在手机上点击即可导入（iOS/Android 通用）；「添加到手机日历」支持逐条加入 Apple / Google 日历。</div>
     </div>
   </div>
   <div class="toast" id="toast" role="status"></div>
@@ -945,6 +981,130 @@ function doExportICS(){
   }catch(err){toast('导出失败：'+err.message);}
 }
 
+/* ---------- 同步到手机日历（add-to-calendar-button + 多事件 .ics） ---------- */
+function addDaysStr(s,n){var p=s.split('-').map(Number);var d=new Date(p[0],p[1]-1,p[2]+n);return dstr(d);}
+function rangeLabel(range,custom){
+  if(range==='month'){var n=new Date();return n.getFullYear()+'年'+(n.getMonth()+1)+'月';}
+  if(range==='last'){var d=new Date();d.setMonth(d.getMonth()-1);return d.getFullYear()+'年'+(d.getMonth()+1)+'月';}
+  if(range==='custom'){var p=String(custom||'').split('-');return p.length===2?(+p[0])+'年'+(+p[1])+'月':'指定月份';}
+  return '全部历史';
+}
+function rangeFileLabel(range,custom){
+  if(range==='month'){var n=new Date();return n.getFullYear()+'-'+pad(n.getMonth()+1);}
+  if(range==='last'){var d=new Date();d.setMonth(d.getMonth()-1);return d.getFullYear()+'-'+pad(d.getMonth()+1);}
+  if(range==='custom')return custom||'custom';
+  return 'all';
+}
+function collectCalendarEvents(range,custom){
+  var start='',end='';
+  var now=new Date();
+  if(range==='month'){start=dstr(new Date(now.getFullYear(),now.getMonth(),1));end=dstr(new Date(now.getFullYear(),now.getMonth()+1,0));}
+  else if(range==='last'){start=dstr(new Date(now.getFullYear(),now.getMonth()-1,1));end=dstr(new Date(now.getFullYear(),now.getMonth(),0));}
+  else if(range==='custom'&&custom){var p=String(custom).split('-');if(p.length===2){start=p[0]+'-'+p[1]+'-01';end=dstr(new Date(+p[0],+p[1],0));}}
+  var inRange=function(d){return !start||(d>=start&&d<=end);};
+  var evts=[],seen={};
+  state.habits.forEach(function(h){
+    state.records.forEach(function(r){
+      var key=h.id+'|'+r.date;
+      if(r.habitId===h.id&&r.isCompleted&&inRange(r.date)&&!seen[key]){
+        seen[key]=1;
+        evts.push({title:h.name,date:r.date,desc:'来自习惯记录App · 习惯打卡 · '+h.name});
+      }
+    });
+  });
+  state.tasks.forEach(function(t){
+    if(t.isCompleted&&inRange(t.date)){
+      evts.push({title:t.content,date:t.date,desc:'来自习惯记录App · 已完成任务'});
+    }
+  });
+  evts.sort(function(a,b){return a.date<b.date?-1:1;});
+  return evts;
+}
+function buildEventsICS(evts){
+  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Habit Witness//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Habit Witness 完成记录'];
+  evts.forEach(function(e){
+    lines.push('BEGIN:VEVENT');
+    lines.push('UID:'+uid()+'@habitwitness');
+    lines.push('DTSTAMP:'+nowStamp());
+    lines.push('DTSTART;VALUE=DATE:'+e.date.replace(/-/g,''));
+    lines.push('DTEND;VALUE=DATE:'+addDaysStr(e.date,1).replace(/-/g,''));
+    lines.push('SUMMARY:'+escIcs(e.title));
+    lines.push('DESCRIPTION:'+escIcs(e.desc));
+    lines.push('END:VEVENT');
+  });
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n')+'\r\n';
+}
+function openSyncCalModal(){
+  var now=new Date();
+  $('#syncMonth').value=now.getFullYear()+'-'+pad(now.getMonth()+1);
+  $('#syncRange').value='month';
+  $('#syncMonth').style.display='none';
+  $('#syncList').style.display='none';
+  $('#syncCalMask').classList.add('show');
+  updateSyncSummary();
+}
+function closeSyncCalModal(){$('#syncCalMask').classList.remove('show');}
+function updateSyncSummary(){
+  var range=$('#syncRange').value,custom=$('#syncMonth').value;
+  var evts=collectCalendarEvents(range,custom);
+  var habits=evts.filter(function(e){return e.desc.indexOf('习惯打卡')>=0;}).length;
+  $('#syncSummary').textContent='📅 '+rangeLabel(range,custom)+'：共 '+evts.length+' 个已完成事件（习惯打卡 '+habits+' · 任务 '+(evts.length-habits)+'）';
+  return evts;
+}
+function syncDownload(){
+  var range=$('#syncRange').value,custom=$('#syncMonth').value;
+  var evts=collectCalendarEvents(range,custom);
+  if(!evts.length){toast('该时间段内没有已完成的事件');return;}
+  try{
+    var blob=new Blob([buildEventsICS(evts)],{type:'text/calendar;charset=utf-8'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='habit-calendar-'+rangeFileLabel(range,custom)+'.ics';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+    toast('已生成 '+evts.length+' 个事件的 .ics，手机点击该文件即可导入日历');
+  }catch(err){toast('导出失败：'+err.message);}
+}
+function showSyncEventList(){
+  var range=$('#syncRange').value,custom=$('#syncMonth').value;
+  var evts=collectCalendarEvents(range,custom);
+  var box=$('#syncList');
+  if(!evts.length){box.innerHTML='<div class="sync-empty">该时间段内没有已完成的事件</div>';box.style.display='';return;}
+  var MAX=300,shown=evts.slice(0,MAX);
+  box.innerHTML=shown.map(function(e,i){
+    var tag=e.desc.indexOf('习惯打卡')>=0?'习惯':'任务';
+    return '<div class="sync-event"><div class="sync-ev-info"><b>'+esc(e.title)+'</b><span>'+e.date+' · '+tag+'</span></div><button class="btn btn-primary btn-sm sync-ev-add" data-i="'+i+'" type="button">＋ 添加</button></div>';
+  }).join('')+(evts.length>MAX?'<div class="sync-more">…仅显示前 '+MAX+' 条，数量较多建议直接下载 .ics 批量导入</div>':'');
+  box.style.display='';
+  box.querySelectorAll('.sync-ev-add').forEach(function(b){
+    b.onclick=function(){
+      var ev=shown[parseInt(b.getAttribute('data-i'),10)];
+      addEventToCalendar(ev,b);
+    };
+  });
+}
+async function addEventToCalendar(evt,btn){
+  var action=null;
+  try{
+    var mod=await import('https://cdn.jsdelivr.net/npm/add-to-calendar-button@2');
+    action=mod.atcb_action||(mod.default&&mod.default.atcb_action);
+  }catch(e){action=null;}
+  if(!action){toast('⚠️ 日历组件加载失败（需联网），请改用「下载 .ics」方式');return;}
+  try{
+    await action({
+      name:evt.title,
+      startDate:evt.date,
+      endDate:evt.date,
+      description:evt.desc,
+      options:['Apple','Google','Outlook.com','iCal'],
+      iCalFileName:'habit-witness-'+evt.date.replace(/-/g,'')+'.ics',
+      hideTextLabelButton:true,
+      lightMode:'bodyScheme'
+    },btn);
+  }catch(e){toast('添加失败：'+e.message);}
+}
+
 /* ---------- 导出月度报告（Markdown，供 AI 分析） ---------- */
 function daysInMonth(y,m){return new Date(y,m,0).getDate();}
 function emotionTokens(text){
@@ -1115,6 +1275,13 @@ function bindEvents(){
   $('#calPrev').onclick=function(){calView.m--;if(calView.m<0){calView.m=11;calView.y--;}renderCal();};
   $('#calNext').onclick=function(){calView.m++;if(calView.m>11){calView.m=0;calView.y++;}renderCal();};
   $('#icsBtn').onclick=doExportICS;
+  $('#syncCalBtn').onclick=openSyncCalModal;
+  $('#syncCalX').onclick=closeSyncCalModal;
+  $('#syncCalMask').onclick=function(e){if(e.target===$('#syncCalMask'))closeSyncCalModal();};
+  $('#syncRange').onchange=function(){var v=this.value;$('#syncMonth').style.display=v==='custom'?'':'none';updateSyncSummary();};
+  $('#syncMonth').oninput=updateSyncSummary;
+  $('#syncDownloadBtn').onclick=syncDownload;
+  $('#syncAddBtn').onclick=showSyncEventList;
   $('#sheetClose').onclick=closeDaySheet;
   $('#daySheetMask').onclick=function(e){if(e.target===$('#daySheetMask'))closeDaySheet();};
   $('#sheetWrite').onclick=function(){closeDaySheet();switchTab('log');};
