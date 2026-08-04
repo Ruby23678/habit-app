@@ -52,7 +52,8 @@ create table public.daily_tasks (
   user_id uuid not null references auth.users(id) on delete cascade,
   content text not null,
   date text not null,
-  is_completed boolean default false
+  is_completed boolean default false,
+  due_time text
 );
 alter table public.daily_tasks enable row level security;
 create policy "tasks own" on public.daily_tasks
@@ -70,7 +71,8 @@ create table public.daily_logs (
   emotion text,
   tomorrow_action text,
   filled_count int default 0,
-  tags text
+  tags text,
+  is_backfill boolean default false
 );
 alter table public.daily_logs enable row level security;
 create policy "logs own" on public.daily_logs
@@ -119,3 +121,13 @@ var SUPABASE_ANON_KEY='eyJhbGciOi...';             // 你的 anon public key
 - 同步方式：每次操作后自动全量同步到云端（含删除），支持多设备（同一账号）。
 - 补签额度（每月 3 次）保存在本机，不跨设备共享；如需云端共享可后续加表。
 - 未配置 Supabase 时：所有数据仍保存在本机浏览器 localStorage，与原版行为一致。
+## 六、已有项目升级（新增字段）
+
+若你之前已经建好表，只需运行下面两条 SQL 即可支持「任务截止时间」和「日志补写」：
+
+```sql
+alter table public.daily_tasks add column if not exists due_time text;
+alter table public.daily_logs add column if not exists is_backfill boolean default false;
+```
+
+> 未升级也不会报错：网页会自动降级，仅不同步这两个新增字段。

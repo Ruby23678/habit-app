@@ -184,6 +184,28 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .sync-empty{font-size:13px;color:var(--muted);padding:12px 0;text-align:center}
 .sync-more{font-size:12px;color:#A0792C;padding:8px 0}
 .sync-tip{margin-top:12px;font-size:11.5px;color:var(--muted);line-height:1.7;background:#F6F2E8;border-radius:10px;padding:8px 10px}
+.chip.clickable{cursor:pointer;transition:.15s}
+.chip.clickable:active{transform:scale(.96)}
+.c-lav{background:#E7DDF7;color:#6E5FA8}
+.cal-day .cdot{position:absolute;top:4px;left:4px;width:9px;height:9px;border-radius:50%;pointer-events:none}
+.cal-day.c-gold .cdot{background:linear-gradient(145deg,#F6C453,#F09A3E);box-shadow:0 0 4px rgba(240,154,62,.55)}
+.cal-day.c-purple .cdot{background:#B49BE6}
+.cal-day.c-lav .cdot{background:#C9B8F0}
+.cal-day .mstar{position:absolute;top:2px;right:3px;font-size:9px;pointer-events:none}
+.sw-lav{background:#E7DDF7;border:1px solid #CFC5EE}
+.sw-star{background:#FFF6E0;border:1px solid #F0E3C0;display:flex;align-items:center;justify-content:center;font-size:10px}
+.log-datebar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.log-date-label{flex:1;text-align:center;font-size:13.5px;font-weight:800;color:#4A4233;min-width:130px}
+.task-due{display:block;font-size:11px;color:#C98A2B;margin-top:2px;font-weight:600}
+.add-row input[type=time]{flex:0 0 auto;width:106px;padding:10px 8px}
+.makeup-overview{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
+.mk-row{background:#FFFDF8;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.mk-name{display:block;font-size:13.5px;font-weight:700}
+.mk-num{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.mk-incentive{display:block;font-size:12px;font-weight:700;margin-top:4px;line-height:1.5}
+.mk-incentive.full{color:#2F8A5F}
+.mk-incentive.close{color:#C98A2B}
+.mk-incentive.warn{color:#C25B52}
 @media (max-width:640px){#app{padding:14px 12px 60px}.habit-grid{grid-template-columns:1fr}.tab-btn{padding:9px 15px;font-size:13px}}
 </style>
 <!--APP_STYLE_END--><!--APP_HTML_START-->
@@ -245,7 +267,7 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <div class="grad" id="gradSection"></div>
       <div class="sec-head" style="margin-top:26px"><h2>📋 今日待办</h2><span class="hint">仅今日有效 · 次日凌晨自动清空</span></div>
       <div class="task-list" id="taskList"></div>
-      <div class="add-row"><input id="taskInput" placeholder="添加今天的临时任务…" aria-label="新增临时任务"><button class="btn btn-primary" id="addTaskBtn" type="button">添加</button></div>
+      <div class="add-row"><input id="taskInput" placeholder="添加今天的临时任务…" aria-label="新增临时任务"><input type="time" id="taskDue" title="截止时间（可选，到点提醒）" aria-label="截止时间"><button class="btn btn-primary" id="addTaskBtn" type="button">添加</button></div>
     </section>
     <section class="tab" id="tab-cal">
       <div class="cal-head">
@@ -261,13 +283,21 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
         <span class="legend-item"><span class="swatch sw-gold"></span>习惯全完成 + 已写日志</span>
         <span class="legend-item"><span class="swatch sw-light"></span>习惯全完成 · 日志未写</span>
         <span class="legend-item"><span class="swatch sw-purple"></span>习惯未全完成 · 写了日志</span>
+        <span class="legend-item"><span class="swatch sw-lav"></span>事后补写日志</span>
+        <span class="legend-item"><span class="swatch sw-star">⭐</span>使用过补签</span>
         <span class="legend-item"><span class="swatch sw-gray"></span>都未完成</span>
       </div>
       <div class="ics-tip">💡 点击「导出打卡记录 .ics」会下载一个标准日历文件，在 iPhone 上点击该文件即可一键导入「日历」App。</div>
     </section>
     <section class="tab" id="tab-log">
       <div class="sec-head"><h2>🌙 今日观察笔记</h2><span class="hint" id="logDate"></span><button class="btn btn-soft btn-sm" id="exportReportBtn" type="button">📤 导出月度报告</button></div>
-      <div class="log-intro">睡前花 3 分钟回望今天。允许断签、允许不完美，但鼓励记录。</div>
+      <div class="log-intro">睡前花 3 分钟回望今天。允许断签、允许不完美，但鼓励记录。可补写昨天与前天的日志（日历显示为淡紫色）。</div>
+      <div class="log-datebar">
+        <button class="btn btn-soft btn-sm" id="logPrev" type="button">‹ 前一天</button>
+        <span class="log-date-label" id="logDateLabel"></span>
+        <button class="btn btn-soft btn-sm" id="logNext" type="button">后一天 ›</button>
+        <button class="btn btn-ghost btn-sm" id="logTodayBtn" type="button">今天</button>
+      </div>
       <div id="logFields"></div>
       <div class="log-progress" id="logProgress"><div class="lp-track"><div class="lp-bar" id="lpBar"></div></div><span class="lp-text" id="lpText"></span></div>
       <button class="btn btn-primary btn-block" id="logSaveBtn" type="button">保存今日日志 · 自动生成 #习惯标签</button>
@@ -364,6 +394,17 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       </div>
     </div>
   </div>
+  <div class="mask" id="makeupModalMask">
+    <div class="modal" style="max-width:430px">
+      <div class="modal-head"><h3>🔁 补签 · 月度打卡概览</h3><button class="x" id="makeupX" type="button">✕</button></div>
+      <div id="makeupHabitInfo" style="margin-bottom:12px"></div>
+      <div class="makeup-overview" id="makeupOverview"></div>
+      <div class="modal-foot">
+        <button class="btn btn-soft" id="makeupCancel" type="button">取消</button>
+        <button class="btn btn-primary" id="makeupConfirm" type="button">✅ 确认补签昨天</button>
+      </div>
+    </div>
+  </div>
   <div class="mask" id="syncCalMask">
     <div class="modal" style="max-width:440px">
       <div class="modal-head"><h3>🗓️ 同步到手机日历</h3><button class="x" id="syncCalX" type="button">✕</button></div>
@@ -448,10 +489,12 @@ function habitToRow(h){return{id:h.id,user_id:currentUser.id,name:h.name,icon:h.
 function rowToHabit(r){return{id:r.id,name:r.name,icon:r.icon,targetDays:r.target_days,startDate:r.start_date,isActive:r.is_active!==false,frequencyType:r.frequency_type||'daily',weeklyDays:r.weekly_days||null,createdAt:r.created_at||todayStr()};}
 function recordToRow(r){return{id:r.id,user_id:currentUser.id,habit_id:r.habitId,date:r.date,is_completed:r.isCompleted!==false,is_makeup:!!r.isMakeup};}
 function rowToRecord(r){return{id:r.id,habitId:r.habit_id,date:r.date,isCompleted:r.is_completed!==false,isMakeup:!!r.is_makeup};}
-function taskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:t.date,is_completed:t.isCompleted!==false};}
-function rowToTask(r){return{id:r.id,content:r.content,date:r.date,isCompleted:r.is_completed!==false};}
-function logToRow(l){return{id:l.id||uid(),user_id:currentUser.id,date:l.date,excitement:l.excitement||null,low_moment:l.lowMoment||null,resistance:l.resistance||null,opposite_expectation:l.opposite||null,emotion:l.emotion||null,tomorrow_action:l.tomorrowAction||null,filled_count:l.filledCount||0,tags:l.tags||null};}
-function rowToLog(r){return{id:r.id,date:r.date,excitement:r.excitement||'',lowMoment:r.low_moment||'',resistance:r.resistance||'',opposite:r.opposite_expectation||'',emotion:r.emotion||'',tomorrowAction:r.tomorrow_action||'',filledCount:r.filled_count||0,tags:r.tags||''};}
+function taskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:t.date,is_completed:t.isCompleted!==false,due_time:t.dueTime||null};}
+function slimTaskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:t.date,is_completed:t.isCompleted!==false};}
+function rowToTask(r){return{id:r.id,content:r.content,date:r.date,isCompleted:r.is_completed!==false,dueTime:r.due_time||''};}
+function logToRow(l){return{id:l.id||uid(),user_id:currentUser.id,date:l.date,excitement:l.excitement||null,low_moment:l.lowMoment||null,resistance:l.resistance||null,opposite_expectation:l.opposite||null,emotion:l.emotion||null,tomorrow_action:l.tomorrowAction||null,filled_count:l.filledCount||0,tags:l.tags||null,is_backfill:!!l.isBackfill};}
+function slimLogToRow(l){var r=logToRow(l);delete r.is_backfill;return r;}
+function rowToLog(r){return{id:r.id,date:r.date,excitement:r.excitement||'',lowMoment:r.low_moment||'',resistance:r.resistance||'',opposite:r.opposite_expectation||'',emotion:r.emotion||'',tomorrowAction:r.tomorrow_action||'',filledCount:r.filled_count||0,tags:r.tags||'',isBackfill:!!r.is_backfill};}
 async function loadCloudData(){
   if(!isCloud||!currentUser||!supabaseClient)return false;
   try{
@@ -476,11 +519,15 @@ function scheduleCloudSave(){
   clearTimeout(cloudSyncTimer);
   cloudSyncTimer=setTimeout(function(){syncAllToCloud();},500);
 }
-async function syncTableFull(table,localRows,toRow){
+async function syncTableFull(table,localRows,toRow,slimToRow){
   if(!supabaseClient)return;
   if(!localRows.length){await supabaseClient.from(table).delete().eq('user_id',currentUser.id);return;}
   var payload=localRows.map(toRow);
   var up=await supabaseClient.from(table).upsert(payload,{onConflict:'id'});
+  if(up.error&&slimToRow){
+    payload=localRows.map(slimToRow);
+    up=await supabaseClient.from(table).upsert(payload,{onConflict:'id'});
+  }
   if(up.error){console.warn('upsert '+table,up.error);return;}
   var sel=await supabaseClient.from(table).select('id').eq('user_id',currentUser.id);
   if(sel.error){console.warn('select '+table,sel.error);return;}
@@ -493,8 +540,8 @@ async function syncAllToCloud(){
   await Promise.all([
     syncTableFull('habits',state.habits,habitToRow),
     syncTableFull('habit_records',state.records,recordToRow),
-    syncTableFull('daily_tasks',state.tasks,taskToRow),
-    syncTableFull('daily_logs',state.logs,logToRow)
+    syncTableFull('daily_tasks',state.tasks,taskToRow,slimTaskToRow),
+    syncTableFull('daily_logs',state.logs,logToRow,slimLogToRow)
   ]);
 }
 function showAuthView(show){$('#authView').style.display=show?'flex':'none';$('#app').style.display=show?'none':'';}
@@ -691,14 +738,53 @@ function doCheckin(habitId){
   save();renderAll();
   toast('✅「'+h.name+'」打卡成功，成就 +1');
 }
-function doMakeup(habitId){
-  var h=habitById(habitId);if(!h)return;
+function doMakeup(habitId){openMakeupModal(habitId);}
+var makeupSelId=null;
+function monthHabitStats(h){
+  var now=new Date(),ms=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-01';
+  var start=h.startDate>ms?h.startDate:ms,today=todayStr();
+  if(start>today)return null;
+  var p1=start.split('-').map(Number),p2=today.split('-').map(Number);
+  var y=Math.round((new Date(p2[0],p2[1]-1,p2[2])-new Date(p1[0],p1[1]-1,p1[2]))/86400000)+1;
+  var seen={},x=0;
+  state.records.forEach(function(r){
+    if(r.habitId===h.id&&r.isCompleted&&r.date>=start&&r.date<=today&&!seen[r.date]){seen[r.date]=1;x++;}
+  });
+  var miss=y-x,msg,cls;
+  if(miss<=0){msg='🎉 全勤！太棒了！';cls='full';}
+  else if(miss<=2){msg='💪 还差 '+miss+' 天就能全勤，加油！';cls='close';}
+  else{msg='本月已有 '+miss+' 天未打卡，明天记得补上哦';cls='warn';}
+  return{x:x,y:y,msg:msg,cls:cls};
+}
+function renderMakeupOverview(){
+  var h=makeupSelId?habitById(makeupSelId):null;
+  $('#makeupHabitInfo').innerHTML=h?('<b style="font-size:15px">'+esc(h.icon)+' '+esc(h.name)+'</b><div class="hint" style="margin-top:4px">本月补签额度：'+state.makeup.left+' / 3 · 补签用于弥补昨天的缺口</div>'):'';
+  var rows=state.habits.filter(function(h){return h.isActive;}).map(function(hh){
+    var st=monthHabitStats(hh);
+    if(!st)return '';
+    return '<div class="mk-row"><span class="mk-name">'+esc(hh.icon)+' '+esc(hh.name)+'</span><span class="mk-num">本月已打卡 <b>'+st.x+'</b> 天 / 应打卡 '+st.y+' 天</span><span class="mk-incentive '+st.cls+'">'+st.msg+'</span></div>';
+  }).join('');
+  $('#makeupOverview').innerHTML=rows||'<div class="hint">本月暂无进行中的习惯</div>';
+}
+function openMakeupModal(id){
+  var h=habitById(id);if(!h)return;
   if(state.makeup.left<=0){toast('🔁 本月补签额度已用完');return;}
-  if(!missedYesterday(habitId)){toast('昨天没有缺口，无需补签');return;}
-  checkin(habitId,yesterdayStr(),true);
+  if(!missedYesterday(id)){toast('昨天没有缺口，无需补签');return;}
+  makeupSelId=id;
+  renderMakeupOverview();
+  $('#makeupModalMask').classList.add('show');
+}
+function closeMakeupModal(){$('#makeupModalMask').classList.remove('show');}
+function confirmMakeup(){
+  var id=makeupSelId;if(!id)return;
+  var h=habitById(id);if(!h){closeMakeupModal();return;}
+  if(state.makeup.left<=0){toast('🔁 本月补签额度已用完');closeMakeupModal();return;}
+  if(!missedYesterday(id)){toast('昨天没有缺口，无需补签');closeMakeupModal();return;}
+  checkin(id,yesterdayStr(),true);
   state.makeup.left--;
   save();renderAll();
-  toast('✨ 已用补签弥补昨天（剩余 '+state.makeup.left+' 次），连胜未中断');
+  closeMakeupModal();
+  toast('✨ 已用补签弥补昨天「'+h.name+'」（剩余 '+state.makeup.left+' 次），连胜未中断');
 }
 
 /* ---------- 习惯 CRUD ---------- */
@@ -713,16 +799,59 @@ function deleteHabit(id){
 
 /* ---------- 任务 CRUD ---------- */
 function addTask(content){
-  state.tasks.push({id:uid(),content:content,date:todayStr(),isCompleted:false});
-  save();renderHome();toast('已加入今日待办：'+content);
+  var due=$('#taskDue')?$('#taskDue').value:'';
+  state.tasks.push({id:uid(),content:content,date:todayStr(),isCompleted:false,dueTime:due||''});
+  if(due)ensureNotifPermission();
+  save();renderHome();
+  toast(due?('已加入今日待办：'+content+'（⏰ '+due+'）'):('已加入今日待办：'+content));
 }
 function toggleTask(id){
-  for(var i=0;i<state.tasks.length;i++){if(state.tasks[i].id===id){state.tasks[i].isCompleted=!state.tasks[i].isCompleted;}}
+  for(var i=0;i<state.tasks.length;i++){if(state.tasks[i].id===id){state.tasks[i].isCompleted=!state.tasks[i].isCompleted;state.tasks[i].notifiedUp=false;state.tasks[i].notifiedLate=false;}}
   save();
 }
 function removeTask(id){
   state.tasks=state.tasks.filter(function(t){return t.id!==id;});
   save();renderHome();toast('已删除任务');
+}
+
+/* ---------- 任务提醒（Notification API，需授权；不支持时降级为页内提示） ---------- */
+function notifSupported(){return typeof Notification!=='undefined';}
+function ensureNotifPermission(){
+  if(!notifSupported()){toast('当前环境不支持系统通知（需 HTTPS），到点会在页面内提示');return 'unsupported';}
+  if(Notification.permission==='granted')return 'granted';
+  if(Notification.permission==='default'){Notification.requestPermission();}
+  return Notification.permission;
+}
+function notifyMe(title,body){
+  var fallback=function(){toast('⏰ '+title+'：'+body);};
+  if(notifSupported()&&Notification.permission==='granted'){
+    try{
+      var n=new Notification(title,{body:body,tag:'hw-remind'});
+      n.onclick=function(){window.focus();switchTab('home');n.close();};
+      return;
+    }catch(e){}
+  }
+  fallback();
+}
+function checkReminders(){
+  if(!state||!state.tasks)return;
+  var today=todayStr();
+  state.tasks.forEach(function(t){
+    if(t.date!==today||t.isCompleted||!t.dueTime)return;
+    var p=String(t.dueTime).split(':');
+    if(p.length!==2)return;
+    var due=new Date();due.setHours(+p[0],+p[1],0,0);
+    var now=new Date();
+    var up=new Date(due.getTime()-15*60000);
+    var late=new Date(due.getTime()+30*60000);
+    if(!t.notifiedUp&&now>=up&&now<due){
+      t.notifiedUp=true;save();
+      notifyMe('任务即将到期','任务【'+t.content+'】即将到期，记得完成哦');
+    }else if(!t.notifiedLate&&now>=late){
+      t.notifiedLate=true;save();
+      notifyMe('任务已超时','任务【'+t.content+'】已超时，快去完成吧');
+    }
+  });
 }
 
 /* ---------- 日志 ---------- */
@@ -734,10 +863,23 @@ var LOG_FIELDS=[
   {key:'emotion',label:'⑤ 今日情绪（一句话）',ph:'…'},
   {key:'tomorrowAction',label:'⑥ 明日 1 个最小行动',ph:'选填，越小越好…'}
 ];
-var logDraft=null;
-function initLogDraft(){
-  var ex=logOf(todayStr());
-  logDraft={excitement:ex&&ex.excitement||'',lowMoment:ex&&ex.lowMoment||'',resistance:ex&&ex.resistance||'',opposite:ex&&ex.opposite||'',emotion:ex&&ex.emotion||'',tomorrowAction:ex&&ex.tomorrowAction||''};
+var logSelDate=todayStr();
+var logDrafts={};
+function loadDraft(date){
+  if(!logDrafts[date]){
+    var ex=logOf(date);
+    logDrafts[date]={excitement:ex&&ex.excitement||'',lowMoment:ex&&ex.lowMoment||'',resistance:ex&&ex.resistance||'',opposite:ex&&ex.opposite||'',emotion:ex&&ex.emotion||'',tomorrowAction:ex&&ex.tomorrowAction||''};
+  }
+  return logDrafts[date];
+}
+var logDraft=loadDraft(todayStr());
+function initLogDraft(date){logSelDate=date||todayStr();logDraft=loadDraft(logSelDate);}
+function setLogDate(date){
+  var min=addDaysStr(todayStr(),-2);
+  if(date>todayStr())date=todayStr();
+  if(date<min)date=min;
+  initLogDraft(date);
+  renderLog();
 }
 function logFilled(){
   var n=0;
@@ -745,14 +887,20 @@ function logFilled(){
   return n;
 }
 function saveLog(){
-  var tags=completedHabitIds(todayStr()).map(function(id){var h=habitById(id);return '#'+(h?h.name:'习惯');}).join(' ');
+  var date=logSelDate;
+  var tags=completedHabitIds(date).map(function(id){var h=habitById(id);return '#'+(h?h.name:'习惯');}).join(' ');
   var filled=logFilled();
-  var entry={date:todayStr(),excitement:logDraft.excitement,lowMoment:logDraft.lowMoment,resistance:logDraft.resistance,opposite:logDraft.opposite,emotion:logDraft.emotion,tomorrowAction:logDraft.tomorrowAction,filledCount:filled,tags:tags};
-  var ex=logOf(todayStr());
+  var ex=logOf(date);
+  var isBackfill=ex?!!ex.isBackfill:(date<todayStr());
+  var entry={date:date,excitement:logDraft.excitement,lowMoment:logDraft.lowMoment,resistance:logDraft.resistance,opposite:logDraft.opposite,emotion:logDraft.emotion,tomorrowAction:logDraft.tomorrowAction,filledCount:filled,tags:tags,isBackfill:isBackfill};
   if(ex){for(var k in entry){ex[k]=entry[k];}}
   else{entry.id=uid();state.logs.push(entry);}
   save();renderAll();
-  toast(filled>=3?('🌙 日志已保存 · 自动生成：'+(tags||'（今天还没有打卡记录）')):'🌙 已保存（填写 3 项以上才算完成今日反思）');
+  if(date===todayStr()){
+    toast(filled>=3?('🌙 今日日志已保存 · 自动生成：'+(tags||'（今天还没有打卡记录）')):'🌙 已保存（填写 3 项以上才算完成今日反思）');
+  }else{
+    toast('📝 已补写 '+date+' 的日志'+(filled>=3?' · 日历已标记为淡紫色':''));
+  }
 }
 
 /* ---------- 渲染：头部 ---------- */
@@ -813,7 +961,7 @@ function renderHome(){
     tl.innerHTML=tasks.map(function(t){
       return '<div class="task'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'">'+
         '<input type="checkbox"'+(t.isCompleted?' checked':'')+' aria-label="完成">'+
-        '<span class="t-check">✓</span><span class="t-text">'+esc(t.content)+'</span>'+
+        '<span class="t-check">✓</span><span class="t-text">'+esc(t.content)+(t.dueTime?'<span class="task-due">⏰ 截止 '+esc(t.dueTime)+'</span>':'')+'</span>'+
         '<button class="t-del" data-act="del" type="button" title="删除任务">✕</button></div>';
     }).join('');
   }
@@ -822,10 +970,11 @@ function renderHome(){
 /* ---------- 渲染：日历 ---------- */
 var calView={y:new Date().getFullYear(),m:new Date().getMonth()};
 function dayColor(date){
+  var log=logOf(date);
+  if(log&&log.isBackfill&&log.filledCount>=3)return 'lav';
   var hs=completedHabitIds(date);
   var req=state.habits.filter(function(h){return h.startDate<=date;}).length;
   var allDone=req>0?hs.length>=req:hs.length>0;
-  var log=logOf(date);
   var hasLog=!!log&&log.filledCount>=3;
   if(allDone&&hasLog)return 'gold';
   if(allDone&&!hasLog)return 'light';
@@ -840,49 +989,71 @@ function renderCal(){
   var days=new Date(calView.y,calView.m+1,0).getDate();
   var html='';
   for(var i=0;i<lead;i++)html+='<span class="cal-blank"></span>';
+  var makeupDates={};
+  state.records.forEach(function(r){if(r.isMakeup)makeupDates[r.date]=1;});
   for(var d=1;d<=days;d++){
     var date=calView.y+'-'+pad(calView.m+1)+'-'+pad(d);
     var c=dayColor(date);
     var isToday=date===todayStr();
-    html+='<button class="cal-day c-'+c+(isToday?' today':'')+'" data-date="'+date+'" type="button">'+d+'</button>';
+    var dot=(c==='gold'||c==='purple'||c==='lav')?'<i class="cdot"></i>':'';
+    var star=makeupDates[date]?'<i class="mstar">⭐</i>':'';
+    html+='<button class="cal-day c-'+c+(isToday?' today':'')+'" data-date="'+date+'" type="button">'+dot+star+d+'</button>';
   }
   grid.innerHTML=html;
   grid.querySelectorAll('.cal-day').forEach(function(b){b.onclick=function(){openDaySheet(b.getAttribute('data-date'));};});
 }
 
 /* ---------- 渲染：日志 ---------- */
+function formatLogDate(d){
+  var p=d.split('-').map(Number);
+  var dt=new Date(p[0],p[1]-1,p[2]);
+  var label=p[1]+'月'+p[2]+'日 · '+weekdayCN(dt);
+  if(d===todayStr())label+='（今天）';
+  else if(d===addDaysStr(todayStr(),-1))label+='（昨天 · 补写）';
+  else label+='（前天 · 补写）';
+  return label;
+}
 function renderLog(){
   var wrap=$('#logFields');
   wrap.innerHTML=LOG_FIELDS.map(function(f){
     return '<label class="log-field"><div class="lf-top"><span class="lf-no">'+f.label.charAt(0)+'</span><span class="lf-label">'+esc(f.label.slice(2))+'</span></div>'+
     '<textarea data-k="'+f.key+'" rows="2" placeholder="'+esc(f.ph)+'">'+esc(logDraft[f.key]||'')+'</textarea></label>';
   }).join('');
-  $('#logDate').textContent=formatToday()+' · 21:00';
+  $('#logDate').textContent=formatLogDate(logSelDate);
+  $('#logDateLabel').textContent=formatLogDate(logSelDate);
+  $('#logPrev').disabled=logSelDate<=addDaysStr(todayStr(),-2);
+  $('#logNext').disabled=logSelDate>=todayStr();
   updateLogProgress();
 }
 function updateLogProgress(){
   var n=logFilled();
   var bar=$('#lpBar'),prog=$('#logProgress'),txt=$('#lpText');
   bar.style.width=(n/6*100)+'%';
-  txt.textContent=n>=3?('✨ 已填写 '+n+'/6 · 今日反思已完成'):('已填写 '+n+'/6 项');
+  txt.textContent=n>=3?('✨ 已填写 '+n+'/6 · 反思已完成'):('已填写 '+n+'/6 项');
   prog.classList.toggle('done',n>=3);
 }
 
 /* ---------- 日期弹层 ---------- */
+var sheetDate=todayStr();
 function logText(log){
   return [log.excitement,log.lowMoment,log.resistance,log.opposite,log.emotion,log.tomorrowAction].filter(function(x){return x&&x.trim();}).join(' ｜ ');
 }
 function openDaySheet(date){
+  sheetDate=date;
   var hs=completedHabitIds(date);
-  var chips=hs.length?hs.map(function(id){var h=habitById(id);return '<span class="s-chip">✅ '+(h?esc(h.name):'?')+'</span>';}).join(''):'<span class="s-chip muted">当天没有打卡记录</span>';
+  var habitChips=hs.length?hs.map(function(id){var h=habitById(id);return '<span class="s-chip">✅ '+(h?esc(h.name):'?')+'</span>';}).join(''):'<span class="s-chip muted">当天没有习惯打卡</span>';
+  var ts=tasksOf(date).filter(function(t){return t.isCompleted;});
+  var taskChips=ts.length?ts.map(function(t){return '<span class="s-chip muted">📋 '+esc(t.content)+'</span>';}).join(''):'';
   var log=logOf(date);
-  var logHtml=log?('<div class="log-card"><b>🌙 当日日志</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b>🌙 当日日志</b><p>这一天没有留下观察日志。</p></div>';
+  var logHtml=log?('<div class="log-card"><b>🌙 当日日志'+(log.isBackfill?' · 事后补写':'')+'</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b>🌙 当日日志</b><p>这一天没有留下观察日志。</p></div>';
   var d=parseDate(date);
   $('#sheetTitle').textContent=parseInt(date.slice(5,7),10)+'月'+parseInt(date.slice(8,10),10)+'日 · '+weekdayCN(d);
-  $('#sheetChips').innerHTML=chips;
+  $('#sheetChips').innerHTML=habitChips+taskChips;
   $('#sheetLog').innerHTML=logHtml;
   var btn=$('#sheetWrite');
+  var min=addDaysStr(todayStr(),-2);
   if(date===todayStr()){btn.style.display='';btn.textContent='🌙 去写今晚日志 →';}
+  else if(date>=min&&date<todayStr()){btn.style.display='';btn.textContent='📝 去补写这天的日志 →';}
   else{btn.style.display='none';}
   $('#daySheetMask').classList.add('show');
 }
@@ -1232,6 +1403,22 @@ function switchTab(t){
   $$('.tab-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===t);});
 }
 
+/* ---------- 首页 chips 跳转日历 ---------- */
+function goToToday(){
+  switchTab('cal');
+  var now=new Date();
+  calView.y=now.getFullYear();calView.m=now.getMonth();
+  renderCal();
+  openDaySheet(todayStr());
+}
+function goToMakeup(){
+  switchTab('cal');
+  var now=new Date();
+  calView.y=now.getFullYear();calView.m=now.getMonth();
+  renderCal();
+  toast('本月使用过补签的日期已用 ⭐ 星标标记');
+}
+
 /* ---------- 事件绑定 ---------- */
 function bindEvents(){
   $$('.tab-btn').forEach(function(b){b.onclick=function(){switchTab(b.getAttribute('data-tab'));};});
@@ -1245,7 +1432,7 @@ function bindEvents(){
   $('#addTaskBtn').onclick=function(){
     var inp=$('#taskInput');var v=inp.value.trim();
     if(!v){toast('先写点什么吧 ✍️');return;}
-    inp.value='';addTask(v);renderHeader(true);
+    addTask(v);inp.value='';$('#taskDue').value='';renderHeader(true);
   };
   $('#taskInput').onkeydown=function(e){if(e.key==='Enter'){$('#addTaskBtn').click();}};
   $('#habitList').onclick=function(e){
@@ -1284,7 +1471,7 @@ function bindEvents(){
   $('#syncAddBtn').onclick=showSyncEventList;
   $('#sheetClose').onclick=closeDaySheet;
   $('#daySheetMask').onclick=function(e){if(e.target===$('#daySheetMask'))closeDaySheet();};
-  $('#sheetWrite').onclick=function(){closeDaySheet();switchTab('log');};
+  $('#sheetWrite').onclick=function(){var d=sheetDate;closeDaySheet();initLogDraft(d);renderLog();switchTab('log');};
   $('#logFields').oninput=function(e){
     var ta=e.target;
     if(ta.getAttribute('data-k')){logDraft[ta.getAttribute('data-k')]=ta.value;updateLogProgress();}
@@ -1298,6 +1485,15 @@ function bindEvents(){
   $('#aiCopyPromptBtn').onclick=copyAiPrompt;
   $('#emojiSearch').oninput=function(){renderEmojiPicker(chosenIcon);};
 $('#logSaveBtn').onclick=saveLog;
+  $('#medalChip').onclick=goToToday;$('#medalChip').classList.add('clickable');
+  $('#makeupChip').onclick=goToMakeup;$('#makeupChip').classList.add('clickable');
+  $('#makeupX').onclick=closeMakeupModal;
+  $('#makeupCancel').onclick=closeMakeupModal;
+  $('#makeupModalMask').onclick=function(e){if(e.target===$('#makeupModalMask'))closeMakeupModal();};
+  $('#makeupConfirm').onclick=confirmMakeup;
+  $('#logPrev').onclick=function(){setLogDate(addDaysStr(logSelDate,-1));};
+  $('#logNext').onclick=function(){setLogDate(addDaysStr(logSelDate,1));};
+  $('#logTodayBtn').onclick=function(){setLogDate(todayStr());};
   $('#authTabLogin').onclick=function(){switchAuthTab('login');};
   $('#authTabReg').onclick=function(){switchAuthTab('reg');};
   $('#toReg').onclick=function(e){e.preventDefault();switchAuthTab('reg');};
@@ -1313,10 +1509,11 @@ $('#logSaveBtn').onclick=saveLog;
 }
 
 /* ---------- 启动 ---------- */
-window.__hw={buildICS:buildICS,buildMonthlyReport:buildMonthlyReport,getState:function(){return state;},resetAll:resetAll,getAuth:function(){return{isCloud:isCloud,user:currentUser};}};
+window.__hw={buildICS:buildICS,buildMonthlyReport:buildMonthlyReport,getState:function(){return state;},resetAll:resetAll,getAuth:function(){return{isCloud:isCloud,user:currentUser};},checkReminders:checkReminders,goToToday:goToToday,goToMakeup:goToMakeup,setLogDate:setLogDate};
 initLogDraft();
 $('#exportPromptBox').textContent=AI_PROMPT;$('#aiPromptBox').textContent=AI_PROMPT;
 bindEvents();
+setInterval(checkReminders,30000);checkReminders();
 normalizeState();
 renderAll();
 initSupabase();
