@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Habit Witness · 习惯记录</title>
+<title>日迹 Day Trace</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2/assets/css/atcb.min.css">
 </head>
 <body>
@@ -23,7 +23,6 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;color:#6F6656;box-shadow:0 2px 8px rgba(80,60,30,.05)}
 .chip b{color:var(--green-deep)}
 .chip.medal{background:linear-gradient(150deg,#FFFDF6,#FBF3E2);border-color:#F0E3C4;font-weight:700;color:#8A6D24}
-.chip.exhausted{color:#B4524E;border-color:#F0D4CF;background:#FDF1EF}
 .chip.medal.bump{animation:bump .4s ease}
 @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
 .tabs{display:flex;gap:8px;position:sticky;top:0;z-index:15;background:rgba(247,242,231,.92);backdrop-filter:blur(12px);padding:10px 0 12px;border-radius:0 0 16px 16px}
@@ -198,21 +197,39 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .log-date-label{flex:1;text-align:center;font-size:13.5px;font-weight:800;color:#4A4233;min-width:130px}
 .task-due{display:block;font-size:11px;color:#C98A2B;margin-top:2px;font-weight:600}
 .add-row input[type=time]{flex:0 0 auto;width:106px;padding:10px 8px}
-.makeup-overview{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
-.mk-row{background:#FFFDF8;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
-.mk-name{display:block;font-size:13.5px;font-weight:700}
-.mk-num{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.mk-incentive{display:block;font-size:12px;font-weight:700;margin-top:4px;line-height:1.5}
-.mk-incentive.full{color:#2F8A5F}
-.mk-incentive.close{color:#C98A2B}
-.mk-incentive.warn{color:#C25B52}
+.add-row input[type=date]{flex:0 0 auto;width:152px;padding:10px 8px}
+.sheet-quota{font-size:12.5px;color:#8A6D3B;background:#FFF8E7;border:1px solid #F0E3C0;border-radius:10px;padding:7px 10px;margin-top:8px}
+.sheet-sec-title{font-size:14px;font-weight:800;margin:15px 0 8px;color:#4A4233}
+.sheet-sec-title:first-of-type{margin-top:4px}
+.sh-row{display:flex;align-items:center;gap:10px;background:#FFFDF8;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.sh-row.off{opacity:.7}
+.sh-row.done{background:#F0FAF3}
+.sh-ico{font-size:19px;line-height:1}
+.sh-name{flex:1;font-size:14px;font-weight:700;min-width:0;word-break:break-all}
+.sh-st{font-size:12.5px;font-weight:700;white-space:nowrap}
+.sh-st.ok{color:#2F8A5F}
+.sh-st.off{color:#A79E8E}
+.sh-st.act{border:1px dashed #C98A2B;background:#FFF8E7;color:#C98A2B;border-radius:9px;padding:6px 10px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer}
+.sh-st.act:hover{background:#FFF1D6}
+.stask{display:flex;align-items:center;gap:8px;background:#FFFDF8;border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:7px;cursor:pointer}
+.stask.done{opacity:.62}
+.stask.done .stask-t{text-decoration:line-through;color:#A89E8D}
+.stask-cb{font-size:14px}
+.stask-t{flex:1;font-size:13.5px;font-weight:600;min-width:0;word-break:break-all}
+.stask-del{border:none;background:transparent;color:#C4BAA8;font-size:14px;cursor:pointer;border-radius:6px;padding:2px 6px}
+.stask-del:hover{color:#C25B52;background:#FDF1EF}
+.sheet-addtask{display:flex;gap:8px;margin-top:6px}
+.sheet-addtask input{flex:1;border:1px dashed #D8CFBC;background:#FFFDF8;border-radius:11px;padding:9px 11px;font-size:13.5px;outline:none;font-family:inherit}
+.sheet-addtask input:focus{border-color:var(--green);border-style:solid}
+.sheet-addtask button{border:none;background:var(--green);color:#fff;border-radius:11px;padding:0 15px;font-weight:700;cursor:pointer;font-family:inherit}
+.task-date-tag{display:inline-block;font-size:10.5px;color:#8A6D3B;background:#FFF3DA;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
 @media (max-width:640px){#app{padding:14px 12px 60px}.habit-grid{grid-template-columns:1fr}.tab-btn{padding:9px 15px;font-size:13px}}
 </style>
 <!--APP_STYLE_END--><!--APP_HTML_START-->
 <div id="authView" style="display:none">
   <div class="auth-card">
-    <div class="auth-brand"><span>🌱</span><span>Habit Witness</span></div>
-    <div class="auth-sub">习惯记录 · 生活见证者</div>
+    <div class="auth-brand"><span>🌱</span><span>日迹 Day Trace</span></div>
+    <div class="auth-sub">日迹 Day Trace · 生活见证者</div>
     <div class="auth-tabs">
       <button id="authTabLogin" class="auth-tab active" type="button">登录</button>
       <button id="authTabReg" class="auth-tab" type="button">注册</button>
@@ -243,11 +260,10 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 </div>
 <div id="app" style="display:none">
   <header class="top">
-    <div class="brand"><span class="logo">🌱</span><div><div class="b1">Habit Witness</div><div class="b2">习惯记录 · 生活见证者</div></div></div>
+    <div class="brand"><span class="logo">🌱</span><div><div class="b1">日迹 Day Trace</div><div class="b2">日迹 · 生活见证者</div></div></div>
     <div class="chips">
       <span class="chip" id="dateChip"></span>
       <span class="chip medal" id="medalChip">🏅 今日成就 0</span>
-      <span class="chip" id="makeupChip">🔁 补签 3/3</span>
     </div>
     <div class="user-row" id="userRow" style="display:none">
       <span class="chip" id="userChip"></span>
@@ -265,9 +281,9 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <div class="sec-head"><h2>⭐ 长期习惯</h2><button class="btn btn-primary btn-sm" id="addHabitBtn" type="button">＋ 新建习惯</button></div>
       <div class="habit-grid" id="habitList"></div>
       <div class="grad" id="gradSection"></div>
-      <div class="sec-head" style="margin-top:26px"><h2>📋 今日待办</h2><span class="hint">仅今日有效 · 次日凌晨自动清空</span></div>
+      <div class="sec-head" style="margin-top:26px"><h2>📋 今日待办</h2><span class="hint">今日 + 逾期未完成 · 未来任务可提前添加</span></div>
       <div class="task-list" id="taskList"></div>
-      <div class="add-row"><input id="taskInput" placeholder="添加今天的临时任务…" aria-label="新增临时任务"><input type="time" id="taskDue" title="截止时间（可选，到点提醒）" aria-label="截止时间"><button class="btn btn-primary" id="addTaskBtn" type="button">添加</button></div>
+      <div class="add-row"><input id="taskInput" placeholder="添加临时任务（可预约未来日期）…" aria-label="新增临时任务"><input type="date" id="taskDate" title="任务日期（默认今天）" aria-label="任务日期"><input type="time" id="taskDue" title="截止时间（可选，到点提醒）" aria-label="截止时间"><button class="btn btn-primary" id="addTaskBtn" type="button">添加</button></div>
     </section>
     <section class="tab" id="tab-cal">
       <div class="cal-head">
@@ -372,8 +388,13 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
     <div class="sheet">
       <div class="sheet-handle"></div>
       <div class="sheet-title" id="sheetTitle"></div>
-      <div class="sheet-sub">当日完成的习惯打卡</div>
-      <div id="sheetChips"></div>
+      <div class="sheet-quota" id="sheetQuota"></div>
+      <div class="sheet-sec-title">✅ 习惯打卡 <span class="hint" id="sheetHabitHint"></span></div>
+      <div id="sheetHabits"></div>
+      <div class="sheet-sec-title">📋 当日待办 <span class="hint" id="sheetTaskHint"></span></div>
+      <div id="sheetTasks"></div>
+      <div class="sheet-addtask"><input id="sheetTaskInput" placeholder="添加这一天要做的任务…" aria-label="该日新增任务"><button id="sheetTaskAdd" type="button">添加</button></div>
+      <div class="sheet-sec-title">🌙 当日日志</div>
       <div id="sheetLog"></div>
       <button class="btn btn-primary btn-block" id="sheetWrite" type="button" style="margin-top:14px">🌙 去写今晚日志 →</button>
       <button class="btn btn-soft btn-block" id="sheetClose" type="button" style="margin-top:8px">关闭</button>
@@ -394,18 +415,7 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       </div>
     </div>
   </div>
-  <div class="mask" id="makeupModalMask">
-    <div class="modal" style="max-width:430px">
-      <div class="modal-head"><h3>🔁 补签 · 月度打卡概览</h3><button class="x" id="makeupX" type="button">✕</button></div>
-      <div id="makeupHabitInfo" style="margin-bottom:12px"></div>
-      <div class="makeup-overview" id="makeupOverview"></div>
-      <div class="modal-foot">
-        <button class="btn btn-soft" id="makeupCancel" type="button">取消</button>
-        <button class="btn btn-primary" id="makeupConfirm" type="button">✅ 确认补签昨天</button>
-      </div>
-    </div>
-  </div>
-  <div class="mask" id="syncCalMask">
+    <div class="mask" id="syncCalMask">
     <div class="modal" style="max-width:440px">
       <div class="modal-head"><h3>🗓️ 同步到手机日历</h3><button class="x" id="syncCalX" type="button">✕</button></div>
       <label class="f-label" for="syncRange">选择时间范围</label>
@@ -443,6 +453,7 @@ function monthKey(d){return d.getFullYear()+'-'+pad(d.getMonth()+1);}
 function parseDate(s){var p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
 function weekdayCN(d){return '周'+'日一二三四五六'[d.getDay()];}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function taskDateOf(t){return (t&&(t.taskDate||t.date))||'';}
 function uid(){try{if(window.crypto&&crypto.randomUUID){return crypto.randomUUID();}}catch(e){}return 'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 
 /* ---------- 存储层（localStorage，失败时降级为内存） ---------- */
@@ -459,7 +470,27 @@ try{var raw=storage.getItem(LS_KEY);state=raw?JSON.parse(raw):freshState();}catc
 if(!state||typeof state!=='object')state=freshState();
 state.habits=state.habits||[];state.tasks=state.tasks||[];state.records=state.records||[];state.logs=state.logs||[];
 if(!state.makeup||state.makeup.month!==monthKey(new Date())){state.makeup={month:monthKey(new Date()),left:3};}
-state.tasks=state.tasks.filter(function(t){return t.date===todayStr();}); /* 次日凌晨自动清空旧任务 */
+state.tasks.forEach(function(t){if(!t.taskDate)t.taskDate=t.date||todayStr();}); /* 迁移：旧任务无 taskDate 则补充为当天 */
+state.tasks=state.tasks.filter(function(t){return !(t.isCompleted&&taskDateOf(t)<todayStr());}); /* 清空逻辑：仅清空已完成且日期早于今天的任务，未完成任务保留 */
+try{storage.setItem(LS_KEY,JSON.stringify(state));}catch(e){} /* 迁移结果立即持久化 */
+/* ---------- 补签额度（每月 3 次，存储于 makeupQuota_YYYY-MM） ---------- */
+function quotaKey(m){return 'makeupQuota_'+m;}
+function makeupQuotaLeft(m){
+  m=m||monthKey(new Date());
+  var raw=storage.getItem(quotaKey(m));
+  if(raw===null||raw===''){
+    if(state.makeup&&state.makeup.month===m&&typeof state.makeup.left==='number')return Math.max(0,state.makeup.left);
+    return 3;
+  }
+  var n=parseInt(raw,10);return isNaN(n)?3:Math.max(0,n);
+}
+function makeupUseOne(m){
+  m=m||monthKey(new Date());
+  var left=Math.max(0,makeupQuotaLeft(m)-1);
+  try{storage.setItem(quotaKey(m),String(left));}catch(e){}
+  if(state.makeup){state.makeup.month=m;state.makeup.left=left;}
+  return left;
+}
 function save(skipCloud){
   if(!isCloud||!currentUser){try{storage.setItem(LS_KEY,JSON.stringify(state));}catch(e){toast('⚠️ 本地存储不可用，数据仅本次会话有效');}}
   if(!skipCloud)scheduleCloudSave();
@@ -489,9 +520,9 @@ function habitToRow(h){return{id:h.id,user_id:currentUser.id,name:h.name,icon:h.
 function rowToHabit(r){return{id:r.id,name:r.name,icon:r.icon,targetDays:r.target_days,startDate:r.start_date,isActive:r.is_active!==false,frequencyType:r.frequency_type||'daily',weeklyDays:r.weekly_days||null,createdAt:r.created_at||todayStr()};}
 function recordToRow(r){return{id:r.id,user_id:currentUser.id,habit_id:r.habitId,date:r.date,is_completed:r.isCompleted!==false,is_makeup:!!r.isMakeup};}
 function rowToRecord(r){return{id:r.id,habitId:r.habit_id,date:r.date,isCompleted:r.is_completed!==false,isMakeup:!!r.is_makeup};}
-function taskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:t.date,is_completed:t.isCompleted!==false,due_time:t.dueTime||null};}
-function slimTaskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:t.date,is_completed:t.isCompleted!==false};}
-function rowToTask(r){return{id:r.id,content:r.content,date:r.date,isCompleted:r.is_completed!==false,dueTime:r.due_time||''};}
+function taskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:taskDateOf(t),is_completed:t.isCompleted!==false,due_time:t.dueTime||null};}
+function slimTaskToRow(t){return{id:t.id,user_id:currentUser.id,content:t.content,date:taskDateOf(t),is_completed:t.isCompleted!==false};}
+function rowToTask(r){return{id:r.id,content:r.content,date:r.date,taskDate:r.date,isCompleted:r.is_completed!==false,dueTime:r.due_time||''};}
 function logToRow(l){return{id:l.id||uid(),user_id:currentUser.id,date:l.date,excitement:l.excitement||null,low_moment:l.lowMoment||null,resistance:l.resistance||null,opposite_expectation:l.opposite||null,emotion:l.emotion||null,tomorrow_action:l.tomorrowAction||null,filled_count:l.filledCount||0,tags:l.tags||null,is_backfill:!!l.isBackfill};}
 function slimLogToRow(l){var r=logToRow(l);delete r.is_backfill;return r;}
 function rowToLog(r){return{id:r.id,date:r.date,excitement:r.excitement||'',lowMoment:r.low_moment||'',resistance:r.resistance||'',opposite:r.opposite_expectation||'',emotion:r.emotion||'',tomorrowAction:r.tomorrow_action||'',filledCount:r.filled_count||0,tags:r.tags||'',isBackfill:!!r.is_backfill};}
@@ -708,16 +739,12 @@ function habitById(id){for(var i=0;i<state.habits.length;i++){if(state.habits[i]
 function recordOf(habitId,date){for(var i=0;i<state.records.length;i++){if(state.records[i].habitId===habitId&&state.records[i].date===date)return state.records[i];}return null;}
 function doneDays(habitId){var s={};state.records.forEach(function(r){if(r.habitId===habitId&&r.isCompleted)s[r.date]=1;});return Object.keys(s).length;}
 function completedHabitIds(date){var out=[];state.records.forEach(function(r){if(r.isCompleted&&r.date===date&&out.indexOf(r.habitId)<0)out.push(r.habitId);});return out;}
-function tasksOf(date){return state.tasks.filter(function(t){return t.date===date;});}
+function tasksOf(date){return state.tasks.filter(function(t){return taskDateOf(t)===date;});}
 function logOf(date){for(var i=0;i<state.logs.length;i++){if(state.logs[i].date===date)return state.logs[i];}return null;}
 function medalCount(){
   var hs=completedHabitIds(todayStr()).length;
   var ts=tasksOf(todayStr()).filter(function(t){return t.isCompleted;}).length;
   return hs+ts;
-}
-function missedYesterday(habitId){
-  var h=habitById(habitId);if(!h)return false;
-  return h.startDate<=yesterdayStr()&&!recordOf(habitId,yesterdayStr());
 }
 function graduate(){
   var n=0;
@@ -738,54 +765,6 @@ function doCheckin(habitId){
   save();renderAll();
   toast('✅「'+h.name+'」打卡成功，成就 +1');
 }
-function doMakeup(habitId){openMakeupModal(habitId);}
-var makeupSelId=null;
-function monthHabitStats(h){
-  var now=new Date(),ms=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-01';
-  var start=h.startDate>ms?h.startDate:ms,today=todayStr();
-  if(start>today)return null;
-  var p1=start.split('-').map(Number),p2=today.split('-').map(Number);
-  var y=Math.round((new Date(p2[0],p2[1]-1,p2[2])-new Date(p1[0],p1[1]-1,p1[2]))/86400000)+1;
-  var seen={},x=0;
-  state.records.forEach(function(r){
-    if(r.habitId===h.id&&r.isCompleted&&r.date>=start&&r.date<=today&&!seen[r.date]){seen[r.date]=1;x++;}
-  });
-  var miss=y-x,msg,cls;
-  if(miss<=0){msg='🎉 全勤！太棒了！';cls='full';}
-  else if(miss<=2){msg='💪 还差 '+miss+' 天就能全勤，加油！';cls='close';}
-  else{msg='本月已有 '+miss+' 天未打卡，明天记得补上哦';cls='warn';}
-  return{x:x,y:y,msg:msg,cls:cls};
-}
-function renderMakeupOverview(){
-  var h=makeupSelId?habitById(makeupSelId):null;
-  $('#makeupHabitInfo').innerHTML=h?('<b style="font-size:15px">'+esc(h.icon)+' '+esc(h.name)+'</b><div class="hint" style="margin-top:4px">本月补签额度：'+state.makeup.left+' / 3 · 补签用于弥补昨天的缺口</div>'):'';
-  var rows=state.habits.filter(function(h){return h.isActive;}).map(function(hh){
-    var st=monthHabitStats(hh);
-    if(!st)return '';
-    return '<div class="mk-row"><span class="mk-name">'+esc(hh.icon)+' '+esc(hh.name)+'</span><span class="mk-num">本月已打卡 <b>'+st.x+'</b> 天 / 应打卡 '+st.y+' 天</span><span class="mk-incentive '+st.cls+'">'+st.msg+'</span></div>';
-  }).join('');
-  $('#makeupOverview').innerHTML=rows||'<div class="hint">本月暂无进行中的习惯</div>';
-}
-function openMakeupModal(id){
-  var h=habitById(id);if(!h)return;
-  if(state.makeup.left<=0){toast('🔁 本月补签额度已用完');return;}
-  if(!missedYesterday(id)){toast('昨天没有缺口，无需补签');return;}
-  makeupSelId=id;
-  renderMakeupOverview();
-  $('#makeupModalMask').classList.add('show');
-}
-function closeMakeupModal(){$('#makeupModalMask').classList.remove('show');}
-function confirmMakeup(){
-  var id=makeupSelId;if(!id)return;
-  var h=habitById(id);if(!h){closeMakeupModal();return;}
-  if(state.makeup.left<=0){toast('🔁 本月补签额度已用完');closeMakeupModal();return;}
-  if(!missedYesterday(id)){toast('昨天没有缺口，无需补签');closeMakeupModal();return;}
-  checkin(id,yesterdayStr(),true);
-  state.makeup.left--;
-  save();renderAll();
-  closeMakeupModal();
-  toast('✨ 已用补签弥补昨天「'+h.name+'」（剩余 '+state.makeup.left+' 次），连胜未中断');
-}
 
 /* ---------- 习惯 CRUD ---------- */
 function addHabit(data){state.habits.push({id:uid(),isActive:true,createdAt:todayStr(),name:data.name,icon:data.icon,targetDays:data.targetDays,startDate:data.startDate});save();}
@@ -800,10 +779,12 @@ function deleteHabit(id){
 /* ---------- 任务 CRUD ---------- */
 function addTask(content){
   var due=$('#taskDue')?$('#taskDue').value:'';
-  state.tasks.push({id:uid(),content:content,date:todayStr(),isCompleted:false,dueTime:due||''});
+  var td=$('#taskDate')&&$('#taskDate').value?$('#taskDate').value:todayStr();
+  state.tasks.push({id:uid(),content:content,date:td,taskDate:td,isCompleted:false,dueTime:due||''});
   if(due)ensureNotifPermission();
   save();renderHome();
-  toast(due?('已加入今日待办：'+content+'（⏰ '+due+'）'):('已加入今日待办：'+content));
+  if(td===todayStr()){toast(due?('已加入今日待办：'+content+'（⏰ '+due+'）'):('已加入今日待办：'+content));}
+  else{toast('已加入 '+td+' 的待办：'+content+(due?'（⏰ '+due+'）':''));}
 }
 function toggleTask(id){
   for(var i=0;i<state.tasks.length;i++){if(state.tasks[i].id===id){state.tasks[i].isCompleted=!state.tasks[i].isCompleted;state.tasks[i].notifiedUp=false;state.tasks[i].notifiedLate=false;}}
@@ -826,7 +807,7 @@ function notifyMe(title,body){
   var fallback=function(){toast('⏰ '+title+'：'+body);};
   if(notifSupported()&&Notification.permission==='granted'){
     try{
-      var n=new Notification(title,{body:body,tag:'hw-remind'});
+      var n=new Notification(title,{body:body,tag:'dt-remind'});
       n.onclick=function(){window.focus();switchTab('home');n.close();};
       return;
     }catch(e){}
@@ -837,7 +818,7 @@ function checkReminders(){
   if(!state||!state.tasks)return;
   var today=todayStr();
   state.tasks.forEach(function(t){
-    if(t.date!==today||t.isCompleted||!t.dueTime)return;
+    if(taskDateOf(t)!==today||t.isCompleted||!t.dueTime)return;
     var p=String(t.dueTime).split(':');
     if(p.length!==2)return;
     var due=new Date();due.setHours(+p[0],+p[1],0,0);
@@ -908,9 +889,6 @@ function formatToday(){var d=new Date();return (d.getMonth()+1)+'月'+d.getDate(
 function renderHeader(bump){
   $('#dateChip').textContent='📅 '+formatToday();
   $('#medalChip').innerHTML='🏅 今日成就 <b>'+medalCount()+'</b>';
-  var mc=$('#makeupChip');
-  mc.textContent='🔁 本月补签 '+state.makeup.left+'/3';
-  mc.classList.toggle('exhausted',state.makeup.left<=0);
   if(bump){var c=$('#medalChip');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');}
 }
 
@@ -919,7 +897,6 @@ function habitCardHTML(h){
   var done=doneDays(h.id);
   var pct=Math.min(100,Math.round(done/h.targetDays*100));
   var doneToday=!!recordOf(h.id,todayStr());
-  var canMakeup=missedYesterday(h.id)&&state.makeup.left>0;
   var html='<div class="hcard" data-id="'+h.id+'">'+
     '<div class="hc-top"><span class="hc-ico">'+esc(h.icon)+'</span>'+
     '<div><div class="hc-name">'+esc(h.name)+'</div>'+
@@ -927,7 +904,6 @@ function habitCardHTML(h){
     '<div class="hc-bar"><i style="width:'+pct+'%"></i></div>'+
     '<div class="hc-foot">'+
     (doneToday?'<button class="btn btn-ok btn-sm" disabled type="button">✓ 今日已打卡</button>':'<button class="btn btn-primary btn-sm" data-act="checkin" type="button">✅ 打卡完成</button>')+
-    (canMakeup?'<button class="btn btn-soft btn-sm" data-act="makeup" type="button">🔁 补签昨天</button>':'')+
     '<button class="btn btn-ghost btn-sm" data-act="edit" type="button">编辑</button>'+
     '<button class="btn btn-danger-ghost btn-sm" data-act="del" type="button">删除</button>'+
     '</div></div>';
@@ -953,15 +929,18 @@ function renderHome(){
     }).join('');
     $('#gradHead').onclick=function(){var l=$('#gradList');l.style.display=l.style.display==='none'?'':'none';};
   }else{g.innerHTML='';}
-  var tasks=tasksOf(todayStr());
+  var today=todayStr();
+  var tasks=state.tasks.filter(function(t){var d=taskDateOf(t);return d===today||(d<today&&!t.isCompleted);});
   var tl=$('#taskList');
   if(!tasks.length){
-    tl.innerHTML='<div class="empty">今天还没有临时任务，添加一个试试 👇</div>';
+    tl.innerHTML='<div class="empty">今天还没有待办任务，添加一个试试 👇</div>';
   }else{
     tl.innerHTML=tasks.map(function(t){
+      var d=taskDateOf(t);
+      var overdue=(d<today)?'<span class="task-date-tag">'+esc(d)+' 未完成</span>':'';
       return '<div class="task'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'">'+
         '<input type="checkbox"'+(t.isCompleted?' checked':'')+' aria-label="完成">'+
-        '<span class="t-check">✓</span><span class="t-text">'+esc(t.content)+(t.dueTime?'<span class="task-due">⏰ 截止 '+esc(t.dueTime)+'</span>':'')+'</span>'+
+        '<span class="t-check">✓</span><span class="t-text">'+esc(t.content)+overdue+(t.dueTime?'<span class="task-due">⏰ 截止 '+esc(t.dueTime)+'</span>':'')+'</span>'+
         '<button class="t-del" data-act="del" type="button" title="删除任务">✕</button></div>';
     }).join('');
   }
@@ -973,7 +952,7 @@ function dayColor(date){
   var log=logOf(date);
   if(log&&log.isBackfill&&log.filledCount>=3)return 'lav';
   var hs=completedHabitIds(date);
-  var req=state.habits.filter(function(h){return h.startDate<=date;}).length;
+  var req=state.habits.filter(function(h){return h.isActive!==false&&h.startDate<=date;}).length;
   var allDone=req>0?hs.length>=req:hs.length>0;
   var hasLog=!!log&&log.filledCount>=3;
   if(allDone&&hasLog)return 'gold';
@@ -1033,31 +1012,97 @@ function updateLogProgress(){
   prog.classList.toggle('done',n>=3);
 }
 
-/* ---------- 日期弹层 ---------- */
+/* ---------- 日期弹层（含补签 + 当日待办 + 日志状态） ---------- */
 var sheetDate=todayStr();
 function logText(log){
   return [log.excitement,log.lowMoment,log.resistance,log.opposite,log.emotion,log.tomorrowAction].filter(function(x){return x&&x.trim();}).join(' ｜ ');
 }
-function openDaySheet(date){
-  sheetDate=date;
-  var hs=completedHabitIds(date);
-  var habitChips=hs.length?hs.map(function(id){var h=habitById(id);return '<span class="s-chip">✅ '+(h?esc(h.name):'?')+'</span>';}).join(''):'<span class="s-chip muted">当天没有习惯打卡</span>';
-  var ts=tasksOf(date).filter(function(t){return t.isCompleted;});
-  var taskChips=ts.length?ts.map(function(t){return '<span class="s-chip muted">📋 '+esc(t.content)+'</span>';}).join(''):'';
-  var log=logOf(date);
-  var logHtml=log?('<div class="log-card"><b>🌙 当日日志'+(log.isBackfill?' · 事后补写':'')+'</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b>🌙 当日日志</b><p>这一天没有留下观察日志。</p></div>';
+function habitNeededOn(h,date){
+  if(h.startDate>date)return false; /* 习惯尚未开始 */
+  if(h.frequencyType==='weekly'){
+    var wd=(parseDate(date).getDay()+6)%7+1; /* 1=周一 … 7=周日 */
+    var arr=h.weeklyDays||[];
+    return arr.indexOf(wd)>=0;
+  }
+  return true;
+}
+function renderDaySheet(){
+  var date=sheetDate;
   var d=parseDate(date);
-  $('#sheetTitle').textContent=parseInt(date.slice(5,7),10)+'月'+parseInt(date.slice(8,10),10)+'日 · '+weekdayCN(d);
-  $('#sheetChips').innerHTML=habitChips+taskChips;
+  $('#sheetTitle').textContent=parseInt(date.slice(5,7),10)+'月'+parseInt(date.slice(8,10),10)+'日 · '+weekdayCN(d)+(date===todayStr()?'（今天）':'');
+  var q=makeupQuotaLeft(monthKey(new Date()));
+  $('#sheetQuota').innerHTML='🔁 本月补签额度：<b>'+q+'</b>/3'+(q<=0?' · <span class="hint">已用完，下月1日重置</span>':' · <span class="hint">日历点「未打卡」即可补签</span>');
+  /* —— 习惯打卡（仅进行中习惯） —— */
+  var acts=state.habits.filter(function(h){return h.isActive;});
+  var rows=acts.map(function(h){
+    var need=habitNeededOn(h,date);
+    var rec=recordOf(h.id,date);
+    var done=!!rec&&rec.isCompleted;
+    if(!need){
+      return '<div class="sh-row off"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><span class="sh-st off">🔒 该日无需打卡</span></div>';
+    }
+    if(done){
+      return '<div class="sh-row done"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><span class="sh-st ok">✅ 已打卡'+(rec.isMakeup?'（补签）':'')+'</span></div>';
+    }
+    return '<div class="sh-row"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><button class="sh-st act" data-shm="'+h.id+'" type="button">☐ 未打卡'+(date<todayStr()?' · 补签':'')+'</button></div>';
+  }).join('');
+  $('#sheetHabits').innerHTML=rows||'<div class="hint">暂无进行中的习惯</div>';
+  $('#sheetHabitHint').textContent=date<todayStr()?'（补签过去的日子，消耗本月额度）':(date>todayStr()?'（未来日期不能补签）':'（今天直接打卡，不占补签额度）');
+  /* —— 当日待办 —— */
+  var ts=tasksOf(date).slice().sort(function(a,b){return (a.isCompleted?1:0)-(b.isCompleted?1:0);});
+  $('#sheetTasks').innerHTML=ts.length?ts.map(function(t){
+    return '<div class="stask'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'">'+
+      '<span class="stask-cb">'+(t.isCompleted?'✅':'☐')+'</span>'+
+      '<span class="stask-t">'+esc(t.content)+(t.dueTime?'<span class="task-due">⏰ '+esc(t.dueTime)+'</span>':'')+'</span>'+
+      '<button class="stask-del" data-stdel="'+t.id+'" type="button">✕</button></div>';
+  }).join(''):'<div class="hint">这一天还没有待办任务</div>';
+  $('#sheetTaskHint').textContent=date===todayStr()?'（仅显示今天的）':'（'+date+' 的任务，首页不显示）';
+  var inp=$('#sheetTaskInput');if(inp)inp.value='';
+  /* —— 当日日志 —— */
+  var log=logOf(date);
+  var logHtml=log?('<div class="log-card"><b>🌙 当日日志'+(log.isBackfill?' · 事后补写':'')+'</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b>🌙 当日日志</b><p>未写日志'+(date===todayStr()?' · 睡前 3 分钟回望一下今天吧':(date<todayStr()?' · 可以补写前天/昨天的日志':' · 未来的一天'))+'</p></div>';
   $('#sheetLog').innerHTML=logHtml;
   var btn=$('#sheetWrite');
   var min=addDaysStr(todayStr(),-2);
   if(date===todayStr()){btn.style.display='';btn.textContent='🌙 去写今晚日志 →';}
   else if(date>=min&&date<todayStr()){btn.style.display='';btn.textContent='📝 去补写这天的日志 →';}
   else{btn.style.display='none';}
+}
+function openDaySheet(date){
+  sheetDate=date;
+  renderDaySheet();
   $('#daySheetMask').classList.add('show');
 }
 function closeDaySheet(){$('#daySheetMask').classList.remove('show');}
+function sheetCheckHabit(id){
+  var h=habitById(id);if(!h)return;
+  var date=sheetDate;
+  if(recordOf(id,date)){toast('这一天已经打过卡了 ✅');return;}
+  if(date>todayStr()){toast('⏳ 未来日期无需补签');return;}
+  if(date===todayStr()){checkin(id,date,false);save();renderAll();renderDaySheet();toast('✅「'+h.name+'」打卡成功，成就 +1');return;}
+  var q=makeupQuotaLeft(monthKey(new Date()));
+  if(q<=0){window.alert('本月补签额度已用完，下月1日重置。');return;}
+  checkin(id,date,true);
+  var left=makeupUseOne(monthKey(new Date()));
+  save();renderAll();renderDaySheet();
+  toast('✨ 已补签「'+h.name+'」('+date+')，剩余 '+left+' 次');
+}
+function sheetAddTask(){
+  var inp=$('#sheetTaskInput');if(!inp)return;
+  var v=inp.value.trim();
+  if(!v){toast('先写点什么吧 ✍️');return;}
+  state.tasks.push({id:uid(),content:v,date:sheetDate,taskDate:sheetDate,isCompleted:false,dueTime:''});
+  save();renderAll();renderDaySheet();
+  toast('已添加 '+sheetDate+' 的待办');
+}
+function sheetToggleTask(id){
+  toggleTask(id);
+  renderAll();renderDaySheet();
+}
+function sheetDelTask(id){
+  state.tasks=state.tasks.filter(function(t){return t.id!==id;});
+  save();renderAll();renderDaySheet();toast('已删除任务');
+}
 
 /* ---------- 习惯弹窗 ---------- */
 var EMOJIS=[
@@ -1118,7 +1163,7 @@ function saveHabit(){
 function nowStamp(){var s=new Date().toISOString();return s.replace(/[-:]/g,'').split('.')[0]+'Z';}
 function escIcs(s){return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n');}
 function buildICS(){
-  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Habit Witness//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Habit Witness 打卡'];
+  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Day Trace//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:日迹 Day Trace 打卡'];
   var recs=state.records.filter(function(r){return r.isCompleted;}).slice().sort(function(a,b){return a.date<b.date?-1:1;});
   recs.forEach(function(r){
     var h=habitById(r.habitId);
@@ -1127,7 +1172,7 @@ function buildICS(){
     var endD=parseDate(r.date);endD.setDate(endD.getDate()+1);
     var end=dstr(endD).replace(/-/g,'');
     lines.push('BEGIN:VEVENT',
-      'UID:'+r.id+'@habitwitness.local',
+      'UID:'+r.id+'@daytrace.local',
       'DTSTAMP:'+nowStamp(),
       'DTSTART;VALUE=DATE:'+dt,
       'DTEND;VALUE=DATE:'+end,
@@ -1179,23 +1224,23 @@ function collectCalendarEvents(range,custom){
       var key=h.id+'|'+r.date;
       if(r.habitId===h.id&&r.isCompleted&&inRange(r.date)&&!seen[key]){
         seen[key]=1;
-        evts.push({title:h.name,date:r.date,desc:'来自习惯记录App · 习惯打卡 · '+h.name});
+        evts.push({title:h.name,date:r.date,desc:'来自日迹 Day Trace · 习惯打卡 · '+h.name});
       }
     });
   });
   state.tasks.forEach(function(t){
-    if(t.isCompleted&&inRange(t.date)){
-      evts.push({title:t.content,date:t.date,desc:'来自习惯记录App · 已完成任务'});
+    if(t.isCompleted&&inRange(taskDateOf(t))){
+      evts.push({title:t.content,date:t.date,desc:'来自日迹 Day Trace · 已完成任务'});
     }
   });
   evts.sort(function(a,b){return a.date<b.date?-1:1;});
   return evts;
 }
 function buildEventsICS(evts){
-  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Habit Witness//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Habit Witness 完成记录'];
+  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Day Trace//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:日迹 Day Trace 完成记录'];
   evts.forEach(function(e){
     lines.push('BEGIN:VEVENT');
-    lines.push('UID:'+uid()+'@habitwitness');
+    lines.push('UID:'+uid()+'@daytrace');
     lines.push('DTSTAMP:'+nowStamp());
     lines.push('DTSTART;VALUE=DATE:'+e.date.replace(/-/g,''));
     lines.push('DTEND;VALUE=DATE:'+addDaysStr(e.date,1).replace(/-/g,''));
@@ -1269,7 +1314,7 @@ async function addEventToCalendar(evt,btn){
       endDate:evt.date,
       description:evt.desc,
       options:['Apple','Google','Outlook.com','iCal'],
-      iCalFileName:'habit-witness-'+evt.date.replace(/-/g,'')+'.ics',
+      iCalFileName:'day-trace-'+evt.date.replace(/-/g,'')+'.ics',
       hideTextLabelButton:true,
       lightMode:'bodyScheme'
     },btn);
@@ -1411,13 +1456,6 @@ function goToToday(){
   renderCal();
   openDaySheet(todayStr());
 }
-function goToMakeup(){
-  switchTab('cal');
-  var now=new Date();
-  calView.y=now.getFullYear();calView.m=now.getMonth();
-  renderCal();
-  toast('本月使用过补签的日期已用 ⭐ 星标标记');
-}
 
 /* ---------- 事件绑定 ---------- */
 function bindEvents(){
@@ -1440,7 +1478,6 @@ function bindEvents(){
     if(!btn)return;
     var act=btn.getAttribute('data-act'),id=btn.closest('.hcard').getAttribute('data-id');
     if(act==='checkin')doCheckin(id);
-    else if(act==='makeup')doMakeup(id);
     else if(act==='edit')openHabitModal(id);
     else if(act==='del')deleteHabit(id);
   };
@@ -1471,6 +1508,15 @@ function bindEvents(){
   $('#syncAddBtn').onclick=showSyncEventList;
   $('#sheetClose').onclick=closeDaySheet;
   $('#daySheetMask').onclick=function(e){if(e.target===$('#daySheetMask'))closeDaySheet();};
+  $('#sheetHabits').onclick=function(e){var b=e.target.closest?e.target.closest('[data-shm]'):null;if(b)sheetCheckHabit(b.getAttribute('data-shm'));};
+  $('#sheetTasks').onclick=function(e){
+    var del=e.target.closest?e.target.closest('[data-stdel]'):null;
+    if(del){sheetDelTask(del.getAttribute('data-stdel'));return;}
+    var row=e.target.closest?e.target.closest('.stask'):null;
+    if(row)sheetToggleTask(row.getAttribute('data-id'));
+  };
+  $('#sheetTaskAdd').onclick=sheetAddTask;
+  $('#sheetTaskInput').onkeydown=function(e){if(e.key==='Enter'){sheetAddTask();}};
   $('#sheetWrite').onclick=function(){var d=sheetDate;closeDaySheet();initLogDraft(d);renderLog();switchTab('log');};
   $('#logFields').oninput=function(e){
     var ta=e.target;
@@ -1486,11 +1532,6 @@ function bindEvents(){
   $('#emojiSearch').oninput=function(){renderEmojiPicker(chosenIcon);};
 $('#logSaveBtn').onclick=saveLog;
   $('#medalChip').onclick=goToToday;$('#medalChip').classList.add('clickable');
-  $('#makeupChip').onclick=goToMakeup;$('#makeupChip').classList.add('clickable');
-  $('#makeupX').onclick=closeMakeupModal;
-  $('#makeupCancel').onclick=closeMakeupModal;
-  $('#makeupModalMask').onclick=function(e){if(e.target===$('#makeupModalMask'))closeMakeupModal();};
-  $('#makeupConfirm').onclick=confirmMakeup;
   $('#logPrev').onclick=function(){setLogDate(addDaysStr(logSelDate,-1));};
   $('#logNext').onclick=function(){setLogDate(addDaysStr(logSelDate,1));};
   $('#logTodayBtn').onclick=function(){setLogDate(todayStr());};
@@ -1509,8 +1550,9 @@ $('#logSaveBtn').onclick=saveLog;
 }
 
 /* ---------- 启动 ---------- */
-window.__hw={buildICS:buildICS,buildMonthlyReport:buildMonthlyReport,getState:function(){return state;},resetAll:resetAll,getAuth:function(){return{isCloud:isCloud,user:currentUser};},checkReminders:checkReminders,goToToday:goToToday,goToMakeup:goToMakeup,setLogDate:setLogDate};
+window.__hw={buildICS:buildICS,buildMonthlyReport:buildMonthlyReport,getState:function(){return state;},resetAll:resetAll,getAuth:function(){return{isCloud:isCloud,user:currentUser};},checkReminders:checkReminders,goToToday:goToToday,setLogDate:setLogDate,openDaySheet:openDaySheet,renderDaySheet:renderDaySheet,makeupQuotaLeft:makeupQuotaLeft};
 initLogDraft();
+var td0=$('#taskDate');if(td0)td0.value=todayStr();
 $('#exportPromptBox').textContent=AI_PROMPT;$('#aiPromptBox').textContent=AI_PROMPT;
 bindEvents();
 setInterval(checkReminders,30000);checkReminders();
