@@ -3,10 +3,148 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F4EFE6">
 <title>日迹 Day Trace</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2/assets/css/atcb.min.css">
 </head>
 <body>
+<svg class="dt-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <symbol id="dt-cat" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 27 10.5 12 23 19.5M50 27l3.5-15L41 19.5"/>
+        <path d="M12 29c0-10 8.3-17 20-17s20 7 20 17v11c0 10.5-8.4 16.8-20 16.8S12 50.5 12 40Z" fill="#FFF8E8"/>
+        <path d="M23 34h.1M41 34h.1" stroke-width="5"/>
+        <path d="M28.5 41c2.5 2 4.5 2 7 0M18 37l-6 1M18 42l-6 3M46 37l6 1M46 42l6 3"/>
+        <path d="M32 35v3H29.5" stroke-width="1.4"/>
+      </g>
+    </symbol>
+    <symbol id="dt-bee" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="31" cy="34" rx="16" ry="18" fill="#F2DFB7"/>
+        <path d="M20 25c-7-10-14-5-11 4 2 6 8 7 13 5M42 25c7-10 14-5 11 4-2 6-8 7-13 5" fill="#FFF8E8"/>
+        <path d="M20 29c7-3 14-3 22 0M18 37c8-3 17-2 27 1M22 44c6-2 12-1 19 1" stroke-width="4"/>
+        <path d="M25 18c-3-6-7-7-10-8M38 18c2-6 6-7 9-8"/>
+        <circle cx="25" cy="34" r="1.4" fill="currentColor" stroke="none"/>
+        <path d="M26 39c2 1.5 4 1.5 6 0" stroke-width="1.5"/>
+      </g>
+    </symbol>
+    <symbol id="dt-frog" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 28c0-10 8-17 19-17s19 7 19 17v10c0 10-7.5 17-19 17s-19-7-19-17Z" fill="#DCE5D8"/>
+        <circle cx="21" cy="24" r="8" fill="#FFF8E8"/><circle cx="43" cy="24" r="8" fill="#FFF8E8"/>
+        <circle cx="21" cy="25" r="2.2" fill="currentColor" stroke="none"/><circle cx="43" cy="25" r="2.2" fill="currentColor" stroke="none"/>
+        <path d="M22 39c4 4 7 5.5 10 5.5S38 43 42 39M11 46l-3 6M53 46l3 6"/>
+      </g>
+    </symbol>
+    <symbol id="dt-octopus" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 28c0-10 6-18 15-18s15 8 15 18v13c0 7-4 12-8 12-3 0-4-3-2-7 2-4 0-7-2-4-2 3-2 10-4 12-3 2-5-1-4-5 1-4-1-6-3-2-2 4-1 9-4 7-4-3-3-14-3-14-4 0-8-5-8-12Z" fill="#E7DFE9"/>
+        <circle cx="27" cy="30" r="1.6" fill="currentColor" stroke="none"/><circle cx="37" cy="30" r="1.6" fill="currentColor" stroke="none"/>
+        <path d="M29 36c2 1.4 4 1.4 6 0"/>
+      </g>
+    </symbol>
+    <symbol id="dt-leaf" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 48C17 27 31 14 51 12c1 20-9 36-30 39" fill="#DCE5D8"/>
+        <path d="M18 46c8-12 16-20 27-27"/>
+      </g>
+    </symbol>
+    <symbol id="dt-spark" viewBox="0 0 64 64">
+      <path d="M32 8c2 15 9 22 24 24-15 2-22 9-24 24-2-15-9-22-24-24 15-2 22-9 24-24Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="habit-shoes" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 37c8 1 13-2 18-9l5-6c2-3 5-1 5 2l1 7c1 4 5 6 10 8 5 2 8 4 7 8-1 3-5 4-11 4H15c-5 0-8-2-8-6 0-3 1-6 1-8Z" fill="#D8AE69" opacity=".72"/>
+        <path d="M12 48c11 3 32 3 41-1M21 34l10 5 35 1M23 29l9 4M26 24l9 4" stroke-width="2.8"/>
+        <path d="M31 30c-3 2-5 4-8 5M18 43c8 1 16 1 24-1" stroke-width="1.15" opacity=".55"/>
+        <circle cx="46" cy="43" r="1.2" fill="currentColor" stroke="none" opacity=".55"/>
+      </g>
+    </symbol>
+    <symbol id="habit-book" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 16c9-3 16-1 24 5 8-6 15-8 24-5v33c-9-3-16-1-24 5-8-6-15-8-24-5Z" fill="#E8D7AA" opacity=".8"/>
+        <path d="M32 21v33M13 23c6-1 11 0 15 3M13 30c6-1 11 0 15 3M13 37c6-1 11 0 15 3M36 26c4-3 9-4 15-3M36 33c4-3 9-4 15-3M36 40c4-3 9-4 15-3" stroke-width="1.35" opacity=".7"/>
+      </g>
+    </symbol>
+    <symbol id="habit-water" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 7c-2 8-17 21-17 32 0 10 7.5 17 17 17s17-7 17-17C49 28 34 15 32 7Z" fill="#B9D5D0" opacity=".78"/>
+        <path d="M20 39c4-2 8-1 11 2 4 4 8 5 13 1M25 34c2-1 4-1 6 1" stroke-width="1.45" opacity=".72"/>
+        <circle cx="40" cy="48" r="1.4" fill="currentColor" stroke="none" opacity=".5"/>
+      </g>
+    </symbol>
+    <symbol id="habit-flame" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M33 6c3 11-9 15-4 23 2-5 6-8 10-11 0 7 9 9 9 20 0 11-7 19-18 19S12 50 12 39c0-11 8-17 14-26 2 5 2 9 1 13 4-4 7-10 6-20Z" fill="#C66F50" opacity=".65"/>
+        <path d="M31 39c-5 5-4 12 2 14 6 2 10-3 9-8-1-4-5-6-6-10-1 2-2 4-5 4Z" fill="#F2DFB7" opacity=".9" stroke-width="1.7"/>
+        <path d="M48 16l3-5M52 23l5-1" stroke-width="1.3" opacity=".65"/>
+      </g>
+    </symbol>
+    <symbol id="habit-leaf" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 51C13 28 27 12 54 9c2 24-10 41-35 43" fill="#B9CBAE" opacity=".78"/>
+        <path d="M14 49c9-14 19-24 34-33M24 37l-2-11M33 29l8 1M31 30l1 10M40 23l8-1" stroke-width="1.5"/>
+        <circle cx="44" cy="18" r="1.2" fill="currentColor" stroke="none" opacity=".55"/>
+      </g>
+    </symbol>
+    <symbol id="habit-moon" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M43 8c-14 3-23 15-21 28 2 12 12 20 24 18-12-7-16-17-13-28 2-7 6-13 10-18Z" fill="#D9C7A1" opacity=".8"/>
+        <path d="M45 18c2-1 5-1 7 0M49 26c3-1 5-1 8 1M10 18l3 3M8 25l4 1M18 8l1 4" stroke-width="1.35" opacity=".6"/>
+      </g>
+    </symbol>
+    <symbol id="habit-pen" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m40 9 15 15-29 30-17 5 5-18Z" fill="#C9D3B4" opacity=".7"/>
+        <path d="m34 15 15 15M24 35l6 6M10 59c7-4 15-7 24-8" stroke-width="2.5"/>
+        <path d="M12 53c5-2 9-3 14-3" stroke-width="1.2" opacity=".55"/>
+      </g>
+    </symbol>
+    <symbol id="habit-cup" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 25h35v18c0 8-6 13-17 13s-18-5-18-13Z" fill="#D8C4A3" opacity=".76"/>
+        <path d="M48 30h4c8 0 8 13 0 13h-4M9 56c11 2 30 2 43-1" stroke-width="2.5"/>
+        <path d="M23 18c-4-5 3-7 0-12M32 18c-4-5 3-7 0-12M41 18c-4-5 3-7 0-12" stroke-width="1.45" opacity=".65"/>
+      </g>
+    </symbol>
+    <symbol id="habit-toothbrush" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 52 30-32 8 8-30 32Z" fill="#B9D5D0" opacity=".6"/>
+        <path d="m42 20 10-10 9 9-11 10M17 48l8 7" stroke-width="2.5"/>
+        <path d="M45 18v-7M49 21l6-5M38 24l-6-4M42 28l-5 5" stroke-width="1.5"/>
+      </g>
+    </symbol>
+    <symbol id="habit-paint" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M29 9c13-3 25 5 25 18 0 9-7 12-14 11-5-1-7 2-6 6 1 5-3 9-9 9-10 0-18-8-18-19C7 22 16 12 29 9Z" fill="#D9C7A1" opacity=".65"/>
+        <path d="M22 20c2-3 7-3 9 0M16 34c3-3 8-2 9 2M34 16c3-2 7 0 7 4M44 34c3-2 6 0 6 4" stroke-width="2.2"/>
+        <circle cx="27" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="35" r="1.4" fill="currentColor" stroke="none"/><circle cx="38" cy="18" r="1.4" fill="currentColor" stroke="none"/><circle cx="46" cy="36" r="1.4" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="habit-lotus" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 11c7 8 8 16 0 25-8-9-7-17 0-25ZM18 22c8 4 12 10 14 16-8 0-14-5-14-16ZM46 22c-8 4-12 10-14 16 8 0 14-5 14-16Z" fill="#C9D3B4" opacity=".72"/>
+        <path d="M10 34c8 0 16 3 22 11-9 2-17-2-22-11ZM54 34c-8 0-16 3-22 11 9 2 17-2 22-11Z" fill="#D9C7A1" opacity=".65"/>
+        <path d="M12 51c13-3 27-3 40 0" stroke-width="2.6"/>
+      </g>
+    </symbol>
+    <symbol id="habit-footsteps" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 38c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16Z" fill="#B9CBAE" opacity=".72"/>
+        <path d="M41 8c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16Z" fill="#D8AE69" opacity=".65"/>
+        <circle cx="17" cy="34" r="2" fill="currentColor" stroke="none"/><circle cx="24" cy="32" r="1.7" fill="currentColor" stroke="none"/><circle cx="31" cy="35" r="1.5" fill="currentColor" stroke="none"/>
+        <circle cx="36" cy="5" r="2" fill="currentColor" stroke="none"/><circle cx="43" cy="3" r="1.7" fill="currentColor" stroke="none"/><circle cx="49" cy="6" r="1.5" fill="currentColor" stroke="none"/>
+      </g>
+    </symbol>
+    <symbol id="ui-check" viewBox="0 0 64 64"><path d="M12 34c7 3 13 8 18 16 7-17 15-28 25-36" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-box" viewBox="0 0 64 64"><path d="M11 12c15 2 28 2 43 0-1 15-1 27 1 41-16-2-29-2-44 0 1-14 1-27 0-41Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-x" viewBox="0 0 64 64"><path d="M14 12c12 10 24 24 36 39M49 13C39 24 26 36 12 51" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="ui-search" viewBox="0 0 64 64"><path d="M12 26c-1-10 6-17 16-17 9 0 16 7 15 17-1 9-7 15-16 15-7 0-14-6-15-15Zm27 14 12 13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="ui-clock" viewBox="0 0 64 64"><path d="M11 34c-1-12 8-21 20-21 13 0 21 9 20 21-1 12-9 20-21 20-11 0-19-8-19-20Zm21-14v15l10 6" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-spark" viewBox="0 0 64 64"><path d="M32 7c2 15 9 22 24 25-15 2-22 9-24 24-2-15-9-22-24-24 15-3 22-10 24-25Z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
 <!--APP_STYLE_START-->
 <style>
 *{box-sizing:border-box}
@@ -121,9 +259,7 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .f-input{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 13px;font-size:14px;outline:none;font-family:inherit}
 .f-input:focus{border-color:var(--green)}
 .f-row{display:flex;gap:8px}
-.emoji-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;max-height:190px;overflow-y:auto;padding:2px}
-.emoji{border:1px solid var(--line);background:#fff;border-radius:11px;font-size:21px;padding:7px 0;cursor:pointer}
-.emoji.sel{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 2px rgba(76,175,125,.25)}
+
 .modal-foot{display:flex;gap:8px;align-items:center;margin-top:20px}
 .sheet{width:100%;max-width:640px;margin:0 auto;background:#FFFDF8;border-radius:24px 24px 0 0;padding:16px 20px 24px;transform:translateY(40px);transition:transform .26s;max-height:80vh;overflow-y:auto}
 .mask.show .sheet{transform:none}
@@ -225,11 +361,14 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
 .task-date-tag{display:inline-block;font-size:10.5px;color:#8A6D3B;background:#FFF3DA;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
 @media (max-width:640px){#app{padding:14px 12px 60px}.habit-grid{grid-template-columns:1fr}.tab-btn{padding:9px 15px;font-size:13px}}
 </style>
-<!--APP_STYLE_END--><!--APP_HTML_START-->
+<!--APP_STYLE_END-->
+<link rel="stylesheet" href="daytrace-theme.css?v=4">
+<!--APP_HTML_START-->
 <div id="authView" style="display:none">
   <div class="auth-card">
-    <div class="auth-brand"><span>🌱</span><span>日迹 Day Trace</span></div>
+    <div class="auth-brand"><span class="auth-mascot" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-cat"></use></svg></span><span>日迹 Day Trace</span></div>
     <div class="auth-sub">日迹 Day Trace · 生活见证者</div>
+    <div class="auth-note">把每一天写成一张小纸条，慢慢积成自己的故事。</div>
     <div class="auth-tabs">
       <button id="authTabLogin" class="auth-tab active" type="button">登录</button>
       <button id="authTabReg" class="auth-tab" type="button">注册</button>
@@ -253,44 +392,58 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <p class="auth-switch">已有账号？<a href="javascript:void(0)" id="toLogin">切换到登录</a></p>
     </form>
     <div class="auth-guest" id="guestZone">
-      <div class="auth-warn" id="authWarn">⚠️ 未检测到 Supabase 配置（或网络无法加载 SDK），已进入本地试用模式：所有数据仅保存在本机浏览器，不会同步到云端。</div>
-      <button class="btn btn-soft btn-block" id="guestBtn" type="button">🚪 本地试用模式（不登录）</button>
+      <div class="auth-warn" id="authWarn">未检测到 Supabase 配置，或网络无法加载 SDK。当前为本地试用模式：所有数据仅保存在本机浏览器，不会同步到云端。</div>
+      <button class="btn btn-soft btn-block" id="guestBtn" type="button">进入本地试用模式</button>
     </div>
   </div>
 </div>
 <div id="app" style="display:none">
   <header class="top">
-    <div class="brand"><span class="logo">🌱</span><div><div class="b1">日迹 Day Trace</div><div class="b2">日迹 · 生活见证者</div></div></div>
+    <div class="brand"><span class="logo" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-cat"></use></svg></span><div><div class="b1"><span>日迹</span><small>Day Trace</small></div><div class="b2">把日子，慢慢收进一只小口袋</div></div></div>
     <div class="chips">
       <span class="chip" id="dateChip"></span>
-      <span class="chip medal" id="medalChip">🏅 今日成就 0</span>
+      <span class="chip medal" id="medalChip"> 今日成就 0</span>
     </div>
     <div class="user-row" id="userRow" style="display:none">
       <span class="chip" id="userChip"></span>
-      <button class="btn btn-ghost btn-sm" id="importBtn" type="button" style="display:none">⬆️ 导入本地数据</button>
+      <button class="btn btn-ghost btn-sm" id="importBtn" type="button" style="display:none">导入本地数据</button>
       <button class="btn btn-danger-ghost btn-sm" id="logoutBtn" type="button">退出</button>
     </div>
   </header>
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="home" type="button">🏠 今日</button>
-    <button class="tab-btn" data-tab="cal" type="button">📅 日历</button>
-    <button class="tab-btn" data-tab="log" type="button">🌙 日志</button>
+  <nav class="tabs" aria-label="主要页面">
+    <button class="tab-btn active" data-tab="home" type="button"><span class="nav-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-frog"></use></svg></span><span>今日</span></button>
+    <button class="tab-btn" data-tab="sop" type="button"><span class="nav-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-leaf"></use></svg></span><span>日常</span></button>
+    <button class="tab-btn" data-tab="cal" type="button"><span class="nav-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-bee"></use></svg></span><span>日历</span></button>
+    <button class="tab-btn" data-tab="log" type="button"><span class="nav-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-octopus"></use></svg></span><span>日志</span></button>
   </nav>
   <main>
     <section class="tab active" id="tab-home">
-      <div class="sec-head"><h2>⭐ 长期习惯</h2><button class="btn btn-primary btn-sm" id="addHabitBtn" type="button">＋ 新建习惯</button></div>
-      <div class="habit-grid" id="habitList"></div>
+      <div class="daily-note">
+        <div><div class="note-kicker">TODAY'S LITTLE NOTE</div><p>不必急着变好，<em>先好好记住今天。</em>哪怕只完成一件小事，也值得被温柔地画上一笔。</p></div>
+        <span class="note-mascot" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-bee"></use></svg></span>
+      </div>
+      <div class="sec-head"><h2><span class="heading-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-frog"></use></svg></span>习惯拨盘</h2><div class="habit-head-actions"><button class="btn btn-soft btn-sm" id="addDialBtn" type="button">新建拨盘</button><button class="btn btn-primary btn-sm" id="addHabitBtn" type="button">添加习惯</button></div></div>
+      <div class="habit-grid rotary-home" id="habitList"></div>
       <div class="grad" id="gradSection"></div>
-      <div class="sec-head" style="margin-top:26px"><h2>📋 今日待办</h2><span class="hint">今日 + 逾期未完成 · 未来任务可提前添加</span></div>
+      <div class="sec-head" style="margin-top:26px"><h2><span class="heading-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-octopus"></use></svg></span>今日待办</h2><span class="hint">今日 + 逾期未完成 · 未来任务可提前添加</span></div>
       <div class="task-list" id="taskList"></div>
       <div class="add-row"><input id="taskInput" placeholder="添加临时任务（可预约未来日期）…" aria-label="新增临时任务"><input type="date" id="taskDate" title="任务日期（默认今天）" aria-label="任务日期"><input type="time" id="taskDue" title="截止时间（可选，到点提醒）" aria-label="截止时间"><button class="btn btn-primary" id="addTaskBtn" type="button">添加</button></div>
+    </section>
+    <section class="tab" id="tab-sop">
+      <div class="sop-banner">
+        <div><div class="note-kicker">DAILY RHYTHM</div><p>把固定的事放进固定的时间，给一天留出不必思考的从容。</p></div>
+        <span class="sop-mascot" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-octopus"></use></svg></span>
+      </div>
+      <div class="sec-head"><h2><span class="heading-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-leaf"></use></svg></span>日常个人 SOP</h2><button class="btn btn-primary btn-sm" id="addSopBtn" type="button">＋ 新增固定日常</button></div>
+      <div class="sop-week-legend" id="sopWeekLegend"></div>
+      <div class="sop-timeline" id="sopTimeline"></div>
     </section>
     <section class="tab" id="tab-cal">
       <div class="cal-head">
         <div class="cal-navs"><button id="calPrev" type="button" aria-label="上一月">‹</button><span id="calTitle"></span><button id="calNext" type="button" aria-label="下一月">›</button></div>
         <div class="cal-actions">
-          <button class="btn btn-soft btn-sm" id="icsBtn" type="button">📅 导出打卡 .ics</button>
-          <button class="btn btn-primary btn-sm" id="syncCalBtn" type="button">🗓️ 同步到手机日历</button>
+          <button class="btn btn-soft btn-sm" id="icsBtn" type="button">导出打卡 .ics</button>
+          <button class="btn btn-primary btn-sm" id="syncCalBtn" type="button">同步到手机日历</button>
         </div>
       </div>
       <div class="cal-week"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
@@ -300,13 +453,14 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
         <span class="legend-item"><span class="swatch sw-light"></span>习惯全完成 · 日志未写</span>
         <span class="legend-item"><span class="swatch sw-purple"></span>习惯未全完成 · 写了日志</span>
         <span class="legend-item"><span class="swatch sw-lav"></span>事后补写日志</span>
-        <span class="legend-item"><span class="swatch sw-star">⭐</span>使用过补签</span>
+        <span class="legend-item"><span class="swatch sw-star"><svg class="doodle-icon"><use href="#ui-spark"></use></svg></span>使用过补签</span>
         <span class="legend-item"><span class="swatch sw-gray"></span>都未完成</span>
       </div>
-      <div class="ics-tip">💡 点击「导出打卡记录 .ics」会下载一个标准日历文件，在 iPhone 上点击该文件即可一键导入「日历」App。</div>
+      <div class="ics-tip">点击「导出打卡记录 .ics」会下载一个标准日历文件，在 iPhone 上点击该文件即可导入「日历」App。</div>
     </section>
     <section class="tab" id="tab-log">
-      <div class="sec-head"><h2>🌙 今日观察笔记</h2><span class="hint" id="logDate"></span><button class="btn btn-soft btn-sm" id="exportReportBtn" type="button">📤 导出月度报告</button></div>
+      <button class="log-editor-close" id="logCloseBtn" type="button" aria-label="关闭日志"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button>
+      <div class="sec-head"><h2><span class="heading-icon" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-cat"></use></svg></span>今日观察笔记</h2><span class="hint" id="logDate"></span><button class="btn btn-soft btn-sm" id="exportReportBtn" type="button">导出月度报告</button></div>
       <div class="log-intro">睡前花 3 分钟回望今天。允许断签、允许不完美，但鼓励记录。可补写昨天与前天的日志（日历显示为淡紫色）。</div>
       <div class="log-datebar">
         <button class="btn btn-soft btn-sm" id="logPrev" type="button">‹ 前一天</button>
@@ -318,38 +472,70 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <div class="log-progress" id="logProgress"><div class="lp-track"><div class="lp-bar" id="lpBar"></div></div><span class="lp-text" id="lpText"></span></div>
       <button class="btn btn-primary btn-block" id="logSaveBtn" type="button">保存今日日志 · 自动生成 #习惯标签</button>
       <div class="ai-guide">
-        <div class="ai-guide-head">🤖 AI 心理医生分析引导</div>
-        <p class="ai-guide-desc">① 点右上角「📤 导出月度报告」下载 .md 文件 → ② 复制报告全文 → ③ 粘贴到下方任一 AI 平台，并附上提示词，即可获得专业心理分析。</p>
+        <div class="ai-guide-head">AI 心理医生分析引导</div>
+        <p class="ai-guide-desc">① 点右上角「导出月度报告」下载 .md 文件　② 复制报告全文　③ 粘贴到下方任一 AI 平台，并附上提示词，即可获得专业心理分析。</p>
         <div class="ai-platforms">
-          <a class="ai-platform" href="https://chatgpt.com" target="_blank" rel="noopener">🤖 ChatGPT</a>
-          <a class="ai-platform" href="https://claude.ai" target="_blank" rel="noopener">🟠 Claude</a>
-          <a class="ai-platform" href="https://chat.deepseek.com" target="_blank" rel="noopener">🐋 DeepSeek</a>
+          <a class="ai-platform" href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a>
+          <a class="ai-platform" href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+          <a class="ai-platform" href="https://chat.deepseek.com" target="_blank" rel="noopener">DeepSeek</a>
         </div>
         <div class="prompt-box" id="aiPromptBox"></div>
-        <button class="btn btn-primary btn-sm" id="aiCopyPromptBtn" type="button">📋 一键复制提示词</button>
+        <button class="btn btn-primary btn-sm" id="aiCopyPromptBtn" type="button">一键复制提示词</button>
       </div>
     </section>
   </main>
+  <div class="mask" id="logFieldMask">
+    <div class="field-editor">
+      <button class="field-editor-close" id="logFieldClose" type="button" aria-label="关闭编辑"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button>
+      <div class="field-editor-kicker" id="logFieldKicker">DIARY NOTE</div>
+      <h2 id="logFieldTitle">今日最兴奋的事情</h2>
+      <p class="field-editor-prompt" id="logFieldPrompt">慢慢写，不必一次写完。</p>
+      <textarea id="logFieldInput" aria-label="日记正文"></textarea>
+      <div class="field-editor-foot"><span id="logFieldCount">0 字</span><span class="field-editor-spacer"></span><button class="btn btn-soft" id="logFieldCancel" type="button">取消</button><button class="btn btn-primary" id="logFieldSave" type="button">保存并返回</button></div>
+    </div>
+  </div>
+  <footer class="day-foot"><span class="mini-leaf" aria-hidden="true"><svg class="doodle-icon"><use href="#dt-leaf"></use></svg></span><span>每个小坚持，都会在日子里留下回声。</span></footer>
 
+  <div class="mask" id="dialGroupModalMask">
+    <div class="modal dial-group-modal">
+      <div class="modal-head"><h3 id="dialGroupModalTitle">新建拨盘</h3><button class="x" id="dialGroupX" type="button" aria-label="关闭"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div>
+      <p class="dial-group-copy">给这一组固定习惯起个名字，例如「早间」「晚间」「工作前」。</p>
+      <label class="f-label" for="dialGroupName">拨盘名称</label>
+      <input class="f-input" id="dialGroupName" maxlength="12" placeholder="输入拨盘名称">
+      <div class="modal-foot"><button class="btn btn-danger-ghost" id="dialGroupDelete" type="button" style="display:none">删除拨盘</button><span style="flex:1"></span><button class="btn btn-soft" id="dialGroupCancel" type="button">取消</button><button class="btn btn-primary" id="dialGroupSave" type="button">保存</button></div>
+    </div>
+  </div>
   <div class="mask" id="habitModalMask">
     <div class="modal">
-      <div class="modal-head"><h3 id="hmTitle">新建习惯</h3><button class="x" id="hmX" type="button">✕</button></div>
+      <div class="modal-head"><h3 id="hmTitle">新建习惯</h3><button class="x" id="hmX" type="button" aria-label="关闭"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div>
       <label class="f-label" for="hmName">习惯名称</label>
       <input class="f-input" id="hmName" placeholder="例如：晨跑" maxlength="20">
-      <label class="f-label">图标 <span class="hint" id="emojiCount"></span></label>
-      <input class="f-input" id="emojiSearch" placeholder="🔍 搜索图标，如：跑 / 读 / 水" maxlength="8" style="margin-bottom:8px">
-      <div class="emoji-grid" id="emojiGrid"></div>
-      <label class="f-label" for="hmTargetSel">目标天数</label>
-      <div class="f-row">
-        <select class="f-input" id="hmTargetSel">
+      <label class="f-label">手绘图标 <span class="hint" id="iconCount"></span></label>
+      <div class="icon-search-wrap"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-search"></use></svg><input class="f-input" id="iconSearch" placeholder="搜索：跑步、阅读、喝水…" maxlength="12"></div>
+      <div class="icon-grid" id="iconGrid"></div>
+      <label class="f-label">坚持目标</label>
+      <div class="day-dial-wrap">
+        <div class="day-dial" id="dayDial" tabindex="0" role="group" aria-label="目标天数拨盘">
+          <div class="day-dial-ring">
+            <button class="day-num day-num-a" data-days="21" type="button">21</button>
+            <button class="day-num day-num-b" data-days="30" type="button">30</button>
+            <button class="day-num day-num-c" data-days="66" type="button">66</button>
+            <button class="day-num day-num-d" data-days="100" type="button">100</button>
+            <div class="day-dial-center"><span id="dayDialValue">30</span><small>天</small></div>
+          </div>
+          <p class="day-dial-hint">点击外圈数字，或滚动拨动</p>
+        </div>
+        <label class="day-custom-row" id="dayCustomWrap" style="display:none">其他天数<input id="hmCustom" type="number" min="1" max="999" placeholder="输入天数"></label>
+        <select id="hmTargetSel" hidden>
           <option value="21">21 天</option>
           <option value="30" selected>30 天</option>
           <option value="66">66 天</option>
           <option value="100">100 天</option>
-          <option value="custom">自定义…</option>
+          <option value="custom">自定义</option>
         </select>
-        <input class="f-input" id="hmCustom" type="number" min="1" max="999" placeholder="天数" style="display:none;width:110px">
       </div>
+      <label class="f-label">放入拨盘与数字孔</label>
+      <div class="habit-slot-row"><select class="f-input" id="hmDialGroup" aria-label="所属拨盘"></select><select class="f-input" id="hmDialSlot" aria-label="数字孔位"><option value="1">数字 1</option><option value="2">数字 2</option><option value="3">数字 3</option><option value="4">数字 4</option><option value="5">数字 5</option><option value="6">数字 6</option><option value="7">数字 7</option><option value="8">数字 8</option><option value="9">数字 9</option><option value="10">数字 10</option></select></div>
       <label class="f-label" for="hmStart">开始日期</label>
       <input class="f-input" id="hmStart" type="date">
       <div class="modal-foot">
@@ -361,9 +547,20 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
     </div>
   </div>
 
+  <div class="mask" id="sopModalMask">
+    <div class="modal sop-modal">
+      <div class="modal-head"><h3 id="sopModalTitle">新增固定日常</h3><button class="x" id="sopModalX" type="button" aria-label="关闭"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div>
+      <div class="sop-time-row"><label class="f-label" for="sopStart">开始时间<input class="f-input" id="sopStart" type="time" value="05:00"></label><label class="f-label" for="sopEnd">结束时间<input class="f-input" id="sopEnd" type="time" value="05:30"></label></div>
+      <label class="f-label" for="sopContent">固定内容</label>
+      <input class="f-input" id="sopContent" maxlength="60" placeholder="例如：起床、揉腹部、喝一杯温水">
+      <label class="f-label" for="sopDefaultNote">默认感受 / 备注</label>
+      <textarea class="f-input sop-modal-note" id="sopDefaultNote" rows="4" placeholder="写下这段时间想提醒自己的话"></textarea>
+      <div class="modal-foot"><button class="btn btn-danger-ghost" id="sopDelete" type="button" style="display:none">删除</button><span style="flex:1"></span><button class="btn btn-soft" id="sopCancel" type="button">取消</button><button class="btn btn-primary" id="sopSave" type="button">保存</button></div>
+    </div>
+  </div>
   <div class="mask" id="exportModalMask">
     <div class="modal" style="max-width:460px">
-      <div class="modal-head"><h3>📤 导出月度报告</h3><button class="x" id="exportX" type="button">✕</button></div>
+      <div class="modal-head"><h3>导出月度报告</h3><button class="x" id="exportX" type="button" aria-label="关闭"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div>
       <label class="f-label" for="exportMonth">选择月份</label>
       <input class="f-input" id="exportMonth" type="month">
       <div class="export-hint" id="exportHint" style="display:none"></div>
@@ -373,14 +570,14 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
         <button class="btn btn-primary" id="exportConfirm" type="button">生成报告并下载</button>
       </div>
       <div class="export-tips">
-        <div class="tips-head"><b>💡 导出后怎么用？</b><span class="tips-badge" id="exportOkBadge" style="display:none">✅ 已下载</span></div>
+        <div class="tips-head"><b>导出后怎么用？</b><span class="tips-badge" id="exportOkBadge" style="display:none"><svg class="doodle-icon"><use href="#ui-check"></use></svg>已下载</span></div>
         <ol class="tips-steps">
           <li>打开刚下载的 <b>自我观察日志_YYYY-MM.md</b>，复制全文；</li>
           <li>粘贴到 <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a>、<a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> 或 <a href="https://chat.deepseek.com" target="_blank" rel="noopener">DeepSeek</a> 对话框；</li>
           <li>再附上下面的「AI 心理医生」提示词，点击发送即可。</li>
         </ol>
         <div class="prompt-box" id="exportPromptBox"></div>
-        <button class="btn btn-ghost btn-sm" id="copyPromptBtn" type="button">📋 一键复制提示词</button>
+        <button class="btn btn-ghost btn-sm" id="copyPromptBtn" type="button">一键复制提示词</button>
       </div>
     </div>
   </div>
@@ -389,21 +586,21 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <div class="sheet-handle"></div>
       <div class="sheet-title" id="sheetTitle"></div>
       <div class="sheet-quota" id="sheetQuota"></div>
-      <div class="sheet-sec-title">✅ 习惯打卡 <span class="hint" id="sheetHabitHint"></span></div>
+      <div class="sheet-sec-title"> 习惯打卡 <span class="hint" id="sheetHabitHint"></span></div>
       <div id="sheetHabits"></div>
-      <div class="sheet-sec-title">📋 当日待办 <span class="hint" id="sheetTaskHint"></span></div>
+      <div class="sheet-sec-title"> 当日待办 <span class="hint" id="sheetTaskHint"></span></div>
       <div id="sheetTasks"></div>
       <div class="sheet-addtask"><input id="sheetTaskInput" placeholder="添加这一天要做的任务…" aria-label="该日新增任务"><button id="sheetTaskAdd" type="button">添加</button></div>
-      <div class="sheet-sec-title">🌙 当日日志</div>
+      <div class="sheet-sec-title"> 当日日志</div>
       <div id="sheetLog"></div>
-      <button class="btn btn-primary btn-block" id="sheetWrite" type="button" style="margin-top:14px">🌙 去写今晚日志 →</button>
+      <button class="btn btn-primary btn-block" id="sheetWrite" type="button" style="margin-top:14px"> 去写今晚日志 →</button>
       <button class="btn btn-soft btn-block" id="sheetClose" type="button" style="margin-top:8px">关闭</button>
     </div>
   </div>
 
   <div class="mask" id="importModalMask">
     <div class="modal" style="max-width:380px">
-      <div class="modal-head" style="justify-content:center"><h3>⬆️ 导入本地数据到云端</h3></div>
+      <div class="modal-head" style="justify-content:center"><h3> 导入本地数据到云端</h3></div>
       <div class="auth-msg" id="importMsg" style="display:none"></div>
       <div class="import-progress" id="importProgress" style="display:none">
         <div class="lp-track" style="background:#F1ECDF"><div class="lp-bar" id="importBar" style="width:0%"></div></div>
@@ -417,7 +614,7 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
   </div>
     <div class="mask" id="syncCalMask">
     <div class="modal" style="max-width:440px">
-      <div class="modal-head"><h3>🗓️ 同步到手机日历</h3><button class="x" id="syncCalX" type="button">✕</button></div>
+      <div class="modal-head"><h3>同步到手机日历</h3><button class="x" id="syncCalX" type="button" aria-label="关闭"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div>
       <label class="f-label" for="syncRange">选择时间范围</label>
       <select class="f-input" id="syncRange">
         <option value="month">本月</option>
@@ -428,11 +625,11 @@ body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-s
       <input class="f-input" id="syncMonth" type="month" style="display:none;margin-top:8px">
       <div class="sync-summary" id="syncSummary"></div>
       <div class="sync-actions">
-        <button class="btn btn-primary" id="syncDownloadBtn" type="button">⬇️ 下载日历文件 (.ics)</button>
-        <button class="btn btn-soft" id="syncAddBtn" type="button">📲 添加到手机日历</button>
+        <button class="btn btn-primary" id="syncDownloadBtn" type="button">下载日历文件 (.ics)</button>
+        <button class="btn btn-soft" id="syncAddBtn" type="button">添加到手机日历</button>
       </div>
       <div class="sync-list" id="syncList" style="display:none"></div>
-      <div class="sync-tip">💡 下载 .ics 后在手机上点击即可导入（iOS/Android 通用）；「添加到手机日历」支持逐条加入 Apple / Google 日历。</div>
+      <div class="sync-tip">下载 .ics 后在手机上点击即可导入（iOS/Android 通用）；「添加到手机日历」支持逐条加入 Apple / Google 日历。</div>
     </div>
   </div>
   <div class="toast" id="toast" role="status"></div>
@@ -462,13 +659,28 @@ function safeStorage(){
   catch(e){var mem={};return{getItem:function(k){return k in mem?mem[k]:null;},setItem:function(k,v){mem[k]=String(v);},removeItem:function(k){delete mem[k];}};}
 }
 var storage=safeStorage();
+function defaultSopItems(){
+  return [
+    {id:'sop-morning-rise',timeStart:'05:00',timeEnd:'05:20',content:'起床、揉腹部、喝一杯温水',note:'不急着看手机，让身体先醒过来。',checks:{}},
+    {id:'sop-morning-stretch',timeStart:'05:30',timeEnd:'06:00',content:'晨间拉伸与呼吸',note:'动作慢一点，感受肩颈松开。',checks:{}},
+    {id:'sop-breakfast',timeStart:'06:10',timeEnd:'06:40',content:'早餐：小米山药粥',note:'坐下来吃，不一边吃一边做别的事。',checks:{}},
+    {id:'sop-evening-read',timeStart:'21:30',timeEnd:'22:00',content:'睡前阅读与简单复盘',note:'只读几页也可以。',checks:{}}
+  ];
+}
 function freshState(){
-  return{habits:[],tasks:[],records:[],logs:[],makeup:{month:monthKey(new Date()),left:3}};
+  return{habits:[],tasks:[],records:[],logs:[],sopItems:defaultSopItems(),dialGroups:[],makeup:{month:monthKey(new Date()),left:3}};
 }
 var state;
 try{var raw=storage.getItem(LS_KEY);state=raw?JSON.parse(raw):freshState();}catch(e){state=freshState();}
 if(!state||typeof state!=='object')state=freshState();
-state.habits=state.habits||[];state.tasks=state.tasks||[];state.records=state.records||[];state.logs=state.logs||[];
+state.habits=state.habits||[];state.tasks=state.tasks||[];state.records=state.records||[];state.logs=state.logs||[];if(!Array.isArray(state.sopItems))state.sopItems=defaultSopItems();
+if(!Array.isArray(state.dialGroups)){
+  state.dialGroups=[];
+  state.habits.filter(function(h){return h.isActive!==false;}).forEach(function(h,i){
+    if(i%10===0){var gid='dial-migrated-'+Math.floor(i/10)+'-'+Date.now().toString(36);state.dialGroups.push({id:gid,name:state.dialGroups.length?'我的拨盘 '+(state.dialGroups.length+1):'我的拨盘',createdAt:todayStr()});}
+    var g=state.dialGroups[state.dialGroups.length-1];h.dialGroupId=g.id;h.dialSlot=(i%10)+1;
+  });
+}
 if(!state.makeup||state.makeup.month!==monthKey(new Date())){state.makeup={month:monthKey(new Date()),left:3};}
 state.tasks.forEach(function(t){if(!t.taskDate)t.taskDate=t.date||todayStr();}); /* 迁移：旧任务无 taskDate 则补充为当天 */
 state.tasks=state.tasks.filter(function(t){return !(t.isCompleted&&taskDateOf(t)<todayStr());}); /* 清空逻辑：仅清空已完成且日期早于今天的任务，未完成任务保留 */
@@ -492,7 +704,7 @@ function makeupUseOne(m){
   return left;
 }
 function save(skipCloud){
-  if(!isCloud||!currentUser){try{storage.setItem(LS_KEY,JSON.stringify(state));}catch(e){toast('⚠️ 本地存储不可用，数据仅本次会话有效');}}
+  try{storage.setItem(LS_KEY,JSON.stringify(state));}catch(e){toast('本地存储不可用，数据仅本次会话有效');}
   if(!skipCloud)scheduleCloudSave();
 }
 
@@ -543,7 +755,7 @@ async function loadCloudData(){
     state.logs=(res[3].data||[]).map(rowToLog);
     normalizeState();
     return true;
-  }catch(e){console.warn('loadCloudData',e);toast('⚠️ 云端数据加载失败，已保留本机数据');return false;}
+  }catch(e){console.warn('loadCloudData',e);toast(' 云端数据加载失败，已保留本机数据');return false;}
 }
 function scheduleCloudSave(){
   if(!isCloud||!currentUser)return;
@@ -606,12 +818,12 @@ async function doRegister(ev){
     var r=await supabaseClient.auth.signUp({email:email,password:pwd});
     if(r.error){setAuthMsg('#regMsg',r.error.message||'注册失败','err');return;}
     if(r.data&&r.data.session){setAuthMsg('#regMsg','注册成功，正在进入…','ok');}
-    else{setAuthMsg('#regMsg','✅ 注册成功！已发送确认邮件，请查收邮箱并点击确认后登录。','ok');switchAuthTab('login');}
+    else{setAuthMsg('#regMsg',' 注册成功！已发送确认邮件，请查收邮箱并点击确认后登录。','ok');switchAuthTab('login');}
   }catch(e){setAuthMsg('#regMsg','网络错误，请稍后重试','err');}
 }
 async function onSignedIn(user,doLoad){
   currentUser=user;
-  $('#userChip').textContent='👤 '+(user.email||user.id||'');
+  $('#userChip').textContent=' '+(user.email||user.id||'');
   $('#userRow').style.display='';
   if(doLoad||lastLoadedUser!==user.id){
     lastLoadedUser=user.id;
@@ -634,7 +846,7 @@ async function doLogout(){
 }
 function enterGuest(){
   currentUser=null;
-  $('#userChip').textContent='🚪 本地模式';
+  $('#userChip').textContent=' 本地模式';
   $('#userRow').style.display='';
   $('#importBtn').style.display='none';
   showAuthView(false);
@@ -705,11 +917,11 @@ async function importLocalData(){
     closeImport();
     await loadCloudData();
     renderAll();
-    toast('✅ 数据导入成功！已同步 '+c.habits+' 条习惯、'+c.records+' 条打卡、'+c.tasks+' 条任务、'+c.logs+' 条日志到云端');
+    toast(' 数据导入成功！已同步 '+c.habits+' 条习惯、'+c.records+' 条打卡、'+c.tasks+' 条任务、'+c.logs+' 条日志到云端');
   }catch(e){
     console.warn('importLocalData',e);
     closeImport();
-    toast('⚠️ 导入失败：请检查网络后重试');
+    toast(' 导入失败：请检查网络后重试');
   }
   updateImportBtn();
 }
@@ -730,6 +942,26 @@ function resetAll(){state=freshState();save();renderAll();toast('已清空所有
 
 /* ---------- 工具 ---------- */
 var toastTimer=null;
+function sparkBurst(x,y){
+  var colors=['#D7AA58','#C66F50','#879A7E','#9889A5'];
+  for(var i=0;i<12;i++){
+    var s=document.createElement('span');
+    s.className='praise-spark';
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    var use=document.createElementNS('http://www.w3.org/2000/svg','use');
+    use.setAttribute('href','#ui-spark');svg.appendChild(use);s.appendChild(svg);
+    var angle=(Math.PI*2*i/12)+(Math.random()*.45-.22);
+    var dist=38+Math.random()*44;
+    s.style.left=x+'px';s.style.top=y+'px';
+    s.style.setProperty('--dx',(Math.cos(angle)*dist).toFixed(1)+'px');
+    s.style.setProperty('--dy',(Math.sin(angle)*dist-24).toFixed(1)+'px');
+    s.style.setProperty('--rot',(Math.random()*120-60).toFixed(0)+'deg');
+    s.style.setProperty('--spark-color',colors[i%colors.length]);
+    s.style.setProperty('--spark-size',(12+Math.random()*7).toFixed(0)+'px');
+    document.body.appendChild(s);
+    setTimeout(function(el){return function(){el.remove();};}(s),780);
+  }
+}
 function toast(msg){
   var t=$('#toast');if(!t)return;
   t.textContent=msg;t.classList.add('show');
@@ -759,16 +991,17 @@ function checkin(habitId,date,makeup){
   else{state.records.push({id:uid(),habitId:habitId,date:date,isCompleted:true,isMakeup:!!makeup});}
 }
 function doCheckin(habitId){
-  var h=habitById(habitId);if(!h)return;
-  if(recordOf(habitId,todayStr())){toast('今天已经打过卡了 ✅');return;}
+  var h=habitById(habitId);if(!h)return false;
+  if(recordOf(habitId,todayStr())){toast('今天已经打过卡了 ');return false;}
   checkin(habitId,todayStr(),false);
   save();renderAll();
-  toast('✅「'+h.name+'」打卡成功，成就 +1');
+  toast('「'+h.name+'」打卡成功，成就 +1');
+  return true;
 }
 
 /* ---------- 习惯 CRUD ---------- */
-function addHabit(data){state.habits.push({id:uid(),isActive:true,createdAt:todayStr(),name:data.name,icon:data.icon,targetDays:data.targetDays,startDate:data.startDate});save();}
-function updateHabit(id,data){var h=habitById(id);if(!h)return;h.name=data.name;h.icon=data.icon;h.targetDays=data.targetDays;h.startDate=data.startDate;save();}
+function addHabit(data){state.habits.push({id:uid(),isActive:true,createdAt:todayStr(),name:data.name,icon:data.icon,targetDays:data.targetDays,startDate:data.startDate,dialGroupId:data.dialGroupId||'',dialSlot:data.dialSlot||null});save();}
+function updateHabit(id,data){var h=habitById(id);if(!h)return;h.name=data.name;h.icon=data.icon;h.targetDays=data.targetDays;h.startDate=data.startDate;h.dialGroupId=data.dialGroupId||'';h.dialSlot=data.dialSlot||null;save();}
 function deleteHabit(id){
   if(!window.confirm('确定删除该习惯吗？它的所有打卡记录也会一并删除。'))return;
   state.habits=state.habits.filter(function(h){return h.id!==id;});
@@ -837,12 +1070,12 @@ function checkReminders(){
 
 /* ---------- 日志 ---------- */
 var LOG_FIELDS=[
-  {key:'excitement',label:'① 今日最兴奋的事情',ph:'写下今天最开心的一刻…'},
-  {key:'lowMoment',label:'② 今日最低落的事情',ph:'…'},
-  {key:'resistance',label:'③ 今日抗拒瞬间',ph:'…'},
-  {key:'opposite',label:'④ 与原先预判结果相反的事情',ph:'…'},
-  {key:'emotion',label:'⑤ 今日情绪（一句话）',ph:'…'},
-  {key:'tomorrowAction',label:'⑥ 明日 1 个最小行动',ph:'选填，越小越好…'}
+  {key:'excitement',label:'今日最兴奋的事情',ph:'写下今天最开心的一刻…'},
+  {key:'lowMoment',label:'今日最低落的事情',ph:'哪里让你感到低落？慢慢写。'},
+  {key:'resistance',label:'今日抗拒瞬间',ph:'今天有什么事情让你下意识想躲开？'},
+  {key:'opposite',label:'与原先预判相反的事情',ph:'现实和预判有什么不同？'},
+  {key:'emotion',label:'今日情绪',ph:'用一句话描述今天的情绪底色。'},
+  {key:'tomorrowAction',label:'明日最小行动',ph:'写一个明天可以轻松开始的动作。'}
 ];
 var logSelDate=todayStr();
 var logDrafts={};
@@ -867,7 +1100,7 @@ function logFilled(){
   LOG_FIELDS.forEach(function(f){if((logDraft[f.key]||'').trim())n++;});
   return n;
 }
-function saveLog(){
+function persistLogEntry(){
   var date=logSelDate;
   var tags=completedHabitIds(date).map(function(id){var h=habitById(id);return '#'+(h?h.name:'习惯');}).join(' ');
   var filled=logFilled();
@@ -876,75 +1109,153 @@ function saveLog(){
   var entry={date:date,excitement:logDraft.excitement,lowMoment:logDraft.lowMoment,resistance:logDraft.resistance,opposite:logDraft.opposite,emotion:logDraft.emotion,tomorrowAction:logDraft.tomorrowAction,filledCount:filled,tags:tags,isBackfill:isBackfill};
   if(ex){for(var k in entry){ex[k]=entry[k];}}
   else{entry.id=uid();state.logs.push(entry);}
-  save();renderAll();
-  if(date===todayStr()){
-    toast(filled>=3?('🌙 今日日志已保存 · 自动生成：'+(tags||'（今天还没有打卡记录）')):'🌙 已保存（填写 3 项以上才算完成今日反思）');
-  }else{
-    toast('📝 已补写 '+date+' 的日志'+(filled>=3?' · 日历已标记为淡紫色':''));
-  }
+  save();
+  return {date:date,filled:filled,tags:tags};
+}
+function saveLog(){
+  var r=persistLogEntry();renderAll();
+  if(r.date===todayStr())toast(r.filled>=3?'今日日志已保存':'日志已保存，填写 3 项以上将标记为完整反思');
+  else toast('已保存 '+r.date+' 的日志');
+}
+var editingLogKey=null;
+function logFieldByKey(key){for(var i=0;i<LOG_FIELDS.length;i++){if(LOG_FIELDS[i].key===key)return LOG_FIELDS[i];}return null;}
+function updateLogFieldCount(){var n=($('#logFieldInput').value||'').length;$('#logFieldCount').textContent=n+' 字';}
+function openLogFieldEditor(key){
+  var f=logFieldByKey(key);if(!f)return;editingLogKey=key;
+  $('#logFieldTitle').textContent=f.label;$('#logFieldPrompt').textContent=f.ph;$('#logFieldInput').value=logDraft[key]||'';
+  updateLogFieldCount();$('#logFieldMask').classList.add('show');setTimeout(function(){$('#logFieldInput').focus();},80);
+}
+function closeLogFieldEditor(){$('#logFieldMask').classList.remove('show');editingLogKey=null;}
+function saveLogFieldEditor(){
+  if(!editingLogKey)return;
+  logDraft[editingLogKey]=$('#logFieldInput').value;
+  var key=editingLogKey;persistLogEntry();closeLogFieldEditor();renderAll();switchTab('home');
+  var f=logFieldByKey(key);toast('已保存「'+(f?f.label:'日志')+'」');
+}
+
+/* ---------- 日常个人 SOP ---------- */
+var editingSopId=null;
+function sopWeekDates(){
+  var d=parseDate(todayStr());var offset=(d.getDay()+6)%7;var mon=new Date(d.getFullYear(),d.getMonth(),d.getDate()-offset);var out=[];
+  for(var i=0;i<7;i++){var x=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i);out.push(dstr(x));}
+  return out;
+}
+function sopChecks(item){return item&&item.checks&&typeof item.checks==='object'?item.checks:{};}
+function renderSop(){
+  var week=sopWeekDates(),labels=['一','二','三','四','五','六','日'],today=todayStr();
+  var legend='<div class="sop-week-caption"><b>本周执行</b><span>'+week[0].slice(5).replace('-','.')+' 至 '+week[6].slice(5).replace('-','.')+'</span></div><div class="sop-week-days">';
+  week.forEach(function(d,i){legend+='<span class="'+(d===today?'today':'')+'"><b>'+labels[i]+'</b><small>'+parseInt(d.slice(8),10)+'</small></span>';});
+  legend+='</div>';
+  $('#sopWeekLegend').innerHTML=legend;
+  var items=state.sopItems.slice().sort(function(a,b){return (a.timeStart||'').localeCompare(b.timeStart||'');});
+  if(!items.length){$('#sopTimeline').innerHTML='<div class="empty">还没有固定日常。先放进一件想让每天都自动发生的小事。</div>';return;}
+  $('#sopTimeline').innerHTML=items.map(function(item){
+    var checks=sopChecks(item),done=0;week.forEach(function(d){if(checks[d])done++;});
+    var days=week.map(function(d,i){var checked=!!checks[d],future=d>today;return '<button class="sop-day'+(checked?' done':'')+(d===today?' today':'')+'" data-sop-check="'+d+'" type="button" '+(future?'disabled':'')+' aria-label="'+d+' '+labels[i]+'"><span>'+labels[i]+'</span><small>'+parseInt(d.slice(8),10)+'</small>'+(checked?'<svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg>':'')+'</button>';}).join('');
+    return '<article class="sop-item" data-sop-id="'+item.id+'"><div class="sop-time"><b>'+esc(item.timeStart||'--:--')+'</b><i></i><span>'+esc(item.timeEnd||'--:--')+'</span></div><div class="sop-body"><div class="sop-body-head"><h3>'+esc(item.content||'未命名日常')+'</h3><span class="sop-week-score">'+done+' / 7</span></div><label class="sop-note-label">感受 / 备注<textarea class="sop-note" data-sop-note="'+item.id+'" rows="2" placeholder="这一刻身体和心情怎么样？">'+esc(item.note||'')+'</textarea></label></div><div class="sop-week">'+days+'</div><div class="sop-actions"><button class="sop-icon-btn" data-sop-act="edit" type="button" title="编辑"><svg class="doodle-icon"><use href="#habit-pen"></use></svg></button><button class="sop-icon-btn danger" data-sop-act="del" type="button" title="删除"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button></div></article>';
+  }).join('');
+}
+function openSopModal(id){
+  editingSopId=id||null;var item=id?state.sopItems.filter(function(x){return x.id===id;})[0]:null;
+  $('#sopModalTitle').textContent=item?'编辑固定日常':'新增固定日常';
+  $('#sopStart').value=item&&item.timeStart?item.timeStart:'05:00';$('#sopEnd').value=item&&item.timeEnd?item.timeEnd:'05:30';
+  $('#sopContent').value=item?item.content:'';$('#sopDefaultNote').value=item?item.note||'':'';
+  $('#sopDelete').style.display=item?'':'none';$('#sopModalMask').classList.add('show');setTimeout(function(){$('#sopContent').focus();},60);
+}
+function closeSopModal(){$('#sopModalMask').classList.remove('show');}
+function saveSopItem(){
+  var content=$('#sopContent').value.trim(),start=$('#sopStart').value,end=$('#sopEnd').value;
+  if(!content){toast('先写下这段时间要做的事');$('#sopContent').focus();return;}
+  if(!start||!end){toast('请补全开始和结束时间');return;}
+  var data={timeStart:start,timeEnd:end,content:content,note:$('#sopDefaultNote').value.trim()};
+  if(editingSopId){state.sopItems.forEach(function(x){if(x.id===editingSopId){Object.keys(data).forEach(function(k){x[k]=data[k];});}});}
+  else{data.id=uid();data.checks={};state.sopItems.push(data);}
+  save();closeSopModal();renderSop();toast(editingSopId?'固定日常已更新':'已加入固定日常');
+}
+function deleteSopItem(id){
+  if(!window.confirm('确定删除这条固定日常吗？本周打卡记录也会一并删除。'))return;
+  state.sopItems=state.sopItems.filter(function(x){return x.id!==id;});save();renderSop();toast('固定日常已删除');
 }
 
 /* ---------- 渲染：头部 ---------- */
 function formatToday(){var d=new Date();return (d.getMonth()+1)+'月'+d.getDate()+'日 · '+weekdayCN(d);}
 function renderHeader(bump){
-  $('#dateChip').textContent='📅 '+formatToday();
-  $('#medalChip').innerHTML='🏅 今日成就 <b>'+medalCount()+'</b>';
+  $('#dateChip').innerHTML='<span class="date-dot" aria-hidden="true"></span>'+formatToday();
+  $('#medalChip').innerHTML='<svg class="medal-star" aria-hidden="true"><use href="#ui-spark"></use></svg>今日成就 <b>'+medalCount()+'</b>';
   if(bump){var c=$('#medalChip');c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');}
 }
 
 /* ---------- 渲染：首页 ---------- */
-function habitCardHTML(h){
-  var done=doneDays(h.id);
-  var pct=Math.min(100,Math.round(done/h.targetDays*100));
-  var doneToday=!!recordOf(h.id,todayStr());
-  var html='<div class="hcard" data-id="'+h.id+'">'+
-    '<div class="hc-top"><span class="hc-ico">'+esc(h.icon)+'</span>'+
-    '<div><div class="hc-name">'+esc(h.name)+'</div>'+
-    '<div class="hc-days">第 <b>'+done+'</b> 天 / 共 '+h.targetDays+' 天</div></div></div>'+
-    '<div class="hc-bar"><i style="width:'+pct+'%"></i></div>'+
-    '<div class="hc-foot">'+
-    (doneToday?'<button class="btn btn-ok btn-sm" disabled type="button">✓ 今日已打卡</button>':'<button class="btn btn-primary btn-sm" data-act="checkin" type="button">✅ 打卡完成</button>')+
-    '<button class="btn btn-ghost btn-sm" data-act="edit" type="button">编辑</button>'+
-    '<button class="btn btn-danger-ghost btn-sm" data-act="del" type="button">删除</button>'+
-    '</div></div>';
-  return html;
+var activeDialGroupId=null;
+var editingDialGroupId=null;
+function dialGroupById(id){for(var i=0;i<state.dialGroups.length;i++){if(state.dialGroups[i].id===id)return state.dialGroups[i];}return null;}
+function habitAtDialSlot(groupId,slot){return state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId&&Number(h.dialSlot)===Number(slot);})[0]||null;}
+function groupHabits(groupId){return state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId;}).sort(function(a,b){return Number(a.dialSlot||0)-Number(b.dialSlot||0);});}
+function stampedInGroup(groupId){return groupHabits(groupId).filter(function(h){return !!recordOf(h.id,todayStr());}).length;}
+function dialTabsHTML(){
+  if(!state.dialGroups.length)return '<div class="dial-tabs"><span class="dial-tabs-empty">还没有拨盘</span><button class="dial-add-inline" id="dialAddInline" type="button">新建拨盘</button></div>';
+  return '<div class="dial-tabs" role="tablist">'+state.dialGroups.map(function(g){return '<button class="dial-tab'+(g.id===activeDialGroupId?' active':'')+'" data-dial-group="'+g.id+'" type="button" role="tab" aria-selected="'+(g.id===activeDialGroupId)+'">'+esc(g.name)+'</button>';}).join('')+'<button class="dial-add-inline" id="dialAddInline" type="button" aria-label="新建拨盘">新建拨盘</button></div>';
+}
+function rotaryDialHTML(group){
+  var gid=group?group.id:'',holes='';
+  for(var i=1;i<=10;i++){
+    var h=group?habitAtDialSlot(gid,i):null,stamped=h&&!!recordOf(h.id,todayStr()),angle=((i-1)*36).toFixed(2);
+    holes+='<button class="rotary-hole'+(h?' filled':'')+(stamped?' stamped':'')+'" data-dial-slot="'+i+'" style="--angle:'+angle+'deg" type="button" aria-label="'+(h?('数字'+i+' '+esc(h.name)):('数字'+i+' 空孔位'))+'"><span>'+i+'</span>'+(stamped?'<svg class="doodle-icon hole-stamp" aria-hidden="true"><use href="#ui-check"></use></svg>':'')+(h?'<i class="hole-ink"></i>':'')+'</button>';
+  }
+  var todayStamp=group?stampedInGroup(gid):0,groupName=group?esc(group.name):'等待命名';
+  return '<div class="rotary-wrap"><div class="rotary-dial" id="rotaryDial" data-group-id="'+gid+'"><div class="rotary-finger-stop" aria-hidden="true"></div><div class="rotary-gear"></div><div class="rotary-ring" id="rotaryRing">'+holes+'</div><div class="rotary-core"><span class="rotary-kicker">DAILY DIAL</span><b>'+groupName+'</b><small>'+(group?(todayStamp+' / 10 今日盖章'):'先建立一个拨盘')+'</small><span class="rotary-help">按住数字，顺时针拨到底</span></div></div><div class="habit-reveal" id="habitReveal"></div></div>';
+}
+function showHabitReveal(groupId,slot){
+  var group=dialGroupById(groupId),habit=group?habitAtDialSlot(groupId,slot):null,box=$('#habitReveal');if(!box)return;
+  if(!group){
+    box.innerHTML='<article class="habit-handbook-card empty"><div class="handbook-empty-mark">'+slot+'</div><div class="handbook-main"><span class="handbook-kicker">BLANK DIAL</span><h3>还没有拨盘</h3><p>先建立一个拨盘，再把十个数字分配给你的习惯。</p></div><div class="handbook-actions"><button class="btn btn-primary" data-dial-create="1" type="button">新建拨盘</button></div></article>';
+  }else if(!habit){
+    box.innerHTML='<article class="habit-handbook-card empty"><div class="handbook-empty-mark">'+slot+'</div><div class="handbook-main"><span class="handbook-kicker">OPEN SLOT '+slot+'</span><h3>这个数字孔还空着</h3><p>为「'+esc(group.name)+'」的孔位 '+slot+' 写入一个想坚持的习惯。</p></div><div class="handbook-actions"><button class="btn btn-primary" data-dial-setup="'+slot+'" data-group-id="'+groupId+'" type="button">设置这个习惯</button></div></article>';
+  }else{
+    var done=doneDays(habit.id),stamped=!!recordOf(habit.id,todayStr());
+    box.innerHTML='<article class="habit-handbook-card" data-habit-id="'+habit.id+'"><div class="handbook-illustration">'+habitIconHTML(habit.icon,'handbook-icon')+'</div><div class="handbook-main"><span class="handbook-kicker">HABIT NOTE · '+esc(group.name)+' · 数字 '+slot+'</span><h3>'+esc(habit.name)+'</h3><p>'+(stamped?'今天的手账已经盖好章了，明天再来拨一次。':'把今天这一小格，认真画进自己的日子里。')+'</p><div class="handbook-stats"><span class="handbook-seal"><b>'+done+'</b><small>天</small></span><span class="handbook-total">当前已坚持<br><b>'+done+'</b> 天</span></div></div><div class="handbook-actions">'+(stamped?'<button class="btn btn-ok" disabled type="button">今日已盖章</button>':'<button class="btn btn-primary handbook-checkin" data-habit-checkin="'+habit.id+'" type="button">今日打卡</button>')+'<button class="btn btn-ghost btn-sm" data-habit-edit="'+habit.id+'" type="button">编辑习惯</button></div></article>';
+  }
+  box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
+  setTimeout(function(){if(box.scrollIntoView)box.scrollIntoView({behavior:'smooth',block:'nearest'});},60);
+}
+function closeHabitReveal(){var box=$('#habitReveal');if(box){box.classList.remove('show');setTimeout(function(){if(box&&!box.classList.contains('show'))box.innerHTML='';},260);}}
+function stampHabitFromDial(btn,habitId){
+  var h=habitById(habitId);if(!h||recordOf(habitId,todayStr()))return;
+  var card=btn.closest('.habit-handbook-card'),box=btn.getBoundingClientRect();
+  card.classList.add('stamping');btn.disabled=true;btn.textContent='正在盖章';
+  sparkBurst(box.left+box.width/2,box.top+box.height/2);
+  setTimeout(function(){
+    checkin(habitId,todayStr(),false);save();card.classList.add('leaving');
+    setTimeout(function(){renderAll();toast('「'+h.name+'」今日已盖章');},430);
+  },520);
 }
 function renderHome(){
   graduate();
   var active=state.habits.filter(function(h){return h.isActive;});
   var graduated=state.habits.filter(function(h){return !h.isActive;});
+  if(state.dialGroups.length){
+    var found=false;state.dialGroups.forEach(function(g){if(g.id===activeDialGroupId)found=true;});
+    if(!found)activeDialGroupId=state.dialGroups[0].id;
+  }else{activeDialGroupId=null;}
+  var group=activeDialGroupId?dialGroupById(activeDialGroupId):null;
   var hl=$('#habitList');
-  if(!active.length){
-    hl.innerHTML='<div class="empty">🌱 还没有任何习惯。<br>先添加一个：每天 5 分钟的小事，坚持 21 天，会看到不一样的自己。</div>';
-  }else{
-    hl.innerHTML=active.map(habitCardHTML).join('');
-  }
+  hl.innerHTML=dialTabsHTML()+rotaryDialHTML(group)+'<div class="dial-summary-line"><span>共 '+state.dialGroups.length+' 个拨盘</span><span>每一个数字，都可以是一件小事</span></div>';
   var g=$('#gradSection');
   if(graduated.length){
-    g.innerHTML='<div class="grad-head" id="gradHead">🎓 已毕业档案（'+graduated.length+'）<span>▸</span></div><div class="grad-list" id="gradList" style="display:none"></div>';
-    $('#gradList').innerHTML=graduated.map(function(h){
-      return '<div class="gcard"><span class="g-ico">'+esc(h.icon)+'</span><div style="flex:1"><div class="g-name">'+esc(h.name)+' 🎓</div><div class="g-sub">已完成 '+h.targetDays+' 天目标</div></div>'+
-      '<button class="btn btn-soft btn-sm" data-gact="re" data-id="'+h.id+'" type="button">重新启用</button>'+
-      '<button class="btn btn-danger-ghost btn-sm" data-gact="del" data-id="'+h.id+'" type="button">删除</button></div>';
-    }).join('');
+    g.innerHTML='<div class="grad-head" id="gradHead">'+habitIconHTML('book','grad-icon')+'已毕业档案（'+graduated.length+'）<span>▸</span></div><div class="grad-list" id="gradList" style="display:none"></div>';
+    $('#gradList').innerHTML=graduated.map(function(h){return '<div class="gcard">'+habitIconHTML(h.icon,'g-ico')+'<div style="flex:1"><div class="g-name">'+esc(h.name)+'</div><div class="g-sub">已完成 '+h.targetDays+' 天目标</div></div><button class="btn btn-soft btn-sm" data-gact="re" data-id="'+h.id+'" type="button">重新启用</button><button class="btn btn-danger-ghost btn-sm" data-gact="del" data-id="'+h.id+'" type="button">删除</button></div>';}).join('');
     $('#gradHead').onclick=function(){var l=$('#gradList');l.style.display=l.style.display==='none'?'':'none';};
   }else{g.innerHTML='';}
   var today=todayStr();
   var tasks=state.tasks.filter(function(t){var d=taskDateOf(t);return d===today||(d<today&&!t.isCompleted);});
   var tl=$('#taskList');
-  if(!tasks.length){
-    tl.innerHTML='<div class="empty">今天还没有待办任务，添加一个试试 👇</div>';
-  }else{
-    tl.innerHTML=tasks.map(function(t){
-      var d=taskDateOf(t);
-      var overdue=(d<today)?'<span class="task-date-tag">'+esc(d)+' 未完成</span>':'';
-      return '<div class="task'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'">'+
-        '<input type="checkbox"'+(t.isCompleted?' checked':'')+' aria-label="完成">'+
-        '<span class="t-check">✓</span><span class="t-text">'+esc(t.content)+overdue+(t.dueTime?'<span class="task-due">⏰ 截止 '+esc(t.dueTime)+'</span>':'')+'</span>'+
-        '<button class="t-del" data-act="del" type="button" title="删除任务">✕</button></div>';
-    }).join('');
-  }
+  if(!tasks.length){tl.innerHTML='<div class="empty">今天还没有待办任务，添加一个试试。</div>';}
+  else{tl.innerHTML=tasks.map(function(t){var d=taskDateOf(t),overdue=(d<today)?'<span class="task-date-tag">'+esc(d)+' 未完成</span>':'';return '<div class="task'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'"><input type="checkbox"'+(t.isCompleted?' checked':'')+' aria-label="完成"><span class="t-check"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg></span><span class="t-text">'+esc(t.content)+overdue+(t.dueTime?'<span class="task-due"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-clock"></use></svg>截止 '+esc(t.dueTime)+'</span>':'')+'</span><button class="t-del" data-act="del" type="button" title="删除任务"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-x"></use></svg></button></div>';}).join('');}
 }
+function openDialGroupModal(){editingDialGroupId=null;$('#dialGroupModalTitle').textContent='新建拨盘';$('#dialGroupName').value='';$('#dialGroupDelete').style.display='none';$('#dialGroupModalMask').classList.add('show');setTimeout(function(){$('#dialGroupName').focus();},60);}
+function closeDialGroupModal(){$('#dialGroupModalMask').classList.remove('show');}
+function saveDialGroup(){var name=$('#dialGroupName').value.trim();if(!name){toast('请先给拨盘起个名字');return;}if(editingDialGroupId){var g=dialGroupById(editingDialGroupId);if(g)g.name=name;}else{var fresh={id:uid(),name:name,createdAt:todayStr()};state.dialGroups.push(fresh);activeDialGroupId=fresh.id;}save();closeDialGroupModal();renderHome();toast(editingDialGroupId?'拨盘已更新':'新拨盘已建立');editingDialGroupId=null;}
+function deleteDialGroup(){var g=dialGroupById(editingDialGroupId);if(!g)return;if(groupHabits(g.id).length){toast('请先把拨盘中的习惯移到其他孔位');return;}if(!window.confirm('确定删除这个拨盘吗？'))return;state.dialGroups=state.dialGroups.filter(function(x){return x.id!==g.id;});activeDialGroupId=state.dialGroups.length?state.dialGroups[0].id:null;save();closeDialGroupModal();renderHome();toast('拨盘已删除');}
 
 /* ---------- 渲染：日历 ---------- */
 var calView={y:new Date().getFullYear(),m:new Date().getMonth()};
@@ -975,7 +1286,7 @@ function renderCal(){
     var c=dayColor(date);
     var isToday=date===todayStr();
     var dot=(c==='gold'||c==='purple'||c==='lav')?'<i class="cdot"></i>':'';
-    var star=makeupDates[date]?'<i class="mstar">⭐</i>':'';
+    var star=makeupDates[date]?'<i class="mstar"><svg class="doodle-icon"><use href="#ui-spark"></use></svg></i>':'';
     html+='<button class="cal-day c-'+c+(isToday?' today':'')+'" data-date="'+date+'" type="button">'+dot+star+d+'</button>';
   }
   grid.innerHTML=html;
@@ -994,10 +1305,10 @@ function formatLogDate(d){
 }
 function renderLog(){
   var wrap=$('#logFields');
-  wrap.innerHTML=LOG_FIELDS.map(function(f){
-    return '<label class="log-field"><div class="lf-top"><span class="lf-no">'+f.label.charAt(0)+'</span><span class="lf-label">'+esc(f.label.slice(2))+'</span></div>'+
-    '<textarea data-k="'+f.key+'" rows="2" placeholder="'+esc(f.ph)+'">'+esc(logDraft[f.key]||'')+'</textarea></label>';
-  }).join('');
+  wrap.innerHTML='<div class="log-card-grid">'+LOG_FIELDS.map(function(f,i){
+    var text=(logDraft[f.key]||'').trim(),empty=!text;
+    return '<button class="log-summary-card'+(empty?' empty':'')+'" data-log-key="'+f.key+'" type="button"><span class="log-card-number">'+pad(i+1)+'</span><span class="log-card-copy"><b>'+esc(f.label)+'</b><span>'+esc(empty?'还没有内容，点击展开书写':text)+'</span></span></button>';
+  }).join('')+'</div>';
   $('#logDate').textContent=formatLogDate(logSelDate);
   $('#logDateLabel').textContent=formatLogDate(logSelDate);
   $('#logPrev').disabled=logSelDate<=addDaysStr(todayStr(),-2);
@@ -1008,7 +1319,7 @@ function updateLogProgress(){
   var n=logFilled();
   var bar=$('#lpBar'),prog=$('#logProgress'),txt=$('#lpText');
   bar.style.width=(n/6*100)+'%';
-  txt.textContent=n>=3?('✨ 已填写 '+n+'/6 · 反思已完成'):('已填写 '+n+'/6 项');
+  txt.textContent=n>=3?(' 已填写 '+n+'/6 · 反思已完成'):('已填写 '+n+'/6 项');
   prog.classList.toggle('done',n>=3);
 }
 
@@ -1031,7 +1342,7 @@ function renderDaySheet(){
   var d=parseDate(date);
   $('#sheetTitle').textContent=parseInt(date.slice(5,7),10)+'月'+parseInt(date.slice(8,10),10)+'日 · '+weekdayCN(d)+(date===todayStr()?'（今天）':'');
   var q=makeupQuotaLeft(monthKey(new Date()));
-  $('#sheetQuota').innerHTML='🔁 本月补签额度：<b>'+q+'</b>/3'+(q<=0?' · <span class="hint">已用完，下月1日重置</span>':' · <span class="hint">日历点「未打卡」即可补签</span>');
+  $('#sheetQuota').innerHTML=' 本月补签额度：<b>'+q+'</b>/3'+(q<=0?' · <span class="hint">已用完，下月1日重置</span>':' · <span class="hint">日历点「未打卡」即可补签</span>');
   /* —— 习惯打卡（仅进行中习惯） —— */
   var acts=state.habits.filter(function(h){return h.isActive;});
   var rows=acts.map(function(h){
@@ -1039,12 +1350,12 @@ function renderDaySheet(){
     var rec=recordOf(h.id,date);
     var done=!!rec&&rec.isCompleted;
     if(!need){
-      return '<div class="sh-row off"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><span class="sh-st off">🔒 该日无需打卡</span></div>';
+      return '<div class="sh-row off">'+habitIconHTML(h.icon,'sh-ico')+'<span class="sh-name">'+esc(h.name)+'</span><span class="sh-st off">该日无需打卡</span></div>';
     }
     if(done){
-      return '<div class="sh-row done"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><span class="sh-st ok">✅ 已打卡'+(rec.isMakeup?'（补签）':'')+'</span></div>';
+      return '<div class="sh-row done">'+habitIconHTML(h.icon,'sh-ico')+'<span class="sh-name">'+esc(h.name)+'</span><span class="sh-st ok">已打卡'+(rec.isMakeup?'（补签）':'')+'</span></div>';
     }
-    return '<div class="sh-row"><span class="sh-ico">'+esc(h.icon)+'</span><span class="sh-name">'+esc(h.name)+'</span><button class="sh-st act" data-shm="'+h.id+'" type="button">☐ 未打卡'+(date<todayStr()?' · 补签':'')+'</button></div>';
+    return '<div class="sh-row">'+habitIconHTML(h.icon,'sh-ico')+'<span class="sh-name">'+esc(h.name)+'</span><button class="sh-st act" data-shm="'+h.id+'" type="button">未打卡'+(date<todayStr()?' · 补签':'')+'</button></div>';
   }).join('');
   $('#sheetHabits').innerHTML=rows||'<div class="hint">暂无进行中的习惯</div>';
   $('#sheetHabitHint').textContent=date<todayStr()?'（补签过去的日子，消耗本月额度）':(date>todayStr()?'（未来日期不能补签）':'（今天直接打卡，不占补签额度）');
@@ -1052,20 +1363,20 @@ function renderDaySheet(){
   var ts=tasksOf(date).slice().sort(function(a,b){return (a.isCompleted?1:0)-(b.isCompleted?1:0);});
   $('#sheetTasks').innerHTML=ts.length?ts.map(function(t){
     return '<div class="stask'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'">'+
-      '<span class="stask-cb">'+(t.isCompleted?'✅':'☐')+'</span>'+
-      '<span class="stask-t">'+esc(t.content)+(t.dueTime?'<span class="task-due">⏰ '+esc(t.dueTime)+'</span>':'')+'</span>'+
-      '<button class="stask-del" data-stdel="'+t.id+'" type="button">✕</button></div>';
+      '<span class="stask-cb"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-'+(t.isCompleted?'check':'box')+'"></use></svg></span>'+
+      '<span class="stask-t">'+esc(t.content)+(t.dueTime?'<span class="task-due"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-clock"></use></svg>截止 '+esc(t.dueTime)+'</span>':'')+'</span>'+
+      '<button class="stask-del" data-stdel="'+t.id+'" type="button"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-x"></use></svg></button></div>';
   }).join(''):'<div class="hint">这一天还没有待办任务</div>';
   $('#sheetTaskHint').textContent=date===todayStr()?'（仅显示今天的）':'（'+date+' 的任务，首页不显示）';
   var inp=$('#sheetTaskInput');if(inp)inp.value='';
   /* —— 当日日志 —— */
   var log=logOf(date);
-  var logHtml=log?('<div class="log-card"><b>🌙 当日日志'+(log.isBackfill?' · 事后补写':'')+'</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b>🌙 当日日志</b><p>未写日志'+(date===todayStr()?' · 睡前 3 分钟回望一下今天吧':(date<todayStr()?' · 可以补写前天/昨天的日志':' · 未来的一天'))+'</p></div>';
+  var logHtml=log?('<div class="log-card"><b> 当日日志'+(log.isBackfill?' · 事后补写':'')+'</b><p>'+esc(logText(log))+'</p>'+(log.tags?'<div class="tags">'+esc(log.tags)+'</div>':'')+'</div>'):'<div class="log-card muted"><b> 当日日志</b><p>未写日志'+(date===todayStr()?' · 睡前 3 分钟回望一下今天吧':(date<todayStr()?' · 可以补写前天/昨天的日志':' · 未来的一天'))+'</p></div>';
   $('#sheetLog').innerHTML=logHtml;
   var btn=$('#sheetWrite');
   var min=addDaysStr(todayStr(),-2);
-  if(date===todayStr()){btn.style.display='';btn.textContent='🌙 去写今晚日志 →';}
-  else if(date>=min&&date<todayStr()){btn.style.display='';btn.textContent='📝 去补写这天的日志 →';}
+  if(date===todayStr()){btn.style.display='';btn.textContent=' 去写今晚日志 →';}
+  else if(date>=min&&date<todayStr()){btn.style.display='';btn.textContent=' 去补写这天的日志 →';}
   else{btn.style.display='none';}
 }
 function openDaySheet(date){
@@ -1077,20 +1388,20 @@ function closeDaySheet(){$('#daySheetMask').classList.remove('show');}
 function sheetCheckHabit(id){
   var h=habitById(id);if(!h)return;
   var date=sheetDate;
-  if(recordOf(id,date)){toast('这一天已经打过卡了 ✅');return;}
+  if(recordOf(id,date)){toast('这一天已经打过卡了 ');return;}
   if(date>todayStr()){toast('⏳ 未来日期无需补签');return;}
-  if(date===todayStr()){checkin(id,date,false);save();renderAll();renderDaySheet();toast('✅「'+h.name+'」打卡成功，成就 +1');return;}
+  if(date===todayStr()){checkin(id,date,false);save();renderAll();renderDaySheet();toast('「'+h.name+'」打卡成功，成就 +1');return;}
   var q=makeupQuotaLeft(monthKey(new Date()));
   if(q<=0){window.alert('本月补签额度已用完，下月1日重置。');return;}
   checkin(id,date,true);
   var left=makeupUseOne(monthKey(new Date()));
   save();renderAll();renderDaySheet();
-  toast('✨ 已补签「'+h.name+'」('+date+')，剩余 '+left+' 次');
+  toast(' 已补签「'+h.name+'」('+date+')，剩余 '+left+' 次');
 }
 function sheetAddTask(){
   var inp=$('#sheetTaskInput');if(!inp)return;
   var v=inp.value.trim();
-  if(!v){toast('先写点什么吧 ✍️');return;}
+  if(!v){toast('先写点什么吧 ');return;}
   state.tasks.push({id:uid(),content:v,date:sheetDate,taskDate:sheetDate,isCompleted:false,dueTime:''});
   save();renderAll();renderDaySheet();
   toast('已添加 '+sheetDate+' 的待办');
@@ -1105,58 +1416,66 @@ function sheetDelTask(id){
 }
 
 /* ---------- 习惯弹窗 ---------- */
-var EMOJIS=[
-['🏃','跑步 晨跑'],['🏋️','健身 力量'],['🧘','冥想'],['🚴','骑行'],['🏊','游泳'],
-['⚽','足球 球类'],['🏀','篮球'],['🎾','网球'],['🧗','攀岩'],['🥾','徒步'],
-['📖','阅读'],['✍️','写作'],['🧠','学习'],['🎓','课程'],['💻','编程'],
-['🎨','绘画'],['🎸','吉他 乐器'],['🎹','钢琴'],['🎧','音乐'],['🎬','电影'],
-['📷','摄影'],['💧','喝水'],['🥗','健康餐'],['🍎','水果'],['☕','咖啡'],
-['🍵','茶'],['🍳','做饭'],['🥦','蔬菜'],['😴','早睡'],['⏰','早起'],
-['💪','打卡 坚持'],['🦷','刷牙'],['🧴','护肤'],['🚿','洗澡'],['🧹','打扫'],
-['🧺','洗衣'],['💊','吃药'],['🩺','体检'],['💰','存钱'],['📵','不玩手机'],
-['🐶','遛狗'],['🐱','宠物'],['🌱','种植'],['💌','感恩'],['📝','复盘'],
-['🗣️','英语 口语'],['🌅','日出'],['🌙','睡前']
+var HABIT_ICONS=[
+  {key:'shoes',label:'跑鞋',tags:'跑步 晨跑 运动 散步'},
+  {key:'book',label:'书本',tags:'阅读 看书 学习'},
+  {key:'water',label:'水珠',tags:'喝水 补水 水'},
+  {key:'flame',label:'火苗',tags:'早起 热情 坚持 火'},
+  {key:'leaf',label:'叶子',tags:'种植 自然 植物'},
+  {key:'moon',label:'月牙',tags:'早睡 睡前 夜晚'},
+  {key:'pen',label:'铅笔',tags:'写作 复盘 日记'},
+  {key:'cup',label:'茶杯',tags:'咖啡 茶 饮品'},
+  {key:'toothbrush',label:'牙刷',tags:'刷牙 清洁'},
+  {key:'paint',label:'调色盘',tags:'绘画 创作 艺术'},
+  {key:'lotus',label:'莲花',tags:'冥想 放松 瑜伽'},
+  {key:'footsteps',label:'脚印',tags:'徒步 散步 运动'}
 ];
-var chosenIcon='🏃';
-var editingId=null;
-function renderEmojiPicker(sel){
-  chosenIcon=sel||'🏃';
-  var countEl=$('#emojiCount');
-  if(countEl)countEl.textContent='· 共 '+EMOJIS.length+' 个图标，可搜索';
-  var q=($('#emojiSearch')?$('#emojiSearch').value:'').trim().toLowerCase();
-  var list=q?EMOJIS.filter(function(x){return x[0].indexOf(q)>=0||x[1].toLowerCase().indexOf(q)>=0;}):EMOJIS;
-  $('#emojiGrid').innerHTML=list.map(function(x){return '<button type="button" class="emoji'+(x[0]===chosenIcon?' sel':'')+'" data-e="'+x[0]+'" title="'+x[1]+'">'+x[0]+'</button>';}).join('')||'<div class="hint" style="grid-column:1/-1;text-align:center;padding:10px 0">未找到匹配图标</div>';
-  $('#emojiGrid').querySelectorAll('.emoji').forEach(function(b){b.onclick=function(){renderEmojiPicker(b.getAttribute('data-e'));};});
+var chosenIcon='shoes';var editingId=null;var LEGACY_ICON_MAP={};
+[[0x1F3C3,'shoes'],[0x1F97E,'footsteps'],[0x1F4D6,'book'],[0x270D,'pen'],[0x1F4A7,'water'],[0x2615,'cup'],[0x1F375,'cup'],[0x1F9B7,'toothbrush'],[0x1F331,'leaf'],[0x1F319,'moon'],[0x1F3A8,'paint'],[0x1F9D8,'lotus'],[0x1F6B4,'shoes'],[0x1F6BF,'water'],[0x1F4DD,'pen']].forEach(function(x){LEGACY_ICON_MAP[x[0]]=x[1];});
+function iconKey(value){var v=String(value==null?'':value);for(var i=0;i<HABIT_ICONS.length;i++){if(HABIT_ICONS[i].key===v)return v;}var cp=v.codePointAt?v.codePointAt(0):v.charCodeAt(0);return LEGACY_ICON_MAP[cp]||'leaf';}
+function habitIconHTML(value,cls){var key=iconKey(value);return '<span class="'+(cls||'habit-icon')+'"><svg class="doodle-icon" aria-hidden="true"><use href="#habit-'+key+'"></use></svg></span>';}
+function renderIconPicker(sel){
+  chosenIcon=iconKey(sel||'shoes');var countEl=$('#iconCount');if(countEl)countEl.textContent='· 共 '+HABIT_ICONS.length+' 个手绘图标';
+  var q=($('#iconSearch')?$('#iconSearch').value:'').trim().toLowerCase();var list=q?HABIT_ICONS.filter(function(x){return x.label.indexOf(q)>=0||x.tags.toLowerCase().indexOf(q)>=0;}):HABIT_ICONS;
+  $('#iconGrid').innerHTML=list.map(function(x){return '<button type="button" class="icon-option'+(x.key===chosenIcon?' sel':'')+'" data-icon="'+x.key+'" aria-label="'+x.label+'"><svg class="doodle-icon" aria-hidden="true"><use href="#habit-'+x.key+'"></use></svg><span>'+x.label+'</span></button>';}).join('')||'<div class="hint icon-empty">没有找到对应图案</div>';
+  $('#iconGrid').querySelectorAll('.icon-option').forEach(function(b){b.onclick=function(){renderIconPicker(b.getAttribute('data-icon'));};});
 }
 function setTargetUI(target){
-  var sel=$('#hmTargetSel'),cust=$('#hmCustom');
-  var known=['21','30','66','100'];
-  if(known.indexOf(String(target))>=0){sel.value=String(target);cust.style.display='none';}
-  else{sel.value='custom';cust.style.display='';cust.value=String(target);}
+  var sel=$('#hmTargetSel'),cust=$('#hmCustom'),wrap=$('#dayCustomWrap'),val=$('#dayDialValue');var known=['21','30','66','100'];
+  document.querySelectorAll('.day-num').forEach(function(b){b.classList.toggle('sel',b.getAttribute('data-days')===String(target));});
+  if(known.indexOf(String(target))>=0){sel.value=String(target);if(wrap)wrap.style.display='none';if(val)val.textContent=String(target);}
+  else{sel.value='custom';if(wrap)wrap.style.display='flex';if(cust)cust.value=String(target);if(val)val.textContent=String(target);}
+  if(val){val.classList.remove('tick');void val.offsetWidth;val.classList.add('tick');}
 }
-function openHabitModal(id){
-  editingId=id||null;
-  var h=id?habitById(id):null;
-  $('#hmTitle').textContent=h?'编辑习惯':'新建习惯';
-  $('#hmName').value=h?h.name:'';
-  renderEmojiPicker(h?h.icon:'🏃');
-  setTargetUI(h?h.targetDays:30);
-  $('#hmStart').value=h?h.startDate:todayStr();
-  $('#hmDelete').style.display=h?'':'none';
-  $('#habitModalMask').classList.add('show');
-  setTimeout(function(){$('#hmName').focus();},60);
+function firstFreeDialSlot(groupId){
+  for(var i=1;i<=10;i++){if(!habitAtDialSlot(groupId,i))return i;}return 1;
+}
+function renderHabitDialFields(groupId,slot){
+  var opts='';
+  if(state.dialGroups.length){opts=state.dialGroups.map(function(g){return '<option value="'+g.id+'">'+esc(g.name)+'</option>';}).join('');}
+  else{opts='<option value="">还没有拨盘</option>';}
+  $('#hmDialGroup').innerHTML=opts;
+  var chosen=groupId||activeDialGroupId||(state.dialGroups[0]?state.dialGroups[0].id:'');
+  $('#hmDialGroup').value=chosen;
+  $('#hmDialSlot').value=String(slot||firstFreeDialSlot(chosen));
+}
+function openHabitModal(id,groupId,slot){
+  editingId=id||null;var h=id?habitById(id):null;
+  $('#hmTitle').textContent=h?'编辑习惯':'添加习惯';$('#hmName').value=h?h.name:'';
+  renderIconPicker(h?h.icon:'shoes');setTargetUI(h?h.targetDays:30);$('#hmStart').value=h?h.startDate:todayStr();
+  renderHabitDialFields(h?h.dialGroupId:groupId,(h&&h.dialSlot)||slot);$('#hmDelete').style.display=h?'':'none';$('#habitModalMask').classList.add('show');setTimeout(function(){$('#hmName').focus();},60);
 }
 function closeHabitModal(){$('#habitModalMask').classList.remove('show');}
 function saveHabit(){
-  var name=$('#hmName').value.trim();
-  if(!name){toast('请填写习惯名称');$('#hmName').focus();return;}
-  var sel=$('#hmTargetSel').value;
-  var target=sel==='custom'?parseInt($('#hmCustom').value,10):parseInt(sel,10);
-  if(!target||target<1||target>999)target=30;
-  var start=$('#hmStart').value||todayStr();
-  var data={name:name,icon:chosenIcon,targetDays:target,startDate:start};
+  var name=$('#hmName').value.trim();if(!name){toast('请填写习惯名称');$('#hmName').focus();return;}
+  var sel=$('#hmTargetSel').value,target=sel==='custom'?parseInt($('#hmCustom').value,10):parseInt(sel,10);if(!target||target<1||target>999)target=30;
+  var start=$('#hmStart').value||todayStr(),groupId=$('#hmDialGroup').value,slot=parseInt($('#hmDialSlot').value,10)||1;
+  if(!groupId){toast('请先建立一个拨盘');return;}
+  var conflict=state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId&&Number(h.dialSlot)===slot&&h.id!==editingId;})[0];
+  if(conflict){toast('数字 '+slot+' 已经属于「'+conflict.name+'」');return;}
+  var data={name:name,icon:chosenIcon,targetDays:target,startDate:start,dialGroupId:groupId,dialSlot:slot};activeDialGroupId=groupId;
   if(editingId){updateHabit(editingId,data);closeHabitModal();renderAll();toast('已保存「'+name+'」的修改');}
-  else{addHabit(data);closeHabitModal();renderAll();toast('已添加习惯：'+name);}
+  else{addHabit(data);closeHabitModal();renderAll();toast('已把「'+name+'」放入数字 '+slot);}
 }
 
 /* ---------- .ics 导出（iPhone 日历导入） ---------- */
@@ -1176,7 +1495,7 @@ function buildICS(){
       'DTSTAMP:'+nowStamp(),
       'DTSTART;VALUE=DATE:'+dt,
       'DTEND;VALUE=DATE:'+end,
-      'SUMMARY:'+escIcs('✅ '+name+(r.isMakeup?'（补签）':'')),
+      'SUMMARY:'+escIcs(' '+name+(r.isMakeup?'（补签）':'')),
       'DESCRIPTION:'+escIcs('习惯打卡 · '+name),
       'END:VEVENT');
   });
@@ -1265,7 +1584,7 @@ function updateSyncSummary(){
   var range=$('#syncRange').value,custom=$('#syncMonth').value;
   var evts=collectCalendarEvents(range,custom);
   var habits=evts.filter(function(e){return e.desc.indexOf('习惯打卡')>=0;}).length;
-  $('#syncSummary').textContent='📅 '+rangeLabel(range,custom)+'：共 '+evts.length+' 个已完成事件（习惯打卡 '+habits+' · 任务 '+(evts.length-habits)+'）';
+  $('#syncSummary').textContent=' '+rangeLabel(range,custom)+'：共 '+evts.length+' 个已完成事件（习惯打卡 '+habits+' · 任务 '+(evts.length-habits)+'）';
   return evts;
 }
 function syncDownload(){
@@ -1306,7 +1625,7 @@ async function addEventToCalendar(evt,btn){
     var mod=await import('https://cdn.jsdelivr.net/npm/add-to-calendar-button@2');
     action=mod.atcb_action||(mod.default&&mod.default.atcb_action);
   }catch(e){action=null;}
-  if(!action){toast('⚠️ 日历组件加载失败（需联网），请改用「下载 .ics」方式');return;}
+  if(!action){toast(' 日历组件加载失败（需联网），请改用「下载 .ics」方式');return;}
   try{
     await action({
       name:evt.title,
@@ -1343,7 +1662,7 @@ function buildMonthlyReport(ym){
   lines.push('');
   lines.push('---');
   lines.push('');
-  lines.push('### 📊 月度概览');
+  lines.push('###  月度概览');
   lines.push('- 总记录天数：'+logs.length+' / '+daysInMonth(y,m)+' 天');
   lines.push('- 填写完整度（≥3项）：'+logs.filter(function(l){return l.filledCount>=3;}).length+' 天');
   var habitStats=[];
@@ -1366,7 +1685,7 @@ function buildMonthlyReport(ym){
   lines.push('');
   lines.push('---');
   lines.push('');
-  lines.push('### 📅 每日详细日志（按时间倒序）');
+  lines.push('###  每日详细日志（按时间倒序）');
   lines.push('');
   logs.forEach(function(l){
     var d=parseDate(l.date);
@@ -1410,7 +1729,7 @@ function confirmExport(){
   if(!ym){toast('请先选择月份');return;}
   var md=buildMonthlyReport(ym);
   if(!md){
-    $('#exportHint').textContent='⚠️ '+ym+' 本月暂无记录，无法导出';
+    $('#exportHint').textContent=' '+ym+' 本月暂无记录，无法导出';
     $('#exportHint').style.display='';
     toast('本月暂无记录，无法导出');
     return;
@@ -1418,7 +1737,7 @@ function confirmExport(){
   downloadText('自我观察日志_'+ym+'.md',md);
   $('#exportOkBadge').style.display='';
   $('#exportHint').style.display='none';
-  toast('✅ 已下载「自我观察日志_'+ym+'.md」，下面可以直接复制提示词');
+  toast(' 已下载「自我观察日志_'+ym+'.md」，下面可以直接复制提示词');
   var tips=document.querySelector('#exportModalMask .export-tips');
   if(tips&&tips.scrollIntoView)tips.scrollIntoView({behavior:'smooth',block:'center'});
 }
@@ -1439,11 +1758,12 @@ function copyTextToClipboard(text,okMsg,failMsg){
     navigator.clipboard.writeText(text).then(ok).catch(function(){legacy()?ok():fail();});
   }else{legacy()?ok():fail();}
 }
-function copyPrompt(){copyTextToClipboard($('#exportPromptBox').textContent,'✅ 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
-function copyAiPrompt(){copyTextToClipboard($('#aiPromptBox').textContent,'✅ 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
+function copyPrompt(){copyTextToClipboard($('#exportPromptBox').textContent,' 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
+function copyAiPrompt(){copyTextToClipboard($('#aiPromptBox').textContent,' 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
 /* ---------- 渲染汇总 + Tab ---------- */
-function renderAll(){graduate();renderHeader(false);renderHome();renderCal();renderLog();}
+function renderAll(){graduate();renderHeader(false);renderHome();renderCal();renderLog();renderSop();}
 function switchTab(t){
+  document.body.classList.toggle('log-open',t==='log');
   $$('.tab').forEach(function(x){x.classList.toggle('active',x.id==='tab-'+t);});
   $$('.tab-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===t);});
 }
@@ -1461,26 +1781,78 @@ function goToToday(){
 function bindEvents(){
   $$('.tab-btn').forEach(function(b){b.onclick=function(){switchTab(b.getAttribute('data-tab'));};});
   $('#addHabitBtn').onclick=function(){openHabitModal(null);};
+  $('#addSopBtn').onclick=function(){openSopModal(null);};
+  $('#sopModalX').onclick=closeSopModal;$('#sopCancel').onclick=closeSopModal;
+  $('#sopModalMask').onclick=function(e){if(e.target===$('#sopModalMask'))closeSopModal();};
+  $('#sopSave').onclick=saveSopItem;
+  $('#sopDelete').onclick=function(){var id=editingSopId;closeSopModal();if(id)deleteSopItem(id);};
+  $('#sopTimeline').onclick=function(e){
+    var check=e.target.closest?e.target.closest('[data-sop-check]'):null;
+    if(check){var row=check.closest('.sop-item'),item=state.sopItems.filter(function(x){return x.id===row.getAttribute('data-sop-id');})[0];if(item){item.checks=item.checks||{};var d=check.getAttribute('data-sop-check');if(item.checks[d])delete item.checks[d];else item.checks[d]=true;save();renderSop();}return;}
+    var act=e.target.closest?e.target.closest('[data-sop-act]'):null;if(!act)return;var id=act.closest('.sop-item').getAttribute('data-sop-id');if(act.getAttribute('data-sop-act')==='edit')openSopModal(id);else deleteSopItem(id);
+  };
+  $('#sopTimeline').onchange=function(e){var ta=e.target.closest?e.target.closest('[data-sop-note]'):null;if(!ta)return;var id=ta.getAttribute('data-sop-note'),item=state.sopItems.filter(function(x){return x.id===id;})[0];if(item){item.note=ta.value;save();}};
+  $('#logFields').onclick=function(e){var card=e.target.closest?e.target.closest('[data-log-key]'):null;if(card)openLogFieldEditor(card.getAttribute('data-log-key'));};
+  $('#logFieldClose').onclick=closeLogFieldEditor;$('#logFieldCancel').onclick=closeLogFieldEditor;
+  $('#logFieldMask').onclick=function(e){if(e.target===$('#logFieldMask'))closeLogFieldEditor();};
+  $('#logFieldSave').onclick=saveLogFieldEditor;
+  $('#logFieldInput').oninput=updateLogFieldCount;
+  $('#logFieldInput').onkeydown=function(e){if(e.key==='Escape')closeLogFieldEditor();if((e.metaKey||e.ctrlKey)&&e.key==='Enter')saveLogFieldEditor();};
   $('#hmX').onclick=closeHabitModal;
   $('#hmCancel').onclick=closeHabitModal;
   $('#habitModalMask').onclick=function(e){if(e.target===$('#habitModalMask'))closeHabitModal();};
   $('#hmSave').onclick=saveHabit;
   $('#hmDelete').onclick=function(){if(editingId){var n=habitById(editingId)?habitById(editingId).name:'';closeHabitModal();deleteHabit(editingId);}};
-  $('#hmTargetSel').onchange=function(){var v=this.value;$('#hmCustom').style.display=v==='custom'?'':'none';if(v==='custom')$('#hmCustom').focus();};
+  $('#dayDial').onclick=function(e){var b=e.target.closest?e.target.closest('.day-num'):null;if(b)setTargetUI(b.getAttribute('data-days'));};
+  $('#dayDial').onwheel=function(e){var order=['21','30','66','100'];var cur=order.indexOf($('#hmTargetSel').value);if(cur<0)cur=1;e.preventDefault();cur=(cur+(e.deltaY>0?1:-1)+order.length)%order.length;setTargetUI(order[cur]);};
+  $('#hmCustom').oninput=function(){$('#hmTargetSel').value='custom';document.querySelectorAll('.day-num').forEach(function(b){b.classList.remove('sel');});var v=this.value||'…';$('#dayDialValue').textContent=v;};
+  $('#logCloseBtn').onclick=function(){switchTab('home');};
   $('#addTaskBtn').onclick=function(){
     var inp=$('#taskInput');var v=inp.value.trim();
-    if(!v){toast('先写点什么吧 ✍️');return;}
+    if(!v){toast('先写点什么吧 ');return;}
     addTask(v);inp.value='';$('#taskDue').value='';renderHeader(true);
   };
   $('#taskInput').onkeydown=function(e){if(e.key==='Enter'){$('#addTaskBtn').click();}};
-  $('#habitList').onclick=function(e){
-    var btn=e.target.closest?e.target.closest('[data-act]'):null;
-    if(!btn)return;
-    var act=btn.getAttribute('data-act'),id=btn.closest('.hcard').getAttribute('data-id');
-    if(act==='checkin')doCheckin(id);
-    else if(act==='edit')openHabitModal(id);
-    else if(act==='del')deleteHabit(id);
+  $('#addDialBtn').onclick=openDialGroupModal;
+  $('#addHabitBtn').onclick=function(){
+    if(!state.dialGroups.length){openDialGroupModal();toast('先建立一个拨盘，再添加习惯');return;}
+    openHabitModal(null,activeDialGroupId,firstFreeDialSlot(activeDialGroupId));
   };
+  $('#dialGroupX').onclick=closeDialGroupModal;$('#dialGroupCancel').onclick=closeDialGroupModal;
+  $('#dialGroupModalMask').onclick=function(e){if(e.target===$('#dialGroupModalMask'))closeDialGroupModal();};
+  $('#dialGroupSave').onclick=saveDialGroup;$('#dialGroupDelete').onclick=deleteDialGroup;
+  $('#dialGroupName').onkeydown=function(e){if(e.key==='Enter')saveDialGroup();};
+  $('#hmDialGroup').onchange=function(){var gid=this.value;$('#hmDialSlot').value=String(firstFreeDialSlot(gid));};
+  $('#habitList').onclick=function(e){
+    var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;
+    if(tab){activeDialGroupId=tab.getAttribute('data-dial-group');renderHome();return;}
+    if(e.target.closest&&e.target.closest('#dialAddInline,#addDialBtn')){openDialGroupModal();return;}
+    var create=e.target.closest?e.target.closest('[data-dial-create]'):null;if(create){openDialGroupModal();return;}
+    var setup=e.target.closest?e.target.closest('[data-dial-setup]'):null;if(setup){openHabitModal(null,setup.getAttribute('data-group-id'),parseInt(setup.getAttribute('data-dial-setup'),10));return;}
+    var edit=e.target.closest?e.target.closest('[data-habit-edit]'):null;if(edit){openHabitModal(edit.getAttribute('data-habit-edit'));return;}
+    var stamp=e.target.closest?e.target.closest('[data-habit-checkin]'):null;if(stamp){stampHabitFromDial(stamp,stamp.getAttribute('data-habit-checkin'));return;}
+  };
+  var rotaryDrag=null;
+  $('#habitList').addEventListener('pointerdown',function(e){
+    var hole=e.target.closest?e.target.closest('.rotary-hole'):null;if(!hole)return;
+    var dial=hole.closest('.rotary-dial'),ring=dial.querySelector('.rotary-ring'),rect=dial.getBoundingClientRect();if(!ring)return;
+    var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx);
+    rotaryDrag={dial:dial,ring:ring,group:hole.closest('.rotary-dial').getAttribute('data-group-id'),slot:parseInt(hole.getAttribute('data-dial-slot'),10),prev:angle,total:0,moved:false,pointerId:e.pointerId};
+    ring.style.transition='none';ring.style.transform='rotate(0deg)';var gear=dial.querySelector('.rotary-gear');if(gear)gear.style.transition='none';
+    closeHabitReveal();try{dial.setPointerCapture&&dial.setPointerCapture(e.pointerId);}catch(err){}e.preventDefault();
+  });
+  $('#habitList').addEventListener('pointermove',function(e){
+    if(!rotaryDrag)return;var dial=rotaryDrag.dial,rect=dial.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx),delta=angle-rotaryDrag.prev;if(delta>Math.PI)delta-=Math.PI*2;if(delta<-Math.PI)delta+=Math.PI*2;rotaryDrag.prev=angle;
+    if(delta>0){rotaryDrag.total=Math.min(330,rotaryDrag.total+delta*180/Math.PI);rotaryDrag.moved=true;}
+    rotaryDrag.ring.style.transform='rotate('+rotaryDrag.total.toFixed(2)+'deg)';var gear=dial.querySelector('.rotary-gear');if(gear)gear.style.transform='rotate('+(-rotaryDrag.total*.28).toFixed(2)+'deg)';
+    if(rotaryDrag.total>12)e.preventDefault();
+  });
+  function releaseRotaryDial(){
+    if(!rotaryDrag)return;var data=rotaryDrag;rotaryDrag=null;var ring=data.ring,gear=data.dial.querySelector('.rotary-gear');
+    ring.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';ring.style.transform='rotate(0deg)';if(gear){gear.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';gear.style.transform='rotate(0deg)';}
+    setTimeout(function(){showHabitReveal(data.group,data.slot);},790);
+  }
+  $('#habitList').addEventListener('pointerup',releaseRotaryDial);$('#habitList').addEventListener('pointercancel',releaseRotaryDial);
   $('#gradSection').onclick=function(e){
     var btn=e.target.closest?e.target.closest('[data-gact]'):null;
     if(!btn)return;
@@ -1508,7 +1880,7 @@ function bindEvents(){
   $('#syncAddBtn').onclick=showSyncEventList;
   $('#sheetClose').onclick=closeDaySheet;
   $('#daySheetMask').onclick=function(e){if(e.target===$('#daySheetMask'))closeDaySheet();};
-  $('#sheetHabits').onclick=function(e){var b=e.target.closest?e.target.closest('[data-shm]'):null;if(b)sheetCheckHabit(b.getAttribute('data-shm'));};
+  $('#sheetHabits').onclick=function(e){var b=e.target.closest?e.target.closest('[data-shm]'):null;if(b){var box=b.getBoundingClientRect();var id=b.getAttribute('data-shm');var had=!!recordOf(id,sheetDate);sheetCheckHabit(id);if(!had&&recordOf(id,sheetDate))sparkBurst(box.left+box.width/2,box.top+box.height/2);}};
   $('#sheetTasks').onclick=function(e){
     var del=e.target.closest?e.target.closest('[data-stdel]'):null;
     if(del){sheetDelTask(del.getAttribute('data-stdel'));return;}
@@ -1529,7 +1901,7 @@ function bindEvents(){
   $('#exportConfirm').onclick=confirmExport;
   $('#copyPromptBtn').onclick=copyPrompt;
   $('#aiCopyPromptBtn').onclick=copyAiPrompt;
-  $('#emojiSearch').oninput=function(){renderEmojiPicker(chosenIcon);};
+  $('#iconSearch').oninput=function(){renderIconPicker(chosenIcon);};
 $('#logSaveBtn').onclick=saveLog;
   $('#medalChip').onclick=goToToday;$('#medalChip').classList.add('clickable');
   $('#logPrev').onclick=function(){setLogDate(addDaysStr(logSelDate,-1));};
