@@ -76,6 +76,7 @@
     <symbol id="habit-chat" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13h35v25H21l-9 8v-8H6Z"/><path d="M30 25h28v20H47v7l-8-7h-9"/><path d="M15 23h17M15 29h11"/></g></symbol>
     <symbol id="habit-star" viewBox="0 0 64 64"><path d="m32 7 7 17 18 2-14 12 4 18-15-9-15 9 4-18L7 26l18-2Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="habit-briefcase" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="20" width="50" height="34" rx="4"/><path d="M23 20v-8h18v8M7 31h50M27 31v7h10v-7"/></g></symbol>
+    <symbol id="ui-sort" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v40M12 20l8-8 8 8M44 52V12M36 44l8 8 8-8"/><path d="M24 24h13M27 32h10M24 40h13"/></g></symbol>
     <symbol id="ui-palette" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8c14-3 27 6 27 20 0 9-7 13-14 12-5-1-7 2-6 7 1 5-3 9-9 9C16 56 7 47 7 35 7 21 15 11 28 8Z"/><circle cx="21" cy="22" r="2"/><circle cx="18" cy="35" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="43" cy="23" r="2"/></g></symbol>
     <symbol id="ui-check" viewBox="0 0 64 64"><path d="M12 34c7 3 13 8 18 16 7-17 15-28 25-36" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="ui-box" viewBox="0 0 64 64"><path d="M11 12c15 2 28 2 43 0-1 15-1 27 1 41-16-2-29-2-44 0 1-14 1-27 0-41Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -2452,6 +2453,62 @@ html[data-theme] #app{
   --gray-soft:var(--paper-deep);
 }
 
+
+/* Strong mobile save-bar protection */
+.field-top-save{
+  position:absolute;right:69px;top:19px;z-index:5;display:inline-flex;align-items:center;justify-content:center;
+  min-width:57px;height:36px;padding:0 13px;border:1.7px solid var(--border-strong);border-radius:10px 14px 9px 15px;
+  background:var(--ochre);color:var(--accent-contrast);font-family:var(--display);font-size:12px;font-weight:700;
+  box-shadow:2px 2px 0 color-mix(in srgb,var(--border-strong) 55%,transparent);cursor:pointer
+}
+.field-top-save:hover{transform:translateY(-1px) rotate(-1deg)}
+#logSaveBtn{margin-bottom:calc(92px + env(safe-area-inset-bottom,0px));position:relative;z-index:10000}
+#tab-log.active{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px));scroll-padding-bottom:110px}
+.field-editor{min-height:0}
+.field-editor-foot{position:sticky;bottom:0;z-index:2147483000;isolation:isolate}
+.netlify-floating-badge,
+netlify-badge,
+[data-netlify-badge],
+[id*="netlify" i],
+[class~="netlify-badge" i],
+a[href*="netlify.com"],
+iframe[src*="netlify"],
+body>div:has(>a[href*="netlify.com"]) {
+  right:auto!important;left:10px!important;bottom:10px!important;z-index:40!important;
+  max-width:96px!important;opacity:.72!important;transform:scale(.78)!important;
+  transform-origin:left bottom!important;pointer-events:none!important
+}
+body.has-netlify-badge .field-editor{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+body.has-netlify-badge .field-editor-foot{bottom:0;margin-bottom:calc(74px + env(safe-area-inset-bottom,0px));padding-bottom:10px}
+body.has-netlify-badge #logSaveBtn{margin-bottom:calc(118px + env(safe-area-inset-bottom,0px))}
+@media (max-width:640px){
+  #tab-log.active{padding-bottom:calc(128px + env(safe-area-inset-bottom,0px))}
+  #logSaveBtn{margin-bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+  .field-editor{height:100dvh;max-height:100dvh;padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+  .field-editor-foot{position:sticky;bottom:0;margin:10px -8px calc(-56px - env(safe-area-inset-bottom,0px));padding:11px 8px calc(12px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--surface-light) 97%,transparent);box-shadow:0 -5px 16px color-mix(in srgb,var(--ink) 9%,transparent)}
+  .field-top-save{right:58px;top:12px;height:34px;min-width:54px}
+  .field-editor-close{right:12px;top:12px}
+  body.has-netlify-badge .field-editor{padding-bottom:calc(126px + env(safe-area-inset-bottom,0px))}
+  body.has-netlify-badge .field-editor-foot{margin-bottom:calc(-4px + env(safe-area-inset-bottom,0px))}
+  body.has-netlify-badge #logSaveBtn{margin-bottom:calc(142px + env(safe-area-inset-bottom,0px))}
+}
+
+
+/* Explicit habit sorting mode */
+.dial-tools{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:2px 0 12px}
+.dial-sort-toggle{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border:1.5px solid var(--border-strong);border-radius:11px 15px 10px 16px;background:var(--surface-light);color:var(--ink-soft);font-family:var(--display);font-size:11px;font-weight:700;box-shadow:1.5px 2px 0 color-mix(in srgb,var(--border-strong) 35%,transparent);cursor:pointer;transition:transform .16s ease,background .16s ease}
+.dial-sort-toggle svg{width:17px;height:17px}.dial-sort-toggle:hover{transform:translateY(-1px) rotate(-1deg);background:var(--mustard-soft)}.dial-sort-toggle.active{background:var(--ochre-soft);border-color:var(--ochre-deep);color:var(--ink)}
+.dial-sort-tip{color:var(--muted);font-family:var(--display);font-size:9.5px}
+.rotary-dial.sort-mode .rotary-hole.filled{border-style:dashed;cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.rotary-dial.sort-mode .rotary-hole.filled::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:2px;border-radius:2px;background:var(--sage-deep);transform:translateX(-50%);box-shadow:0 3px 0 var(--sage-deep);opacity:.65}
+.rotary-dial.sort-mode .rotary-ring{border-color:var(--sage-deep);box-shadow:0 0 0 4px color-mix(in srgb,var(--sage) 12%,transparent),3px 4px 0 color-mix(in srgb,var(--border-strong) 45%,transparent)}
+.rotary-hole{touch-action:none;-webkit-touch-callout:none}
+.dial-drag-ghost{position:fixed;z-index:2147483647;display:flex;align-items:center;gap:8px;min-width:128px;max-width:220px;padding:8px 12px;border:2px solid var(--border-strong);border-radius:16px 10px 18px 12px/11px 18px 10px 17px;background:var(--surface-strong);color:var(--ink);box-shadow:4px 5px 0 color-mix(in srgb,var(--border-strong) 46%,transparent);pointer-events:none;transform:translate(-50%,-50%) rotate(-3deg)}
+.dial-drag-ghost span{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border:1.5px solid var(--ochre-deep);border-radius:50% 45% 55% 48%;background:var(--ochre-soft);font-family:var(--display);font-size:12px;font-weight:700}
+.dial-drag-ghost b{overflow:hidden;font-family:var(--display);font-size:13px;text-overflow:ellipsis;white-space:nowrap}
+.rotary-hole.dragging{opacity:.55;scale:1.15}
+@media (max-width:640px){.dial-tools{gap:5px;margin-bottom:9px}.dial-sort-toggle{font-size:10px;padding:6px 9px}.dial-sort-tip{flex-basis:100%;text-align:center}.dial-drag-ghost{min-width:110px;max-width:180px;padding:7px 10px}}
+
 </style>
 <!--APP_HTML_START-->
 <div id="authView" style="display:none">
@@ -2577,6 +2634,7 @@ html[data-theme] #app{
   </main>
   <div class="mask" id="logFieldMask">
     <div class="field-editor">
+      <button class="field-top-save" id="logFieldTopSave" type="button">保存</button>
       <button class="field-editor-close" id="logFieldClose" type="button" aria-label="关闭编辑"><svg class="doodle-icon"><use href="#ui-x"></use></svg></button>
       <div class="field-editor-kicker" id="logFieldKicker">DIARY NOTE</div>
       <h2 id="logFieldTitle">今日最兴奋的事情</h2>
@@ -3320,6 +3378,11 @@ function renumberDialGroup(group){
   group.habits=group.habits.filter(function(id){return !!habitById(id);}).slice(0,10);
   group.habits.forEach(function(id,index){var h=habitById(id);if(h){h.dialGroupId=group.id;h.dialSlot=index+1;}});
 }
+function moveHabitInDial(groupId,fromIndex,toIndex){
+  var group=dialGroupById(groupId);if(!group)return false;fromIndex=Number(fromIndex);toIndex=Number(toIndex);
+  if(fromIndex<0||fromIndex>=group.habits.length||toIndex<0||toIndex>=group.habits.length||fromIndex===toIndex)return false;
+  var id=group.habits.splice(fromIndex,1)[0];group.habits.splice(toIndex,0,id);renumberDialGroup(group);save();return true;
+}
 function habitAtDialSlot(groupId,slot){var group=dialGroupById(groupId);if(!group)return null;var id=group.habits[Number(slot)-1];return id?habitById(id):null;}
 function groupHabits(groupId){var group=dialGroupById(groupId);if(!group)return [];return group.habits.map(function(id){return habitById(id);}).filter(Boolean);}
 function stampedInGroup(groupId){return groupHabits(groupId).filter(function(h){return !!recordOf(h.id,todayStr());}).length;}
@@ -3327,6 +3390,7 @@ function dialTabsHTML(){
   if(!state.dialGroups.length)return '<div class="dial-tabs"><span class="dial-tabs-empty">还没有拨盘</span><button class="dial-add-inline" id="dialAddInline" type="button">新建拨盘</button></div>';
   return '<div class="dial-tabs" role="tablist">'+state.dialGroups.map(function(g){return '<button class="dial-tab'+(g.id===activeDialGroupId?' active':'')+'" data-dial-group="'+g.id+'" type="button" role="tab" aria-selected="'+(g.id===activeDialGroupId)+'">'+esc(g.name)+'</button>';}).join('')+'<button class="dial-add-inline" id="dialAddInline" type="button" aria-label="新建拨盘">新建拨盘</button></div>';
 }
+var dialSortMode=false;
 function rotaryDialHTML(group){
   var gid=group?group.id:'',holes='';
   for(var i=1;i<=10;i++){
@@ -3334,7 +3398,7 @@ function rotaryDialHTML(group){
     holes+='<button class="rotary-hole'+(h?' filled':'')+(stamped?' stamped':'')+'" data-dial-slot="'+i+'" style="--angle:'+angle+'deg" type="button" aria-label="'+(h?('数字'+i+' '+esc(h.name)):('数字'+i+' 空孔位'))+'"><span>'+i+'</span>'+(stamped?'<svg class="doodle-icon hole-stamp" aria-hidden="true"><use href="#ui-check"></use></svg>':'')+(h?'<i class="hole-ink"></i>':'')+'</button>';
   }
   var todayStamp=group?stampedInGroup(gid):0,groupName=group?esc(group.name):'等待命名';
-  return '<div class="rotary-wrap"><div class="rotary-dial" id="rotaryDial" data-group-id="'+gid+'"><div class="rotary-finger-stop" aria-hidden="true"></div><div class="rotary-gear"></div><div class="rotary-ring" id="rotaryRing">'+holes+'</div><div class="rotary-core"><span class="rotary-kicker">DAILY DIAL</span><b>'+groupName+'</b><small>'+(group?(todayStamp+' / 10 今日盖章'):'先建立一个拨盘')+'</small><span class="rotary-help">按住数字，顺时针拨到底</span></div></div><div class="habit-reveal" id="habitReveal"></div></div>';
+  return '<div class="rotary-wrap"><div class="rotary-dial'+(dialSortMode?' sort-mode':'')+'" id="rotaryDial" data-group-id="'+gid+'"><div class="rotary-finger-stop" aria-hidden="true"></div><div class="rotary-gear"></div><div class="rotary-ring" id="rotaryRing">'+holes+'</div><div class="rotary-core"><span class="rotary-kicker">'+(dialSortMode?'SORTING MODE':'DAILY DIAL')+'</span><b>'+groupName+'</b><small>'+(group?(todayStamp+' / 10 今日盖章'):'先建立一个拨盘')+'</small><span class="rotary-help">'+(dialSortMode?'拖动一个数字到目标位置':'按住数字，顺时针拨到底')+'</span></div></div><div class="dial-tools"><button class="dial-sort-toggle'+(dialSortMode?' active':'')+'" id="dialSortToggle" type="button" aria-pressed="'+(dialSortMode?'true':'false')+'"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-sort"></use></svg><span>'+(dialSortMode?'完成排序':'整理顺序')+'</span></button><span class="dial-sort-tip">'+(dialSortMode?'直接拖动数字，松手即保存':'也可以长按数字进入排序')+'</span></div><div class="habit-reveal" id="habitReveal"></div></div>';
 }
 function showHabitReveal(groupId,slot){
   var group=dialGroupById(groupId),habit=group?habitAtDialSlot(groupId,slot):null,box=$('#habitReveal');if(!box)return;
@@ -3936,6 +4000,16 @@ function applyTheme(id,persist){
 function openThemeSheet(){applyTheme(document.documentElement.getAttribute('data-theme')||'journal',false);$('#themeMask').classList.add('show');document.body.classList.add('theme-open');}
 function closeThemeSheet(){$('#themeMask').classList.remove('show');document.body.classList.remove('theme-open');}
 
+/* ---------- External fixed badge safety ---------- */
+function markNetlifyBadges(){
+  var selector='netlify-badge,[data-netlify-badge],[id*="netlify" i],[class~="netlify-badge" i],a[href*="netlify.com"],iframe[src*="netlify"]';
+  var nodes=document.querySelectorAll(selector),found=false;
+  nodes.forEach(function(el){found=true;el.classList.add('netlify-floating-badge');el.style.setProperty('pointer-events','none','important');});
+  document.body.classList.toggle('has-netlify-badge',found);
+}
+markNetlifyBadges();
+if(window.MutationObserver){new MutationObserver(markNetlifyBadges).observe(document.body,{childList:true,subtree:true});}
+
 /* ---------- 渲染汇总 + Tab ---------- */
 function renderAll(){graduate();renderHeader(false);renderHome();renderCal();renderLog();renderSop();}
 function switchTab(t){
@@ -3971,7 +4045,7 @@ function bindEvents(){
   $('#logFields').onclick=function(e){var card=e.target.closest?e.target.closest('[data-log-key]'):null;if(card)openLogFieldEditor(card.getAttribute('data-log-key'));};
   $('#logFieldClose').onclick=closeLogFieldEditor;$('#logFieldCancel').onclick=closeLogFieldEditor;
   $('#logFieldMask').onclick=function(e){if(e.target===$('#logFieldMask'))closeLogFieldEditor();};
-  $('#logFieldSave').onclick=saveLogFieldEditor;
+  $('#logFieldSave').onclick=saveLogFieldEditor;$('#logFieldTopSave').onclick=saveLogFieldEditor;
   $('#logFieldInput').oninput=updateLogFieldCount;
   $('#logFieldInput').onkeydown=function(e){if(e.key==='Escape')closeLogFieldEditor();if((e.metaKey||e.ctrlKey)&&e.key==='Enter')saveLogFieldEditor();};
   $('#hmX').onclick=closeHabitModal;
@@ -4001,7 +4075,8 @@ function bindEvents(){
   $('#hmDialGroup').onchange=function(){var gid=this.value;$('#hmDialSlot').value=String(firstFreeDialSlot(gid));};
   $('#habitList').onclick=function(e){
     var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;
-    if(tab){var id=tab.getAttribute('data-dial-group');if(id!==activeDialGroupId){activeDialGroupId=id;renderHome();}return;}
+    if(tab){var id=tab.getAttribute('data-dial-group');if(id!==activeDialGroupId){activeDialGroupId=id;dialSortMode=false;renderHome();}return;}
+    if(e.target.closest&&e.target.closest('#dialSortToggle')){dialSortMode=!dialSortMode;var dial=$('#habitList .rotary-dial');if(dial)dial.classList.toggle('sort-mode',dialSortMode);var toggle=$('#dialSortToggle');if(toggle){toggle.classList.toggle('active',dialSortMode);toggle.setAttribute('aria-pressed',dialSortMode?'true':'false');toggle.querySelector('span').textContent=dialSortMode?'完成排序':'整理顺序';}var kicker=$('#habitList .rotary-kicker'),help=$('#habitList .rotary-help'),tip=$('#habitList .dial-sort-tip');if(kicker)kicker.textContent=dialSortMode?'SORTING MODE':'DAILY DIAL';if(help)help.textContent=dialSortMode?'拖动一个数字到目标位置':'按住数字，顺时针拨到底';if(tip)tip.textContent=dialSortMode?'直接拖动数字，松手即保存':'也可以长按数字进入排序';return;}
     if(e.target.closest&&e.target.closest('#dialAddInline,#addDialBtn')){openDialGroupModal();return;}
     var create=e.target.closest?e.target.closest('[data-dial-create]'):null;if(create){openDialGroupModal();return;}
     var setup=e.target.closest?e.target.closest('[data-dial-setup]'):null;if(setup){openHabitModal(null,setup.getAttribute('data-group-id'),parseInt(setup.getAttribute('data-dial-setup'),10));return;}
@@ -4009,7 +4084,7 @@ function bindEvents(){
     var stamp=e.target.closest?e.target.closest('[data-habit-checkin]'):null;if(stamp){stampHabitFromDial(stamp,stamp.getAttribute('data-habit-checkin'));return;}
   };
   $('#habitList').addEventListener('dblclick',function(e){var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;e.preventDefault();openDialGroupModal(tab.getAttribute('data-dial-group'));});
-  $('#habitList').addEventListener('contextmenu',function(e){var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;e.preventDefault();requestDeleteDialGroup(tab.getAttribute('data-dial-group'));});
+  $('#habitList').addEventListener('contextmenu',function(e){var hole=e.target.closest?e.target.closest('.rotary-hole'):null;if(hole){e.preventDefault();return;}var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;e.preventDefault();requestDeleteDialGroup(tab.getAttribute('data-dial-group'));});
   var dialHold=null;
   $('#habitList').addEventListener('pointerdown',function(e){
     var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;
@@ -4018,25 +4093,26 @@ function bindEvents(){
   $('#habitList').addEventListener('pointermove',function(e){if(!dialHold)return;if(Math.abs(e.clientX-dialHold.x)>8||Math.abs(e.clientY-dialHold.y)>8){clearTimeout(dialHold.timer);dialHold=null;}});
   function finishDialHold(){if(dialHold){clearTimeout(dialHold.timer);dialHold=null;}}
   $('#habitList').addEventListener('pointerup',finishDialHold);$('#habitList').addEventListener('pointercancel',finishDialHold);
-  var rotaryDrag=null;
-  function clearSortMarks(){$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('dragging','drop-target');});$$('#habitList .rotary-dial').forEach(function(x){x.classList.remove('sorting');});}
+  var rotaryDrag=null,sortGhost=null;
+  function clearSortMarks(){$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('dragging','drop-target');});$$('#habitList .rotary-dial').forEach(function(x){x.classList.remove('sorting');});if(sortGhost){sortGhost.remove();sortGhost=null;}}
+  function moveSortGhost(x,y){if(!sortGhost)return;sortGhost.style.left=x+'px';sortGhost.style.top=y+'px';}
+  function beginHabitSort(d,x,y){if(d.mode==='sort'||!d.habitId)return;clearTimeout(d.timer);d.mode='sort';d.hole.classList.add('dragging');d.dial.classList.add('sorting');var habit=habitById(d.habitId);sortGhost=document.createElement('div');sortGhost.className='dial-drag-ghost';sortGhost.innerHTML='<span>'+d.slot+'</span><b>'+esc(habit?habit.name:'习惯')+'</b>';document.body.appendChild(sortGhost);moveSortGhost(x,y);try{navigator.vibrate&&navigator.vibrate(18);}catch(err){}}
   $('#habitList').addEventListener('pointerdown',function(e){
     var hole=e.target.closest?e.target.closest('.rotary-hole'):null;if(!hole)return;
     var dial=hole.closest('.rotary-dial'),ring=dial.querySelector('.rotary-ring'),gear=dial.querySelector('.rotary-gear'),rect=dial.getBoundingClientRect();if(!ring)return;
     var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx),groupId=dial.getAttribute('data-group-id'),slot=parseInt(hole.getAttribute('data-dial-slot'),10),habit=habitAtDialSlot(groupId,slot);
     rotaryDrag={dial:dial,hole:hole,ring:ring,gear:gear,group:groupId,slot:slot,habitId:habit?habit.id:null,cx:cx,cy:cy,startX:e.clientX,startY:e.clientY,prev:angle,total:0,moved:false,mode:'pending',targetIndex:slot-1,timer:null};
-    var current=rotaryDrag;current.timer=setTimeout(function(){
-      if(!rotaryDrag||rotaryDrag!==current||current.mode!=='pending'||current.moved||!current.habitId)return;
-      current.mode='sort';current.hole.classList.add('dragging');current.dial.classList.add('sorting');try{navigator.vibrate&&navigator.vibrate(18);}catch(err){}
-    },420);
+    var current=rotaryDrag;
+    if(dialSortMode&&current.habitId){beginHabitSort(current,e.clientX,e.clientY);}
+    else{current.timer=setTimeout(function(){if(!rotaryDrag||rotaryDrag!==current||current.mode!=='pending'||current.moved||!current.habitId)return;beginHabitSort(current,e.clientX,e.clientY);},420);}
     closeHabitReveal();try{dial.setPointerCapture&&dial.setPointerCapture(e.pointerId);}catch(err){}e.preventDefault();
   });
   $('#habitList').addEventListener('pointermove',function(e){
     if(!rotaryDrag)return;var d=rotaryDrag,distance=Math.hypot(e.clientX-d.startX,e.clientY-d.startY);
-    if(d.mode==='pending'&&distance>6){clearTimeout(d.timer);d.mode='dial';d.moved=true;d.ring.style.transition='none';if(d.gear)d.gear.style.transition='none';}
+    if(d.mode==='pending'&&distance>10){clearTimeout(d.timer);d.mode='dial';d.moved=true;d.ring.style.transition='none';if(d.gear)d.gear.style.transition='none';}
     if(d.mode==='sort'){
-      var group=dialGroupById(d.group),max=group?Math.max(0,group.habits.length-1):0,angle=Math.atan2(e.clientY-d.cy,e.clientX-d.cx)+Math.PI/2;if(angle<0)angle+=Math.PI*2;if(angle>=Math.PI*2)angle-=Math.PI*2;
-      var idx=Math.max(0,Math.min(max,Math.round(angle/(Math.PI*2)*10)%10));d.targetIndex=idx;$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('drop-target');});var target=d.dial.querySelector('.rotary-hole[data-dial-slot="'+(idx+1)+'"]');if(target&&target!==d.hole)target.classList.add('drop-target');e.preventDefault();return;
+      moveSortGhost(e.clientX,e.clientY);var group=dialGroupById(d.group),max=group?Math.max(0,group.habits.length-1):0,angle=Math.atan2(e.clientY-d.cy,e.clientX-d.cx)+Math.PI/2;if(angle<0)angle+=Math.PI*2;if(angle>=Math.PI*2)angle-=Math.PI*2;
+      var idx=Math.max(0,Math.min(max,Math.round(angle/(Math.PI*2)*10)%10));d.targetIndex=idx;$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('drop-target');});var target=d.dial.querySelector('.rotary-hole[data-dial-slot="'+(idx+1)+'"]');if(target&&target!==d.hole)target.classList.add('drop-target');var help=$('#habitList .rotary-help');if(help)help.textContent='松手放到数字 '+(idx+1);e.preventDefault();return;
     }
     if(d.mode!=='dial')return;
     var angle=Math.atan2(e.clientY-d.cy,e.clientX-d.cx),delta=angle-d.prev;if(delta>Math.PI)delta-=Math.PI*2;if(delta<-Math.PI)delta+=Math.PI*2;d.prev=angle;
@@ -4046,8 +4122,7 @@ function bindEvents(){
   function finishRotary(e,cancelled){
     if(!rotaryDrag)return;var d=rotaryDrag;rotaryDrag=null;clearTimeout(d.timer);
     if(d.mode==='sort'){
-      clearSortMarks();if(!cancelled&&d.habitId&&d.targetIndex!==d.slot-1){var group=dialGroupById(d.group);if(group){group.habits.splice(d.slot-1,1);group.habits.splice(d.targetIndex,0,d.habitId);renumberDialGroup(group);save();renderHome();toast('数字顺序已更新');}}
-      return;
+      clearSortMarks();if(!cancelled&&d.habitId&&d.targetIndex!==d.slot-1&&moveHabitInDial(d.group,d.slot-1,d.targetIndex)){renderHome();toast('数字顺序已更新并保存');}else{var help=$('#habitList .rotary-help');if(help&&dialSortMode)help.textContent='拖动一个数字到目标位置';}return;
     }
     d.ring.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';d.ring.style.transform='rotate(0deg)';if(d.gear){d.gear.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';d.gear.style.transform='rotate(0deg)';}
     if(!cancelled)setTimeout(function(){showHabitReveal(d.group,d.slot);},790);
