@@ -1875,3 +1875,35 @@ body.log-open{overflow:hidden}
   .handbook-illustration,.handbook-empty-mark{width:72px;height:72px}.handbook-icon{width:58px;height:58px}.handbook-main h3{font-size:22px}.handbook-actions{grid-column:1/-1;flex-direction:row;justify-content:flex-end}.handbook-actions .btn{flex:1}.handbook-stats{margin-top:6px}.dial-summary-line{font-size:9px}
   .habit-slot-row{grid-template-columns:1fr 105px}
 }
+
+/* Dial management and long-press sorting states */
+.dial-tab{touch-action:pan-x;user-select:none;-webkit-user-select:none}
+.dial-tab.active{position:relative}
+.dial-tab.holding{animation:tab-hold .65s ease both}
+@keyframes tab-hold{0%{transform:scale(1)}70%{transform:scale(.96) rotate(-1deg)}100%{transform:scale(1.02) rotate(.5deg)}}
+.rotary-dial.sorting{cursor:grabbing}
+.rotary-dial.sorting .rotary-ring{filter:saturate(.94)}
+.rotary-hole.dragging{scale:1.2;z-index:9;background:var(--ochre-soft);border-color:var(--ochre-deep);box-shadow:0 0 0 4px rgba(198,111,80,.13),2px 3px 0 rgba(62,52,43,.35);animation:hole-jiggle .32s ease infinite alternate}
+.rotary-hole.drop-target{scale:1.22;z-index:8;border-style:dashed;border-color:var(--sage-deep);background:repeating-linear-gradient(120deg,rgba(135,154,126,.42) 0 4px,rgba(242,223,183,.76) 4px 8px)}
+@keyframes hole-jiggle{from{rotate:-3deg}to{rotate:3deg}}
+.rotary-help::after{content:"";display:block;width:54px;margin:4px auto 0;border-top:1px dashed rgba(62,52,43,.28);transform:rotate(-2deg)}
+
+
+/* Ensure app-scoped legacy variables follow the selected root theme */
+html[data-theme="journal"]{--theme-ink:#3E342B;--theme-muted:#8E8172;--theme-line:#8A7868;--theme-surface:#FCF8F0}
+html[data-theme="warm"]{--theme-ink:#5C4033;--theme-muted:#A27D6C;--theme-line:#E6C2A8;--theme-surface:#FFE4D6}
+html[data-theme="forest"]{--theme-ink:#2F3E36;--theme-muted:#78857D;--theme-line:#B0C0B9;--theme-surface:#E2E8E4;--lav-soft:#E7DDE5}
+html[data-theme] #app{
+  --ink:var(--theme-ink);
+  --muted:var(--theme-muted);
+  --line:var(--theme-line);
+  --card:var(--theme-surface);
+  --green:var(--sage-deep);
+  --green-deep:var(--sage-deep);
+  --green-soft:var(--sage-soft);
+  --gold:var(--mustard);
+  --gold-soft:var(--mustard-soft);
+  --purple:var(--lav);
+  --purple-soft:var(--lav-soft);
+  --gray-soft:var(--paper-deep);
+}

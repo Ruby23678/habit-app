@@ -5,144 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F4EFE6">
 <title>日迹 DayTrace · 最终版</title>
+<script>
+(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('daytrace.theme')||'journal');}catch(e){document.documentElement.setAttribute('data-theme','journal');}})();
+</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2/assets/css/atcb.min.css">
 </head>
 <body>
 <svg class="dt-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
     <symbol id="dt-cat" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14 27 10.5 12 23 19.5M50 27l3.5-15L41 19.5"/>
-        <path d="M12 29c0-10 8.3-17 20-17s20 7 20 17v11c0 10.5-8.4 16.8-20 16.8S12 50.5 12 40Z" fill="#FFF8E8"/>
-        <path d="M23 34h.1M41 34h.1" stroke-width="5"/>
+        <path d="M12 29c0-10 8.3-17 20-17s20 7 20 17v11c0 10.5-8.4 16.8-20 16.8S12 50.5 12 40Z" fill="none"/>
+        <path d="M23 34h.1M41 34h.1" stroke-width="var(--icon-stroke-width,2)"/>
         <path d="M28.5 41c2.5 2 4.5 2 7 0M18 37l-6 1M18 42l-6 3M46 37l6 1M46 42l6 3"/>
-        <path d="M32 35v3H29.5" stroke-width="1.4"/>
+        <path d="M32 35v3H29.5" stroke-width="var(--icon-stroke-width,2)"/>
       </g>
     </symbol>
     <symbol id="dt-bee" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
-        <ellipse cx="31" cy="34" rx="16" ry="18" fill="#F2DFB7"/>
-        <path d="M20 25c-7-10-14-5-11 4 2 6 8 7 13 5M42 25c7-10 14-5 11 4-2 6-8 7-13 5" fill="#FFF8E8"/>
-        <path d="M20 29c7-3 14-3 22 0M18 37c8-3 17-2 27 1M22 44c6-2 12-1 19 1" stroke-width="4"/>
+      <g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="31" cy="34" rx="16" ry="18" fill="none"/>
+        <path d="M20 25c-7-10-14-5-11 4 2 6 8 7 13 5M42 25c7-10 14-5 11 4-2 6-8 7-13 5" fill="none"/>
+        <path d="M20 29c7-3 14-3 22 0M18 37c8-3 17-2 27 1M22 44c6-2 12-1 19 1" stroke-width="var(--icon-stroke-width,2)"/>
         <path d="M25 18c-3-6-7-7-10-8M38 18c2-6 6-7 9-8"/>
-        <circle cx="25" cy="34" r="1.4" fill="currentColor" stroke="none"/>
-        <path d="M26 39c2 1.5 4 1.5 6 0" stroke-width="1.5"/>
+        <circle cx="25" cy="34" r="1.4" fill="none" stroke="none"/>
+        <path d="M26 39c2 1.5 4 1.5 6 0" stroke-width="var(--icon-stroke-width,2)"/>
       </g>
     </symbol>
     <symbol id="dt-frog" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M13 28c0-10 8-17 19-17s19 7 19 17v10c0 10-7.5 17-19 17s-19-7-19-17Z" fill="#DCE5D8"/>
-        <circle cx="21" cy="24" r="8" fill="#FFF8E8"/><circle cx="43" cy="24" r="8" fill="#FFF8E8"/>
-        <circle cx="21" cy="25" r="2.2" fill="currentColor" stroke="none"/><circle cx="43" cy="25" r="2.2" fill="currentColor" stroke="none"/>
+      <g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 28c0-10 8-17 19-17s19 7 19 17v10c0 10-7.5 17-19 17s-19-7-19-17Z" fill="none"/>
+        <circle cx="21" cy="24" r="8" fill="none"/><circle cx="43" cy="24" r="8" fill="none"/>
+        <circle cx="21" cy="25" r="2.2" fill="none" stroke="none"/><circle cx="43" cy="25" r="2.2" fill="none" stroke="none"/>
         <path d="M22 39c4 4 7 5.5 10 5.5S38 43 42 39M11 46l-3 6M53 46l3 6"/>
       </g>
     </symbol>
     <symbol id="dt-octopus" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 28c0-10 6-18 15-18s15 8 15 18v13c0 7-4 12-8 12-3 0-4-3-2-7 2-4 0-7-2-4-2 3-2 10-4 12-3 2-5-1-4-5 1-4-1-6-3-2-2 4-1 9-4 7-4-3-3-14-3-14-4 0-8-5-8-12Z" fill="#E7DFE9"/>
-        <circle cx="27" cy="30" r="1.6" fill="currentColor" stroke="none"/><circle cx="37" cy="30" r="1.6" fill="currentColor" stroke="none"/>
+      <g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 28c0-10 6-18 15-18s15 8 15 18v13c0 7-4 12-8 12-3 0-4-3-2-7 2-4 0-7-2-4-2 3-2 10-4 12-3 2-5-1-4-5 1-4-1-6-3-2-2 4-1 9-4 7-4-3-3-14-3-14-4 0-8-5-8-12Z" fill="none"/>
+        <circle cx="27" cy="30" r="1.6" fill="none" stroke="none"/><circle cx="37" cy="30" r="1.6" fill="none" stroke="none"/>
         <path d="M29 36c2 1.4 4 1.4 6 0"/>
       </g>
     </symbol>
     <symbol id="dt-leaf" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M15 48C17 27 31 14 51 12c1 20-9 36-30 39" fill="#DCE5D8"/>
+      <g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 48C17 27 31 14 51 12c1 20-9 36-30 39" fill="none"/>
         <path d="M18 46c8-12 16-20 27-27"/>
       </g>
     </symbol>
     <symbol id="dt-spark" viewBox="0 0 64 64">
-      <path d="M32 8c2 15 9 22 24 24-15 2-22 9-24 24-2-15-9-22-24-24 15-2 22-9 24-24Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M32 8c2 15 9 22 24 24-15 2-22 9-24 24-2-15-9-22-24-24 15-2 22-9 24-24Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
-    <symbol id="habit-shoes" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 37c8 1 13-2 18-9l5-6c2-3 5-1 5 2l1 7c1 4 5 6 10 8 5 2 8 4 7 8-1 3-5 4-11 4H15c-5 0-8-2-8-6 0-3 1-6 1-8Z" fill="#D8AE69" opacity=".72"/>
-        <path d="M12 48c11 3 32 3 41-1M21 34l10 5 35 1M23 29l9 4M26 24l9 4" stroke-width="2.8"/>
-        <path d="M31 30c-3 2-5 4-8 5M18 43c8 1 16 1 24-1" stroke-width="1.15" opacity=".55"/>
-        <circle cx="46" cy="43" r="1.2" fill="currentColor" stroke="none" opacity=".55"/>
-      </g>
-    </symbol>
-    <symbol id="habit-book" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 16c9-3 16-1 24 5 8-6 15-8 24-5v33c-9-3-16-1-24 5-8-6-15-8-24-5Z" fill="#E8D7AA" opacity=".8"/>
-        <path d="M32 21v33M13 23c6-1 11 0 15 3M13 30c6-1 11 0 15 3M13 37c6-1 11 0 15 3M36 26c4-3 9-4 15-3M36 33c4-3 9-4 15-3M36 40c4-3 9-4 15-3" stroke-width="1.35" opacity=".7"/>
-      </g>
-    </symbol>
-    <symbol id="habit-water" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M32 7c-2 8-17 21-17 32 0 10 7.5 17 17 17s17-7 17-17C49 28 34 15 32 7Z" fill="#B9D5D0" opacity=".78"/>
-        <path d="M20 39c4-2 8-1 11 2 4 4 8 5 13 1M25 34c2-1 4-1 6 1" stroke-width="1.45" opacity=".72"/>
-        <circle cx="40" cy="48" r="1.4" fill="currentColor" stroke="none" opacity=".5"/>
-      </g>
-    </symbol>
-    <symbol id="habit-flame" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M33 6c3 11-9 15-4 23 2-5 6-8 10-11 0 7 9 9 9 20 0 11-7 19-18 19S12 50 12 39c0-11 8-17 14-26 2 5 2 9 1 13 4-4 7-10 6-20Z" fill="#C66F50" opacity=".65"/>
-        <path d="M31 39c-5 5-4 12 2 14 6 2 10-3 9-8-1-4-5-6-6-10-1 2-2 4-5 4Z" fill="#F2DFB7" opacity=".9" stroke-width="1.7"/>
-        <path d="M48 16l3-5M52 23l5-1" stroke-width="1.3" opacity=".65"/>
-      </g>
-    </symbol>
-    <symbol id="habit-leaf" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M13 51C13 28 27 12 54 9c2 24-10 41-35 43" fill="#B9CBAE" opacity=".78"/>
-        <path d="M14 49c9-14 19-24 34-33M24 37l-2-11M33 29l8 1M31 30l1 10M40 23l8-1" stroke-width="1.5"/>
-        <circle cx="44" cy="18" r="1.2" fill="currentColor" stroke="none" opacity=".55"/>
-      </g>
-    </symbol>
-    <symbol id="habit-moon" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M43 8c-14 3-23 15-21 28 2 12 12 20 24 18-12-7-16-17-13-28 2-7 6-13 10-18Z" fill="#D9C7A1" opacity=".8"/>
-        <path d="M45 18c2-1 5-1 7 0M49 26c3-1 5-1 8 1M10 18l3 3M8 25l4 1M18 8l1 4" stroke-width="1.35" opacity=".6"/>
-      </g>
-    </symbol>
-    <symbol id="habit-pen" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m40 9 15 15-29 30-17 5 5-18Z" fill="#C9D3B4" opacity=".7"/>
-        <path d="m34 15 15 15M24 35l6 6M10 59c7-4 15-7 24-8" stroke-width="2.5"/>
-        <path d="M12 53c5-2 9-3 14-3" stroke-width="1.2" opacity=".55"/>
-      </g>
-    </symbol>
-    <symbol id="habit-cup" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M13 25h35v18c0 8-6 13-17 13s-18-5-18-13Z" fill="#D8C4A3" opacity=".76"/>
-        <path d="M48 30h4c8 0 8 13 0 13h-4M9 56c11 2 30 2 43-1" stroke-width="2.5"/>
-        <path d="M23 18c-4-5 3-7 0-12M32 18c-4-5 3-7 0-12M41 18c-4-5 3-7 0-12" stroke-width="1.45" opacity=".65"/>
-      </g>
-    </symbol>
-    <symbol id="habit-toothbrush" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m12 52 30-32 8 8-30 32Z" fill="#B9D5D0" opacity=".6"/>
-        <path d="m42 20 10-10 9 9-11 10M17 48l8 7" stroke-width="2.5"/>
-        <path d="M45 18v-7M49 21l6-5M38 24l-6-4M42 28l-5 5" stroke-width="1.5"/>
-      </g>
-    </symbol>
-    <symbol id="habit-paint" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M29 9c13-3 25 5 25 18 0 9-7 12-14 11-5-1-7 2-6 6 1 5-3 9-9 9-10 0-18-8-18-19C7 22 16 12 29 9Z" fill="#D9C7A1" opacity=".65"/>
-        <path d="M22 20c2-3 7-3 9 0M16 34c3-3 8-2 9 2M34 16c3-2 7 0 7 4M44 34c3-2 6 0 6 4" stroke-width="2.2"/>
-        <circle cx="27" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="35" r="1.4" fill="currentColor" stroke="none"/><circle cx="38" cy="18" r="1.4" fill="currentColor" stroke="none"/><circle cx="46" cy="36" r="1.4" fill="currentColor" stroke="none"/>
-      </g>
-    </symbol>
-    <symbol id="habit-lotus" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M32 11c7 8 8 16 0 25-8-9-7-17 0-25ZM18 22c8 4 12 10 14 16-8 0-14-5-14-16ZM46 22c-8 4-12 10-14 16 8 0 14-5 14-16Z" fill="#C9D3B4" opacity=".72"/>
-        <path d="M10 34c8 0 16 3 22 11-9 2-17-2-22-11ZM54 34c-8 0-16 3-22 11 9 2 17-2 22-11Z" fill="#D9C7A1" opacity=".65"/>
-        <path d="M12 51c13-3 27-3 40 0" stroke-width="2.6"/>
-      </g>
-    </symbol>
-    <symbol id="habit-footsteps" viewBox="0 0 64 64">
-      <g fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M23 38c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16Z" fill="#B9CBAE" opacity=".72"/>
-        <path d="M41 8c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16Z" fill="#D8AE69" opacity=".65"/>
-        <circle cx="17" cy="34" r="2" fill="currentColor" stroke="none"/><circle cx="24" cy="32" r="1.7" fill="currentColor" stroke="none"/><circle cx="31" cy="35" r="1.5" fill="currentColor" stroke="none"/>
-        <circle cx="36" cy="5" r="2" fill="currentColor" stroke="none"/><circle cx="43" cy="3" r="1.7" fill="currentColor" stroke="none"/><circle cx="49" cy="6" r="1.5" fill="currentColor" stroke="none"/>
-      </g>
-    </symbol>
-    <symbol id="ui-check" viewBox="0 0 64 64"><path d="M12 34c7 3 13 8 18 16 7-17 15-28 25-36" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="ui-box" viewBox="0 0 64 64"><path d="M11 12c15 2 28 2 43 0-1 15-1 27 1 41-16-2-29-2-44 0 1-14 1-27 0-41Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="ui-x" viewBox="0 0 64 64"><path d="M14 12c12 10 24 24 36 39M49 13C39 24 26 36 12 51" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
-    <symbol id="ui-search" viewBox="0 0 64 64"><path d="M12 26c-1-10 6-17 16-17 9 0 16 7 15 17-1 9-7 15-16 15-7 0-14-6-15-15Zm27 14 12 13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
-    <symbol id="ui-clock" viewBox="0 0 64 64"><path d="M11 34c-1-12 8-21 20-21 13 0 21 9 20 21-1 12-9 20-21 20-11 0-19-8-19-20Zm21-14v15l10 6" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="ui-spark" viewBox="0 0 64 64"><path d="M32 7c2 15 9 22 24 25-15 2-22 9-24 24-2-15-9-22-24-24 15-3 22-10 24-25Z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="habit-shoes" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M8 37c8 1 13-2 18-9l5-6c2-3 5-1 5 2l1 7c1 4 5 6 10 8 5 2 8 4 7 8-1 3-5 4-11 4H15c-5 0-8-2-8-6 0-3 1-6 1-8Z"/><path d="M12 48c11 3 32 3 41-1M21 34l10 5 35 1M23 29l9 4M26 24l9 4M18 43c8 1 16 1 24-1"/></g></symbol>
+    <symbol id="habit-book" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16c9-3 16-1 24 5 8-6 15-8 24-5v33c-9-3-16-1-24 5-8-6-15-8-24-5Z"/><path d="M32 21v33M13 23c6-1 11 0 15 3M13 30c6-1 11 0 15 3M13 37c6-1 11 0 15 3M36 26c4-3 9-4 15-3M36 33c4-3 9-4 15-3M36 40c4-3 9-4 15-3"/></g></symbol>
+    <symbol id="habit-water" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 7c-2 8-17 21-17 32 0 10 7.5 17 17 17s17-7 17-17C49 28 34 15 32 7Z"/><path d="M20 39c4-2 8-1 11 2 4 4 8 5 13 1M25 34c2-1 4-1 6 1"/></g></symbol>
+    <symbol id="habit-flame" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M33 6c3 11-9 15-4 23 2-5 6-8 10-11 0 7 9 9 9 20 0 11-7 19-18 19S12 50 12 39c0-11 8-17 14-26 2 5 2 9 1 13 4-4 7-10 6-20Z"/><path d="M31 39c-5 5-4 12 2 14 6 2 10-3 9-8-1-4-5-6-6-10-1 2-2 4-5 4Z"/><path d="M48 16l3-5M52 23l5-1"/></g></symbol>
+    <symbol id="habit-leaf" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M13 51C13 28 27 12 54 9c2 24-10 41-35 43"/><path d="M14 49c9-14 19-24 34-33M24 37l-2-11M33 29l8 1M31 30l1 10M40 23l8-1"/></g></symbol>
+    <symbol id="habit-moon" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M43 8c-14 3-23 15-21 28 2 12 12 20 24 18-12-7-16-17-13-28 2-7 6-13 10-18Z"/><path d="M45 18c2-1 5-1 7 0M49 26c3-1 5-1 8 1M10 18l3 3M8 25l4 1M18 8l1 4"/></g></symbol>
+    <symbol id="habit-pen" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="m40 9 15 15-29 30-17 5 5-18Z"/><path d="m34 15 15 15M24 35l6 6M10 59c7-4 15-7 24-8M12 53c5-2 9-3 14-3"/></g></symbol>
+    <symbol id="habit-cup" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M13 25h35v18c0 8-6 13-17 13s-18-5-18-13ZM48 30h4c8 0 8 13 0 13h-4M9 56c11 2 30 2 43-1"/><path d="M23 18c-4-5 3-7 0-12M32 18c-4-5 3-7 0-12M41 18c-4-5 3-7 0-12"/></g></symbol>
+    <symbol id="habit-toothbrush" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="m12 52 30-32 8 8-30 32ZM42 20 52 10l9 9-11 10M17 48l8 7"/><path d="M45 18v-7M49 21l6-5M38 24l-6-4M42 28l-5 5"/></g></symbol>
+    <symbol id="habit-paint" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M29 9c13-3 25 5 25 18 0 9-7 12-14 11-5-1-7 2-6 6 1 5-3 9-9 9-10 0-18-8-18-19C7 22 16 12 29 9Z"/><path d="M22 20c2-3 7-3 9 0M16 34c3-3 8-2 9 2M34 16c3-2 7 0 7 4M44 34c3-2 6 0 6 4"/></g></symbol>
+    <symbol id="habit-lotus" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M32 11c7 8 8 16 0 25-8-9-7-17 0-25ZM18 22c8 4 12 10 14 16-8 0-14-5-14-16ZM46 22c-8 4-12 10-14 16 8 0 14-5 14-16Z"/><path d="M10 34c8 0 16 3 22 11-9 2-17-2-22-11ZM54 34c-8 0-16 3-22 11 9 2 17-2 22-11ZM12 51c13-3 27-3 40 0"/></g></symbol>
+    <symbol id="habit-footsteps" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M23 38c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16ZM41 8c-7 3-11 7-10 15 1 5 10 5 13 1 4-5 3-12-3-16Z"/><circle cx="17" cy="34" r="2"/><circle cx="24" cy="32" r="1.7"/><circle cx="31" cy="35" r="1.5"/><circle cx="36" cy="5" r="2"/><circle cx="43" cy="3" r="1.7"/><circle cx="49" cy="6" r="1.5"/></g></symbol>
+    <symbol id="habit-smartphone" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="6" width="28" height="52" rx="6"/><path d="M27 11h10M29 52h6M23 18h18v25H23Z"/><path d="M45 13c3 1 5 3 6 6M48 9c4 2 7 5 8 9"/></g></symbol>
+    <symbol id="habit-dumbbell" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M18 25h28v14H18Z"/><path d="M12 21h6v22h-6ZM46 21h6v22h-6ZM5 28h7v8H5ZM52 28h7v8h-7ZM25 32h14"/></g></symbol>
+    <symbol id="habit-shopping" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M13 22h38l-4 35H17Z"/><path d="M23 22c0-9 4-14 9-14s9 5 9 14M24 30l-2 18M40 30l2 18"/></g></symbol>
+    <symbol id="habit-piano" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h50v31H7Z"/><path d="M15 20v31M23 20v31M31 20v31M39 20v31M47 20v31M15 20v17M23 20v17M39 20v17M47 20v17"/><path d="M9 20c15-2 31-2 46 0"/></g></symbol>
+    <symbol id="habit-scissors" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="46" r="8"/><circle cx="16" cy="18" r="8"/><path d="m22 43 33-28M22 21l33 28"/></g></symbol>
+    <symbol id="habit-chat" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13h35v25H21l-9 8v-8H6Z"/><path d="M30 25h28v20H47v7l-8-7h-9"/><path d="M15 23h17M15 29h11"/></g></symbol>
+    <symbol id="habit-star" viewBox="0 0 64 64"><path d="m32 7 7 17 18 2-14 12 4 18-15-9-15 9 4-18L7 26l18-2Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="habit-briefcase" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="20" width="50" height="34" rx="4"/><path d="M23 20v-8h18v8M7 31h50M27 31v7h10v-7"/></g></symbol>
+    <symbol id="ui-palette" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8c14-3 27 6 27 20 0 9-7 13-14 12-5-1-7 2-6 7 1 5-3 9-9 9C16 56 7 47 7 35 7 21 15 11 28 8Z"/><circle cx="21" cy="22" r="2"/><circle cx="18" cy="35" r="2"/><circle cx="31" cy="14" r="2"/><circle cx="43" cy="23" r="2"/></g></symbol>
+    <symbol id="ui-check" viewBox="0 0 64 64"><path d="M12 34c7 3 13 8 18 16 7-17 15-28 25-36" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-box" viewBox="0 0 64 64"><path d="M11 12c15 2 28 2 43 0-1 15-1 27 1 41-16-2-29-2-44 0 1-14 1-27 0-41Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-x" viewBox="0 0 64 64"><path d="M14 12c12 10 24 24 36 39M49 13C39 24 26 36 12 51" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round"/></symbol>
+    <symbol id="ui-search" viewBox="0 0 64 64"><path d="M12 26c-1-10 6-17 16-17 9 0 16 7 15 17-1 9-7 15-16 15-7 0-14-6-15-15Zm27 14 12 13" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round"/></symbol>
+    <symbol id="ui-clock" viewBox="0 0 64 64"><path d="M11 34c-1-12 8-21 20-21 13 0 21 9 20 21-1 12-9 20-21 20-11 0-19-8-19-20Zm21-14v15l10 6" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ui-spark" viewBox="0 0 64 64"><path d="M32 7c2 15 9 22 24 25-15 2-22 9-24 24-2-15-9-22-24-24 15-3 22-10 24-25Z" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width,2)" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 <!--APP_STYLE_START-->
@@ -2154,7 +2094,7 @@ body.log-open{overflow:hidden}
 .log-summary-card::after{content:"";position:absolute;right:16px;bottom:15px;width:8px;height:8px;border-top:1.5px solid rgba(62,52,43,.38);border-right:1.5px solid rgba(62,52,43,.38);transform:rotate(45deg)}
 .log-card-number{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border:1.2px solid rgba(62,52,43,.5);border-radius:47% 53% 45% 55%;background:var(--mustard-soft);color:var(--ink-soft);font-family:var(--display);font-size:11px;transform:rotate(-4deg)}
 .log-card-copy{display:flex;min-width:0;flex-direction:column;gap:6px}.log-card-copy b{color:var(--ink);font-family:var(--display);font-size:15px;line-height:1.3}.log-card-copy span{display:-webkit-box;overflow:hidden;color:var(--ink-soft);font-family:var(--display);font-size:12.5px;line-height:1.7;-webkit-line-clamp:2;-webkit-box-orient:vertical}.log-summary-card.empty .log-card-copy span{color:var(--muted);font-style:italic}
-#logFieldMask{z-index:85;padding:0;background:rgba(51,43,35,.5)}.field-editor{position:relative;display:flex;flex-direction:column;width:min(920px,calc(100vw - 32px));height:min(900px,calc(100vh - 32px));padding:38px 44px 27px;border:2.2px solid var(--ink);border-radius:24px 17px 28px 20px / 18px 27px 17px 29px;background:linear-gradient(90deg,transparent 0 34px,rgba(198,111,80,.13) 34px 35px,transparent 35px),repeating-linear-gradient(to bottom,transparent 0 35px,rgba(62,52,43,.055) 35px 36px),radial-gradient(circle at 18px 18px,rgba(62,52,43,.035) 0 1px,transparent 1.4px) 0 0/20px 20px,#FBF6EC;box-shadow:7px 9px 0 rgba(62,52,43,.7),0 30px 80px rgba(35,26,18,.32);animation:field-editor-in .28s cubic-bezier(.2,.8,.2,1) both}
+#logFieldMask{z-index:2147481000;padding:0;background:rgba(51,43,35,.5)}.field-editor{position:relative;display:flex;flex-direction:column;width:min(920px,calc(100vw - 32px));height:min(900px,calc(100vh - 32px));padding:38px 44px 27px;border:2.2px solid var(--ink);border-radius:24px 17px 28px 20px / 18px 27px 17px 29px;background:linear-gradient(90deg,transparent 0 34px,rgba(198,111,80,.13) 34px 35px,transparent 35px),repeating-linear-gradient(to bottom,transparent 0 35px,rgba(62,52,43,.055) 35px 36px),radial-gradient(circle at 18px 18px,rgba(62,52,43,.035) 0 1px,transparent 1.4px) 0 0/20px 20px,#FBF6EC;box-shadow:7px 9px 0 rgba(62,52,43,.7),0 30px 80px rgba(35,26,18,.32);animation:field-editor-in .28s cubic-bezier(.2,.8,.2,1) both}
 @keyframes field-editor-in{from{opacity:0;transform:translateY(20px) rotate(-.5deg) scale(.985)}to{opacity:1;transform:none}}
 .field-editor-close{position:absolute;right:22px;top:19px;display:grid;place-items:center;width:38px;height:38px;padding:7px;border:1.7px solid var(--ink);border-radius:50% 46% 54% 48%;background:var(--paper-light);color:var(--ink);box-shadow:2px 2px 0 rgba(62,52,43,.5);cursor:pointer;transition:transform .16s ease,background .16s ease}.field-editor-close:hover{transform:rotate(7deg);background:var(--ochre-soft)}.field-editor-close svg{width:18px;height:18px}
 .field-editor-kicker{color:var(--sage-deep);font-size:9px;font-weight:900;letter-spacing:.23em}.field-editor h2{margin:5px 0 6px;color:var(--ink);font-family:var(--display);font-size:30px;line-height:1.35;letter-spacing:.03em}.field-editor-prompt{margin:0 0 15px;color:var(--muted);font-family:var(--display);font-size:12px}
@@ -2241,6 +2181,277 @@ body.log-open{overflow:hidden}
   .habit-slot-row{grid-template-columns:1fr 105px}
 }
 
+/* Dial management and long-press sorting states */
+.dial-tab{touch-action:pan-x;user-select:none;-webkit-user-select:none}
+.dial-tab.active{position:relative}
+.dial-tab.holding{animation:tab-hold .65s ease both}
+@keyframes tab-hold{0%{transform:scale(1)}70%{transform:scale(.96) rotate(-1deg)}100%{transform:scale(1.02) rotate(.5deg)}}
+.rotary-dial.sorting{cursor:grabbing}
+.rotary-dial.sorting .rotary-ring{filter:saturate(.94)}
+.rotary-hole.dragging{scale:1.2;z-index:9;background:var(--ochre-soft);border-color:var(--ochre-deep);box-shadow:0 0 0 4px rgba(198,111,80,.13),2px 3px 0 rgba(62,52,43,.35);animation:hole-jiggle .32s ease infinite alternate}
+.rotary-hole.drop-target{scale:1.22;z-index:8;border-style:dashed;border-color:var(--sage-deep);background:repeating-linear-gradient(120deg,rgba(135,154,126,.42) 0 4px,rgba(242,223,183,.76) 4px 8px)}
+@keyframes hole-jiggle{from{rotate:-3deg}to{rotate:3deg}}
+.rotary-help::after{content:"";display:block;width:54px;margin:4px auto 0;border-top:1px dashed rgba(62,52,43,.28);transform:rotate(-2deg)}
+
+
+/* =========================================================
+   Theme skins, SVG theme linkage and safe action bars
+   ========================================================= */
+:root,
+html[data-theme="journal"]{
+  --page-bg-start:#F7F2E9;
+  --page-bg-mid:#F1EADD;
+  --page-bg-end:#F5EFE4;
+  --page-glow:#D7AA58;
+  --surface:#FCF8F0;
+  --surface-light:#FFFBF3;
+  --surface-strong:#FFFDF8;
+  --surface-texture:radial-gradient(circle at 16px 16px,rgba(62,52,43,.035) 0 1px,transparent 1.3px) 0 0/18px 18px,linear-gradient(150deg,#FFFBF3,#F7F0E3);
+  --paper:#F4EFE6;
+  --paper-light:#FCF8F0;
+  --paper-deep:#E9DFD0;
+  --ink:#3E342B;
+  --ink-soft:#66594D;
+  --muted:#8E8172;
+  --line:#8A7868;
+  --line-soft:rgba(62,52,43,.22);
+  --border-strong:#3E342B;
+  --ochre:#C66F50;
+  --ochre-deep:#9E5038;
+  --ochre-soft:#EED3C4;
+  --mustard:#D7AA58;
+  --mustard-deep:#A97B2F;
+  --mustard-soft:#F2DFB7;
+  --sage:#879A7E;
+  --sage-deep:#5E7359;
+  --sage-soft:#DCE5D8;
+  --lav:#9889A5;
+  --lav-deep:#6E607A;
+  --lav-soft:#E7DFE9;
+  --cream:#FFF9EC;
+  --deep-panel:#4E5D4B;
+  --deep-panel-text:#FFF8E9;
+  --icon-stroke-width:2;
+  --icon-color:#5C4033;
+  --icon-opacity:1;
+  --noise-opacity:.19;
+  --accent-contrast:#FFF9EC;
+  --theme-ring:#3E342B;
+}
+
+html[data-theme="warm"]{
+  --page-bg-start:#FFF8EB;
+  --page-bg-mid:#FDF5E6;
+  --page-bg-end:#FFF1E3;
+  --page-glow:#FF8C69;
+  --surface:#FFE4D6;
+  --surface-light:#FFF8EB;
+  --surface-strong:#FFFDF8;
+  --surface-texture:radial-gradient(circle at 16px 16px,rgba(160,82,45,.045) 0 1px,transparent 1.3px) 0 0/18px 18px,linear-gradient(145deg,#FFF8EB,#FFE4D6);
+  --paper:#FFF8EB;
+  --paper-light:#FFFDF8;
+  --paper-deep:#F8DDCC;
+  --ink:#5C4033;
+  --ink-soft:#765548;
+  --muted:#A27D6C;
+  --line:#E6C2A8;
+  --line-soft:rgba(160,82,45,.2);
+  --border-strong:#8B5A42;
+  --ochre:#FF8C69;
+  --ochre-deep:#D96546;
+  --ochre-soft:#FFD7C7;
+  --mustard:#F2B36B;
+  --mustard-deep:#A96635;
+  --mustard-soft:#FFE5CF;
+  --sage:#C99C83;
+  --sage-deep:#8C5C45;
+  --sage-soft:#F6DED0;
+  --lav:#C69A9F;
+  --lav-deep:#875C66;
+  --lav-soft:#F1DDE0;
+  --cream:#FFFDF7;
+  --deep-panel:#9A5B42;
+  --deep-panel-text:#FFF8EB;
+  --icon-stroke-width:2.5;
+  --icon-color:#A0522D;
+  --icon-opacity:1;
+  --noise-opacity:.14;
+  --accent-contrast:#FFF8EB;
+  --theme-ring:#D96546;
+}
+
+html[data-theme="forest"]{
+  --page-bg-start:#F2F4F2;
+  --page-bg-mid:#E8EDE9;
+  --page-bg-end:#E4EAE6;
+  --page-glow:#8FA6A1;
+  --surface:#E2E8E4;
+  --surface-light:#F2F4F2;
+  --surface-strong:#F8FAF8;
+  --surface-texture:radial-gradient(circle at 16px 16px,rgba(74,93,84,.045) 0 1px,transparent 1.3px) 0 0/17px 17px,linear-gradient(145deg,#F2F4F2,#E2E8E4);
+  --paper:#E8EDE9;
+  --paper-light:#F2F4F2;
+  --paper-deep:#D6E0DB;
+  --ink:#2F3E36;
+  --ink-soft:#52615A;
+  --muted:#78857D;
+  --line:#B0C0B9;
+  --line-soft:rgba(74,93,84,.2);
+  --border-strong:#4A5D54;
+  --ochre:#8FA6A1;
+  --ochre-deep:#5A6B73;
+  --ochre-soft:#D5E0DC;
+  --mustard:#DDBEA9;
+  --mustard-deep:#8C7162;
+  --mustard-soft:#EADBD0;
+  --sage:#8FA6A1;
+  --sage-deep:#4A5D54;
+  --sage-soft:#D9E5DF;
+  --lav:#B9A8B4;
+  --lav-deep:#6C5966;
+  --lav-soft:#E7DDE5;
+  --cream:#F7F8F6;
+  --deep-panel:#52665E;
+  --deep-panel-text:#F4F7F4;
+  --icon-stroke-width:1.5;
+  --icon-color:#4A5D54;
+  --icon-opacity:.85;
+  --noise-opacity:.24;
+  --accent-contrast:#F7F8F6;
+  --theme-ring:#5A6B73;
+}
+
+html[data-theme] body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%,color-mix(in srgb,var(--page-glow) 15%,transparent) 0 1px,transparent 1.5px) 0 0/24px 24px,
+    radial-gradient(circle at 85% 26%,color-mix(in srgb,var(--page-glow) 12%,transparent),transparent 32%),
+    radial-gradient(circle at 16% 82%,color-mix(in srgb,var(--ochre) 9%,transparent),transparent 28%),
+    linear-gradient(145deg,var(--page-bg-start),var(--page-bg-mid) 52%,var(--page-bg-end));
+}
+html[data-theme] body::before{opacity:var(--noise-opacity)}
+html[data-theme] #app{color:var(--ink)}
+html[data-theme] .doodle-icon{color:var(--icon-color)!important;opacity:var(--icon-opacity);transition:color .32s ease,opacity .32s ease,stroke-width .32s ease}
+html[data-theme] .doodle-icon *{stroke:currentColor!important;fill:none!important;stroke-width:var(--icon-stroke-width,2)!important;stroke-linecap:round;stroke-linejoin:round}
+html[data-theme] .tab-btn,.theme-trigger,.dial-tab,.sop-icon-btn,.cal-navs button,.modal .x,.field-editor-close,.log-editor-close{color:var(--ink-soft)}
+html[data-theme] .tab-btn.active{background:var(--mustard-soft);border-color:var(--border-strong);box-shadow:2px 2px 0 color-mix(in srgb,var(--border-strong) 80%,transparent);color:var(--ink)}
+
+/* Surfaces follow the selected skin */
+html[data-theme] .top,
+html[data-theme] .modal,
+html[data-theme] .auth-card,
+html[data-theme] .theme-sheet,
+html[data-theme] .gcard,
+html[data-theme] .task,
+html[data-theme] .log-summary-card,
+html[data-theme] .habit-handbook-card,
+html[data-theme] .sop-item,
+html[data-theme] .dial-tabs,
+html[data-theme] .day-dial-ring,
+html[data-theme] .rotary-core,
+html[data-theme] .legend,
+html[data-theme] .ics-tip,
+html[data-theme] .sop-week-legend{
+  background:var(--surface-texture);
+  border-color:var(--border-strong);
+  color:var(--ink);
+}
+html[data-theme] .daily-note{background:linear-gradient(145deg,var(--sage-soft),var(--surface-light));border-color:var(--border-strong);color:var(--ink)}
+html[data-theme] .sop-banner{background:linear-gradient(145deg,var(--mustard-soft),var(--surface-light));border-color:var(--border-strong);color:var(--ink)}
+html[data-theme] .hcard{background:var(--surface-texture);border-color:var(--border-strong)}
+html[data-theme] .hcard::before,html[data-theme] .daily-note::before,html[data-theme] .log-intro::before,html[data-theme] .habit-handbook-card::before{background:color-mix(in srgb,var(--mustard) 38%,var(--surface-light))}
+html[data-theme] .chip{background:var(--surface-light);border-color:var(--line);color:var(--ink-soft)}
+html[data-theme] .chip.medal{background:var(--mustard-soft);border-color:var(--line);color:var(--mustard-deep)}
+html[data-theme] .btn-primary{background:var(--ochre);border-color:var(--border-strong);color:var(--accent-contrast)}
+html[data-theme] .btn-soft{background:var(--paper-deep);border-color:var(--line);color:var(--ink-soft)}
+html[data-theme] .btn-ok{background:var(--sage-soft);border-color:var(--sage-deep);color:var(--sage-deep)}
+html[data-theme] .btn-ghost{background:color-mix(in srgb,var(--surface-light) 55%,transparent);border-color:var(--line);color:var(--ink-soft)}
+html[data-theme] .btn-danger-ghost{color:var(--ochre-deep);border-color:color-mix(in srgb,var(--ochre-deep) 45%,transparent)}
+html[data-theme] .f-input,
+html[data-theme] .add-row input,
+html[data-theme] .sheet-addtask input,
+html[data-theme] .sop-note,
+html[data-theme] .icon-option,
+html[data-theme] .emoji{
+  background:color-mix(in srgb,var(--surface-light) 88%,transparent);
+  border-color:var(--line);
+  color:var(--ink);
+}
+html[data-theme] .f-input:focus,html[data-theme] .add-row input:focus,html[data-theme] .sop-note:focus{border-color:var(--ochre);background:var(--surface-strong)}
+html[data-theme] .modal::before{background:color-mix(in srgb,var(--mustard) 48%,var(--surface-light));border-color:var(--line)}
+html[data-theme] .sheet,html[data-theme] .field-editor,html[data-theme] .log-intro,html[data-theme] .log-field{
+  border-color:var(--border-strong);background-color:var(--surface-light);color:var(--ink)
+}
+html[data-theme] .log-field,html[data-theme] .log-intro{background:repeating-linear-gradient(to bottom,transparent 0 28px,color-mix(in srgb,var(--line) 28%,transparent) 28px 29px),var(--surface-light)}
+html[data-theme] .field-editor{background:linear-gradient(90deg,transparent 0 34px,color-mix(in srgb,var(--ochre) 22%,transparent) 34px 35px,transparent 35px),repeating-linear-gradient(to bottom,transparent 0 35px,color-mix(in srgb,var(--line) 28%,transparent) 35px 36px),var(--surface-light)}
+html[data-theme] #logFieldInput{background:repeating-linear-gradient(to bottom,transparent 0 37px,color-mix(in srgb,var(--line) 25%,transparent) 37px 38px),color-mix(in srgb,var(--surface-light) 88%,transparent);color:var(--ink);border-color:var(--line)}
+html[data-theme] .ai-guide{background:linear-gradient(150deg,var(--deep-panel),color-mix(in srgb,var(--deep-panel) 82%,#000));color:var(--deep-panel-text);border-color:var(--border-strong)}
+html[data-theme] .ai-guide-head{color:var(--deep-panel-text)}
+html[data-theme] .prompt-box{background:repeating-linear-gradient(to bottom,transparent 0 25px,color-mix(in srgb,var(--line) 25%,transparent) 25px 26px),var(--cream);border-color:var(--line);color:var(--ink-soft)}
+html[data-theme] .log-progress,html[data-theme] .add-row,html[data-theme] .empty,html[data-theme] .grad-head{background:color-mix(in srgb,var(--surface-light) 72%,transparent);border-color:var(--line)}
+html[data-theme] .tabs{background:color-mix(in srgb,var(--surface-light) 90%,transparent);border-color:var(--border-strong)}
+html[data-theme] .dial-tab.active{background:repeating-linear-gradient(120deg,color-mix(in srgb,var(--mustard) 34%,transparent) 0 5px,var(--mustard-soft) 5px 10px);border-color:var(--border-strong);color:var(--ink)}
+html[data-theme] .rotary-hole,html[data-theme] .dial-hole,html[data-theme] .day-num,html[data-theme] .sop-day{background:var(--surface-light);border-color:var(--border-strong);color:var(--ink-soft)}
+html[data-theme] .rotary-hole.filled{background:color-mix(in srgb,var(--mustard-soft) 70%,var(--surface-light))}
+html[data-theme] .rotary-hole.stamped{background:repeating-linear-gradient(120deg,color-mix(in srgb,var(--ochre) 32%,transparent) 0 4px,var(--mustard-soft) 4px 9px);border-color:var(--ochre-deep)}
+html[data-theme] .rotary-hole.drop-target,html[data-theme] .dial-hole.sel{background:repeating-linear-gradient(120deg,color-mix(in srgb,var(--sage) 45%,transparent) 0 4px,var(--mustard-soft) 4px 8px);border-color:var(--sage-deep)}
+html[data-theme] .log-card,html[data-theme] .log-summary-card{background:color-mix(in srgb,var(--lav-soft) 44%,var(--surface-light))}
+html[data-theme] .cal-day{background:var(--paper-deep);border-color:var(--line);color:var(--ink-soft)}
+html[data-theme] .cal-day.c-light{background:var(--sage-soft);color:var(--sage-deep)}
+html[data-theme] .cal-day.c-purple,html[data-theme] .cal-day.c-lav{background:var(--lav-soft);color:var(--lav-deep)}
+html[data-theme] .cal-day.c-gold{background:linear-gradient(145deg,var(--sage-soft),var(--mustard-soft));color:var(--sage-deep)}
+html[data-theme] .cal-day.today{border-color:var(--ochre-deep);box-shadow:0 0 0 3px color-mix(in srgb,var(--ochre) 16%,transparent),2px 2px 0 color-mix(in srgb,var(--border-strong) 40%,transparent)}
+
+/* Theme chooser */
+.theme-trigger{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:36px;padding:6px 10px;border:1.5px solid var(--border-strong);border-radius:48% 52% 45% 55%/54% 45% 55% 46%;background:var(--surface-light);color:var(--icon-color);font-family:var(--display);font-size:10.5px;font-weight:700;cursor:pointer;box-shadow:1.5px 2px 0 color-mix(in srgb,var(--border-strong) 45%,transparent);transition:transform .18s ease,background .18s ease}
+.theme-trigger svg{width:20px;height:20px}.theme-trigger:hover{transform:rotate(-3deg) translateY(-1px);background:var(--mustard-soft)}
+body.theme-open{overflow:hidden}
+#themeMask{z-index:130;padding-bottom:0}
+.theme-sheet{position:relative;width:min(790px,100%);max-height:min(76dvh,720px);margin:0 auto;padding:14px 21px calc(22px + env(safe-area-inset-bottom,0px));overflow-y:auto;border:2px solid var(--border-strong);border-bottom:none;border-radius:28px 28px 0 0;background:var(--surface-texture);color:var(--ink);box-shadow:0 -8px 0 color-mix(in srgb,var(--border-strong) 55%,transparent),0 -24px 60px rgba(35,26,18,.2);transform:translateY(44px);transition:transform .28s cubic-bezier(.2,.8,.25,1)}
+#themeMask.show .theme-sheet{transform:none}
+.theme-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}.theme-sheet-kicker{color:var(--sage-deep);font-size:8.5px;font-weight:900;letter-spacing:.2em}.theme-sheet h3{margin:2px 0 0;color:var(--ink);font-family:var(--display);font-size:24px;line-height:1.3}.theme-close{display:grid;place-items:center;width:36px;height:36px;padding:7px;border:1.6px solid var(--border-strong);border-radius:50% 46% 54% 48%;background:var(--surface-light);color:var(--ink);box-shadow:1.5px 2px 0 color-mix(in srgb,var(--border-strong) 40%,transparent);cursor:pointer}.theme-close svg{width:17px;height:17px}.theme-sheet-desc{margin:7px 0 14px;color:var(--muted);font-family:var(--display);font-size:11px}.theme-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.theme-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:10px 11px 12px;border:2px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:15px 11px 17px 12px/12px 17px 11px 16px;background:var(--surface-light);color:var(--ink);text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.theme-card:hover{transform:translateY(-2px) rotate(-.4deg);border-color:var(--border-strong)}.theme-card.selected{border:3px solid var(--theme-ring);box-shadow:3px 4px 0 color-mix(in srgb,var(--theme-ring) 55%,transparent);transform:translateY(-1px)}.theme-preview{position:relative;display:flex;align-items:flex-end;justify-content:flex-start;gap:5px;width:100%;height:64px;margin-bottom:3px;padding:9px;overflow:hidden;border:1.2px solid color-mix(in srgb,var(--border-strong) 35%,transparent);border-radius:9px 13px 8px 14px;background:var(--p-bg)}.theme-preview::before{content:"";position:absolute;right:-6px;top:-9px;width:58px;height:34px;border-radius:50%;background:var(--p-glow);opacity:.28;transform:rotate(-8deg)}.theme-preview::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,var(--p-ink) .7px,transparent .9px);background-size:8px 8px;opacity:.08}.theme-preview i{position:relative;z-index:1;display:block;width:18px;height:18px;border:1.5px solid var(--p-ink);border-radius:50% 45% 54% 46%;background:var(--p-card)}.theme-preview i:nth-child(2){width:28px;height:12px;border-radius:50%;background:var(--p-accent)}.theme-preview i:nth-child(3){width:14px;height:23px;border-radius:5px 8px 4px 9px;background:var(--p-card);transform:rotate(-6deg)}.theme-card[data-theme-choice="journal"]{--p-bg:#F4EFE6;--p-card:#FCF8F0;--p-accent:#C66F50;--p-glow:#D7AA58;--p-ink:#3E342B}.theme-card[data-theme-choice="warm"]{--p-bg:#FFF8EB;--p-card:#FFE4D6;--p-accent:#FF8C69;--p-glow:#F2B36B;--p-ink:#5C4033}.theme-card[data-theme-choice="forest"]{--p-bg:#E8EDE9;--p-card:#E2E8E4;--p-accent:#8FA6A1;--p-glow:#DDBEA9;--p-ink:#2F3E36}.theme-card-title{color:var(--ink);font-family:var(--display);font-size:15px;font-weight:700;line-height:1.35}.theme-card-desc{color:var(--muted);font-family:var(--display);font-size:9.5px;line-height:1.45}.theme-swatches{display:flex;gap:4px;margin-top:2px}.theme-swatches i{width:12px;height:12px;border:1px solid color-mix(in srgb,var(--p-ink) 40%,transparent);border-radius:50%}.theme-swatches i:nth-child(1){background:var(--p-bg)}.theme-swatches i:nth-child(2){background:var(--p-accent)}.theme-swatches i:nth-child(3){background:var(--p-ink)}.theme-check{position:absolute;right:9px;top:9px;display:none;place-items:center;width:24px;height:24px;padding:4px;border:2px solid var(--theme-ring);border-radius:50%;background:var(--surface-light);color:var(--theme-ring);transform:rotate(7deg)}.theme-check svg{width:15px;height:15px}.theme-card.selected .theme-check{display:grid}.theme-sheet-note{margin:13px 0 0;padding-top:9px;border-top:1px dashed var(--line);color:var(--muted);font-family:var(--display);font-size:9.5px;text-align:center}
+
+/* Netlify badge must never cover core controls */
+#app{padding-bottom:max(100px,calc(54px + env(safe-area-inset-bottom,0px)))}
+#logSaveBtn{position:relative;z-index:10000;margin-bottom:26px}
+.field-editor{padding-bottom:18px}
+.field-editor-foot{position:sticky;bottom:0;z-index:2147483000;margin:12px -8px -8px;padding:12px 8px max(10px,env(safe-area-inset-bottom,0px));border-top:1.3px dashed var(--line);background:color-mix(in srgb,var(--surface-light) 94%,transparent);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+.field-editor-foot .btn{position:relative;z-index:2}
+a[href*="netlify.com"],iframe[src*="netlify"],.netlify-badge,#netlify-badge{right:auto!important;left:10px!important;bottom:10px!important;z-index:40!important;max-width:96px!important;opacity:.78!important;transform:scale(.82)!important;transform-origin:left bottom!important}
+
+@media (max-width:760px){
+  .theme-grid{grid-template-columns:1fr;gap:8px}
+  .theme-card{display:grid;grid-template-columns:78px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:9px 10px}
+  .theme-preview{grid-row:1/3;width:78px;height:62px;margin:0}
+  .theme-card-title{grid-column:2;align-self:end}.theme-card-desc{grid-column:2;align-self:start}.theme-swatches{grid-column:3;grid-row:1/3;flex-direction:column;margin:0}.theme-check{right:8px;top:8px}
+  .theme-sheet{max-height:82dvh;padding-inline:14px}
+}
+@media (max-width:480px){
+  .theme-trigger{padding:6px 8px}.theme-trigger span{display:none}
+  .theme-sheet h3{font-size:21px}.theme-sheet-desc{font-size:10px}
+  .field-editor-foot{gap:7px;flex-wrap:wrap;padding-bottom:max(13px,env(safe-area-inset-bottom,0px))}.field-editor-foot .btn{flex:1}
+}
+
+
+/* Ensure app-scoped legacy variables follow the selected root theme */
+html[data-theme="journal"]{--theme-ink:#3E342B;--theme-muted:#8E8172;--theme-line:#8A7868;--theme-surface:#FCF8F0}
+html[data-theme="warm"]{--theme-ink:#5C4033;--theme-muted:#A27D6C;--theme-line:#E6C2A8;--theme-surface:#FFE4D6}
+html[data-theme="forest"]{--theme-ink:#2F3E36;--theme-muted:#78857D;--theme-line:#B0C0B9;--theme-surface:#E2E8E4;--lav-soft:#E7DDE5}
+html[data-theme] #app{
+  --ink:var(--theme-ink);
+  --muted:var(--theme-muted);
+  --line:var(--theme-line);
+  --card:var(--theme-surface);
+  --green:var(--sage-deep);
+  --green-deep:var(--sage-deep);
+  --green-soft:var(--sage-soft);
+  --gold:var(--mustard);
+  --gold-soft:var(--mustard-soft);
+  --purple:var(--lav);
+  --purple-soft:var(--lav-soft);
+  --gray-soft:var(--paper-deep);
+}
+
 </style>
 <!--APP_HTML_START-->
 <div id="authView" style="display:none">
@@ -2282,6 +2493,7 @@ body.log-open{overflow:hidden}
     <div class="chips">
       <span class="chip" id="dateChip"></span>
       <span class="chip medal" id="medalChip"> 今日成就 0</span>
+      <button class="theme-trigger" id="themeTrigger" type="button" aria-label="切换主题"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-palette"></use></svg><span>主题</span></button>
     </div>
     <div class="user-row" id="userRow" style="display:none">
       <span class="chip" id="userChip"></span>
@@ -2511,6 +2723,19 @@ body.log-open{overflow:hidden}
       <div class="sync-tip">下载 .ics 后在手机上点击即可导入（iOS/Android 通用）；「添加到手机日历」支持逐条加入 Apple / Google 日历。</div>
     </div>
   </div>
+  <div class="mask bottom" id="themeMask">
+    <div class="theme-sheet" role="dialog" aria-modal="true" aria-labelledby="themeSheetTitle">
+      <div class="sheet-handle"></div>
+      <div class="theme-sheet-head"><div><span class="theme-sheet-kicker">PAPER &amp; COLOR</span><h3 id="themeSheetTitle">选择你的主题</h3></div><button class="theme-close" id="themeClose" type="button" aria-label="关闭主题面板"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-x"></use></svg></button></div>
+      <p class="theme-sheet-desc">主题会立即应用到整本手账，并记住你的选择。</p>
+      <div class="theme-grid">
+        <button class="theme-card" data-theme-choice="journal" type="button"><span class="theme-preview journal"><i></i><i></i><i></i></span><span class="theme-card-title">默认手账风</span><span class="theme-card-desc">牛皮纸、棕墨与鹅黄</span><span class="theme-swatches"><i></i><i></i><i></i></span><span class="theme-check"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg></span></button>
+        <button class="theme-card" data-theme-choice="warm" type="button"><span class="theme-preview warm"><i></i><i></i><i></i></span><span class="theme-card-title">内海悠暖色</span><span class="theme-card-desc">杏子奶油与夕阳橘红</span><span class="theme-swatches"><i></i><i></i><i></i></span><span class="theme-check"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg></span></button>
+        <button class="theme-card" data-theme-choice="forest" type="button"><span class="theme-preview forest"><i></i><i></i><i></i></span><span class="theme-card-title">复古水彩森林</span><span class="theme-card-desc">雾蓝、灰绿与旧粉色</span><span class="theme-swatches"><i></i><i></i><i></i></span><span class="theme-check"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg></span></button>
+      </div>
+      <p class="theme-sheet-note">图标线条会随主题自动改变粗细、颜色与透明度。</p>
+    </div>
+  </div>
   <div class="toast" id="toast" role="status"></div>
 </div>
 <!--APP_HTML_END--><!--APP_SCRIPT_START-->
@@ -2547,19 +2772,30 @@ function defaultSopItems(){
   ];
 }
 function freshState(){
-  return{habits:[],tasks:[],records:[],logs:[],sopItems:defaultSopItems(),dialGroups:[],makeup:{month:monthKey(new Date()),left:3}};
+  return{habits:[],tasks:[],records:[],logs:[],sopItems:defaultSopItems(),dialGroups:[{id:'dial-primary',name:'拨盘 1',habits:[]}],makeup:{month:monthKey(new Date()),left:3}};
 }
 var state;
 try{var raw=storage.getItem(LS_KEY);state=raw?JSON.parse(raw):freshState();}catch(e){state=freshState();}
 if(!state||typeof state!=='object')state=freshState();
 state.habits=state.habits||[];state.tasks=state.tasks||[];state.records=state.records||[];state.logs=state.logs||[];if(!Array.isArray(state.sopItems))state.sopItems=defaultSopItems();
-if(!Array.isArray(state.dialGroups)){
-  state.dialGroups=[];
-  state.habits.filter(function(h){return h.isActive!==false;}).forEach(function(h,i){
-    if(i%10===0){var gid='dial-migrated-'+Math.floor(i/10)+'-'+Date.now().toString(36);state.dialGroups.push({id:gid,name:state.dialGroups.length?'我的拨盘 '+(state.dialGroups.length+1):'我的拨盘',createdAt:todayStr()});}
-    var g=state.dialGroups[state.dialGroups.length-1];h.dialGroupId=g.id;h.dialSlot=(i%10)+1;
-  });
-}
+state.dialGroups=Array.isArray(state.dialGroups)?state.dialGroups:[];
+state.dialGroups=state.dialGroups.filter(function(g){return g&&g.id;}).map(function(g,i){
+  var ids=Array.isArray(g.habits)?g.habits.map(function(x){return typeof x==='string'?x:(x&&x.id);}).filter(function(id){return !!habitById(id);}):[];
+  return {id:g.id,name:String(g.name||('拨盘 '+(i+1))).trim()||('拨盘 '+(i+1)),habits:ids};
+});
+var dialSeen={};
+state.dialGroups.forEach(function(g){g.habits=g.habits.filter(function(id){if(dialSeen[id])return false;dialSeen[id]=true;return true;}).slice(0,10);});
+state.dialGroups.forEach(function(g){
+  state.habits.filter(function(h){return !dialSeen[h.id]&&h.dialGroupId===g.id;}).sort(function(a,b){return Number(a.dialSlot||99)-Number(b.dialSlot||99);}).forEach(function(h){if(g.habits.length<10){g.habits.push(h.id);dialSeen[h.id]=true;}});
+});
+state.habits.forEach(function(h){
+  if(dialSeen[h.id])return;
+  var g=null;for(var i=0;i<state.dialGroups.length;i++){if(state.dialGroups[i].habits.length<10){g=state.dialGroups[i];break;}}
+  if(!g){g={id:uid(),name:'拨盘 '+(state.dialGroups.length+1),habits:[]};state.dialGroups.push(g);}
+  g.habits.push(h.id);dialSeen[h.id]=true;
+});
+if(!state.dialGroups.length)state.dialGroups.push({id:uid(),name:'拨盘 1',habits:[]});
+state.dialGroups.forEach(function(g){g.habits.forEach(function(id,index){var h=habitById(id);if(h){h.dialGroupId=g.id;h.dialSlot=index+1;}});});
 if(!state.makeup||state.makeup.month!==monthKey(new Date())){state.makeup={month:monthKey(new Date()),left:3};}
 state.tasks.forEach(function(t){if(!t.taskDate)t.taskDate=t.date||todayStr();}); /* 迁移：旧任务无 taskDate 则补充为当天 */
 state.tasks=state.tasks.filter(function(t){return !(t.isCompleted&&taskDateOf(t)<todayStr());}); /* 清空逻辑：仅清空已完成且日期早于今天的任务，未完成任务保留 */
@@ -2879,12 +3115,23 @@ function doCheckin(habitId){
 }
 
 /* ---------- 习惯 CRUD ---------- */
-function addHabit(data){state.habits.push({id:uid(),isActive:true,createdAt:todayStr(),name:data.name,icon:data.icon,targetDays:data.targetDays,startDate:data.startDate,dialGroupId:data.dialGroupId||'',dialSlot:data.dialSlot||null});save();}
-function updateHabit(id,data){var h=habitById(id);if(!h)return;h.name=data.name;h.icon=data.icon;h.targetDays=data.targetDays;h.startDate=data.startDate;h.dialGroupId=data.dialGroupId||'';h.dialSlot=data.dialSlot||null;save();}
+function addHabit(data){
+  var id=uid(),group=dialGroupById(data.dialGroupId),slot=Math.max(1,Math.min(10,Number(data.dialSlot)||(group?group.habits.length+1:1)));
+  state.habits.push({id:id,isActive:true,createdAt:todayStr(),name:data.name,icon:data.icon,targetDays:data.targetDays,startDate:data.startDate,dialGroupId:data.dialGroupId||'',dialSlot:slot});
+  if(group){group.habits.splice(Math.min(slot-1,group.habits.length),0,id);renumberDialGroup(group);}save();
+}
+function updateHabit(id,data){
+  var h=habitById(id);if(!h)return;
+  state.dialGroups.forEach(function(g){g.habits=g.habits.filter(function(x){return x!==id;});renumberDialGroup(g);});
+  h.name=data.name;h.icon=data.icon;h.targetDays=data.targetDays;h.startDate=data.startDate;h.dialGroupId=data.dialGroupId||'';h.dialSlot=Number(data.dialSlot)||1;
+  var group=dialGroupById(h.dialGroupId);if(group){group.habits.splice(Math.min(h.dialSlot-1,group.habits.length),0,id);renumberDialGroup(group);}
+  save();
+}
 function deleteHabit(id){
   if(!window.confirm('确定删除该习惯吗？它的所有打卡记录也会一并删除。'))return;
   state.habits=state.habits.filter(function(h){return h.id!==id;});
   state.records=state.records.filter(function(r){return r.habitId!==id;});
+  state.dialGroups.forEach(function(g){g.habits=g.habits.filter(function(x){return x!==id;});renumberDialGroup(g);});
   save();renderAll();toast('已删除习惯');
 }
 
@@ -3068,8 +3315,13 @@ function renderHeader(bump){
 var activeDialGroupId=null;
 var editingDialGroupId=null;
 function dialGroupById(id){for(var i=0;i<state.dialGroups.length;i++){if(state.dialGroups[i].id===id)return state.dialGroups[i];}return null;}
-function habitAtDialSlot(groupId,slot){return state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId&&Number(h.dialSlot)===Number(slot);})[0]||null;}
-function groupHabits(groupId){return state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId;}).sort(function(a,b){return Number(a.dialSlot||0)-Number(b.dialSlot||0);});}
+function renumberDialGroup(group){
+  if(!group)return;
+  group.habits=group.habits.filter(function(id){return !!habitById(id);}).slice(0,10);
+  group.habits.forEach(function(id,index){var h=habitById(id);if(h){h.dialGroupId=group.id;h.dialSlot=index+1;}});
+}
+function habitAtDialSlot(groupId,slot){var group=dialGroupById(groupId);if(!group)return null;var id=group.habits[Number(slot)-1];return id?habitById(id):null;}
+function groupHabits(groupId){var group=dialGroupById(groupId);if(!group)return [];return group.habits.map(function(id){return habitById(id);}).filter(Boolean);}
 function stampedInGroup(groupId){return groupHabits(groupId).filter(function(h){return !!recordOf(h.id,todayStr());}).length;}
 function dialTabsHTML(){
   if(!state.dialGroups.length)return '<div class="dial-tabs"><span class="dial-tabs-empty">还没有拨盘</span><button class="dial-add-inline" id="dialAddInline" type="button">新建拨盘</button></div>';
@@ -3131,10 +3383,27 @@ function renderHome(){
   if(!tasks.length){tl.innerHTML='<div class="empty">今天还没有待办任务，添加一个试试。</div>';}
   else{tl.innerHTML=tasks.map(function(t){var d=taskDateOf(t),overdue=(d<today)?'<span class="task-date-tag">'+esc(d)+' 未完成</span>':'';return '<div class="task'+(t.isCompleted?' done':'')+'" data-id="'+t.id+'"><input type="checkbox"'+(t.isCompleted?' checked':'')+' aria-label="完成"><span class="t-check"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-check"></use></svg></span><span class="t-text">'+esc(t.content)+overdue+(t.dueTime?'<span class="task-due"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-clock"></use></svg>截止 '+esc(t.dueTime)+'</span>':'')+'</span><button class="t-del" data-act="del" type="button" title="删除任务"><svg class="doodle-icon" aria-hidden="true"><use href="#ui-x"></use></svg></button></div>';}).join('');}
 }
-function openDialGroupModal(){editingDialGroupId=null;$('#dialGroupModalTitle').textContent='新建拨盘';$('#dialGroupName').value='';$('#dialGroupDelete').style.display='none';$('#dialGroupModalMask').classList.add('show');setTimeout(function(){$('#dialGroupName').focus();},60);}
+function openDialGroupModal(id){
+  editingDialGroupId=id||null;var group=id?dialGroupById(id):null;
+  $('#dialGroupModalTitle').textContent=group?'重命名拨盘':'新建拨盘';$('#dialGroupName').value=group?group.name:'';$('#dialGroupDelete').style.display='none';$('#dialGroupModalMask').classList.add('show');setTimeout(function(){$('#dialGroupName').focus();$('#dialGroupName').select();},60);
+}
 function closeDialGroupModal(){$('#dialGroupModalMask').classList.remove('show');}
-function saveDialGroup(){var name=$('#dialGroupName').value.trim();if(!name){toast('请先给拨盘起个名字');return;}if(editingDialGroupId){var g=dialGroupById(editingDialGroupId);if(g)g.name=name;}else{var fresh={id:uid(),name:name,createdAt:todayStr()};state.dialGroups.push(fresh);activeDialGroupId=fresh.id;}save();closeDialGroupModal();renderHome();toast(editingDialGroupId?'拨盘已更新':'新拨盘已建立');editingDialGroupId=null;}
-function deleteDialGroup(){var g=dialGroupById(editingDialGroupId);if(!g)return;if(groupHabits(g.id).length){toast('请先把拨盘中的习惯移到其他孔位');return;}if(!window.confirm('确定删除这个拨盘吗？'))return;state.dialGroups=state.dialGroups.filter(function(x){return x.id!==g.id;});activeDialGroupId=state.dialGroups.length?state.dialGroups[0].id:null;save();closeDialGroupModal();renderHome();toast('拨盘已删除');}
+function saveDialGroup(){
+  var name=$('#dialGroupName').value.trim();if(!name){toast('请先给拨盘起个名字');return;}
+  if(editingDialGroupId){var g=dialGroupById(editingDialGroupId);if(g)g.name=name;toast('拨盘名称已更新');}
+  else{var fresh={id:uid(),name:name,habits:[]};state.dialGroups.push(fresh);activeDialGroupId=fresh.id;toast('新拨盘已建立');}
+  save();closeDialGroupModal();renderHome();editingDialGroupId=null;
+}
+function requestDeleteDialGroup(id){
+  var group=dialGroupById(id);if(!group)return;
+  if(state.dialGroups.length<=1){toast('至少保留一个拨盘');return;}
+  if(!window.confirm('确定删除「'+group.name+'」吗？其中习惯会移动到其他拨盘。'))return;
+  var remaining=state.dialGroups.filter(function(g){return g.id!==id;});
+  var capacity=remaining.reduce(function(n,g){return n+(10-g.habits.length);},0);
+  if(capacity<group.habits.length){toast('其他拨盘空间不足，无法安全迁移这些习惯');return;}
+  var pending=group.habits.slice();pending.forEach(function(hid){for(var i=0;i<remaining.length;i++){if(remaining[i].habits.length<10){remaining[i].habits.push(hid);break;}}});remaining.forEach(renumberDialGroup);
+  state.dialGroups=remaining;activeDialGroupId=remaining[0].id;save();renderHome();toast('拨盘已删除，习惯已迁移');
+}
 
 /* ---------- 渲染：日历 ---------- */
 var calView={y:new Date().getFullYear(),m:new Date().getMonth()};
@@ -3307,7 +3576,15 @@ var HABIT_ICONS=[
   {key:'toothbrush',label:'牙刷',tags:'刷牙 清洁'},
   {key:'paint',label:'调色盘',tags:'绘画 创作 艺术'},
   {key:'lotus',label:'莲花',tags:'冥想 放松 瑜伽'},
-  {key:'footsteps',label:'脚印',tags:'徒步 散步 运动'}
+  {key:'footsteps',label:'脚印',tags:'徒步 散步 运动'},
+  {key:'smartphone',label:'手机',tags:'手机 放下手机 远离屏幕'},
+  {key:'dumbbell',label:'举重',tags:'阻力运动 健身 力量 举重'},
+  {key:'shopping',label:'购物袋',tags:'购物 买菜 消费'},
+  {key:'piano',label:'钢琴',tags:'练琴 音乐 键盘'},
+  {key:'scissors',label:'剪刀',tags:'手工 剪贴 创作'},
+  {key:'chat',label:'交谈',tags:'朋友 聊天 沟通 社交'},
+  {key:'star',label:'星星',tags:'星星 目标 愿望'},
+  {key:'briefcase',label:'公文包',tags:'会议 工作 上班 汇报'}
 ];
 var chosenIcon='shoes';var editingId=null;var LEGACY_ICON_MAP={};
 [[0x1F3C3,'shoes'],[0x1F97E,'footsteps'],[0x1F4D6,'book'],[0x270D,'pen'],[0x1F4A7,'water'],[0x2615,'cup'],[0x1F375,'cup'],[0x1F9B7,'toothbrush'],[0x1F331,'leaf'],[0x1F319,'moon'],[0x1F3A8,'paint'],[0x1F9D8,'lotus'],[0x1F6B4,'shoes'],[0x1F6BF,'water'],[0x1F4DD,'pen']].forEach(function(x){LEGACY_ICON_MAP[x[0]]=x[1];});
@@ -3330,13 +3607,14 @@ function firstFreeDialSlot(groupId){
   for(var i=1;i<=10;i++){if(!habitAtDialSlot(groupId,i))return i;}return 1;
 }
 function renderHabitDialFields(groupId,slot){
-  var opts='';
-  if(state.dialGroups.length){opts=state.dialGroups.map(function(g){return '<option value="'+g.id+'">'+esc(g.name)+'</option>';}).join('');}
-  else{opts='<option value="">还没有拨盘</option>';}
-  $('#hmDialGroup').innerHTML=opts;
-  var chosen=groupId||activeDialGroupId||(state.dialGroups[0]?state.dialGroups[0].id:'');
-  $('#hmDialGroup').value=chosen;
-  $('#hmDialSlot').value=String(slot||firstFreeDialSlot(chosen));
+  var opts=state.dialGroups.map(function(g){return '<option value="'+g.id+'">'+esc(g.name)+'</option>';}).join('');
+  $('#hmDialGroup').innerHTML=opts||'<option value="">还没有拨盘</option>';
+  var chosen=groupId||activeDialGroupId||(state.dialGroups[0]?state.dialGroups[0].id:'');$('#hmDialGroup').value=chosen;
+  var group=dialGroupById(chosen),max=group?Math.min(10,group.habits.length+1):1,desired=Number(slot)||(group?group.habits.length+1:1),out='';
+  if(editingId&&group){max=Math.max(max,Math.min(10,group.habits.length));}
+  desired=Math.max(1,Math.min(max,desired));
+  for(var i=1;i<=max;i++)out+='<option value="'+i+'">数字 '+i+'</option>';
+  $('#hmDialSlot').innerHTML=out;$('#hmDialSlot').value=String(desired);
 }
 function openHabitModal(id,groupId,slot){
   editingId=id||null;var h=id?habitById(id):null;
@@ -3348,10 +3626,12 @@ function closeHabitModal(){$('#habitModalMask').classList.remove('show');}
 function saveHabit(){
   var name=$('#hmName').value.trim();if(!name){toast('请填写习惯名称');$('#hmName').focus();return;}
   var sel=$('#hmTargetSel').value,target=sel==='custom'?parseInt($('#hmCustom').value,10):parseInt(sel,10);if(!target||target<1||target>999)target=30;
-  var start=$('#hmStart').value||todayStr(),groupId=$('#hmDialGroup').value,slot=parseInt($('#hmDialSlot').value,10)||1;
-  if(!groupId){toast('请先建立一个拨盘');return;}
-  var conflict=state.habits.filter(function(h){return h.isActive!==false&&h.dialGroupId===groupId&&Number(h.dialSlot)===slot&&h.id!==editingId;})[0];
-  if(conflict){toast('数字 '+slot+' 已经属于「'+conflict.name+'」');return;}
+  var start=$('#hmStart').value||todayStr(),groupId=$('#hmDialGroup').value,group=dialGroupById(groupId),slot=parseInt($('#hmDialSlot').value,10)||1;
+  if(!group){toast('请先建立一个拨盘');return;}
+  var old=editingId?habitById(editingId):null;
+  if(!old&&group.habits.length>=10){toast('这个拨盘已经放满十个习惯');return;}
+  if(old&&old.dialGroupId!==groupId&&group.habits.length>=10){toast('目标拨盘已经放满十个习惯');return;}
+  var max=group.habits.length+(old&&old.dialGroupId===groupId?0:1);slot=Math.max(1,Math.min(max||10,slot));
   var data={name:name,icon:chosenIcon,targetDays:target,startDate:start,dialGroupId:groupId,dialSlot:slot};activeDialGroupId=groupId;
   if(editingId){updateHabit(editingId,data);closeHabitModal();renderAll();toast('已保存「'+name+'」的修改');}
   else{addHabit(data);closeHabitModal();renderAll();toast('已把「'+name+'」放入数字 '+slot);}
@@ -3639,6 +3919,23 @@ function copyTextToClipboard(text,okMsg,failMsg){
 }
 function copyPrompt(){copyTextToClipboard($('#exportPromptBox').textContent,' 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
 function copyAiPrompt(){copyTextToClipboard($('#aiPromptBox').textContent,' 提示词已复制，去粘贴给 AI 吧','复制失败，请长按框内文字手动复制');}
+/* ---------- 主题换肤 ---------- */
+var THEME_KEY='daytrace.theme';
+var THEMES={
+  journal:{name:'默认手账风',meta:'#F4EFE6'},
+  warm:{name:'内海悠暖色',meta:'#FFF8EB'},
+  forest:{name:'复古水彩森林',meta:'#E8EDE9'}
+};
+function applyTheme(id,persist){
+  if(!THEMES[id])id='journal';document.documentElement.setAttribute('data-theme',id);
+  $$('.theme-card').forEach(function(card){var on=card.getAttribute('data-theme-choice')===id;card.classList.toggle('selected',on);card.setAttribute('aria-pressed',on?'true':'false');});
+  var trigger=$('#themeTrigger');if(trigger)trigger.setAttribute('aria-label','切换主题，当前为'+THEMES[id].name);
+  var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',THEMES[id].meta);
+  if(persist){try{localStorage.setItem(THEME_KEY,id);}catch(e){}}
+}
+function openThemeSheet(){applyTheme(document.documentElement.getAttribute('data-theme')||'journal',false);$('#themeMask').classList.add('show');document.body.classList.add('theme-open');}
+function closeThemeSheet(){$('#themeMask').classList.remove('show');document.body.classList.remove('theme-open');}
+
 /* ---------- 渲染汇总 + Tab ---------- */
 function renderAll(){graduate();renderHeader(false);renderHome();renderCal();renderLog();renderSop();}
 function switchTab(t){
@@ -3699,39 +3996,63 @@ function bindEvents(){
   };
   $('#dialGroupX').onclick=closeDialGroupModal;$('#dialGroupCancel').onclick=closeDialGroupModal;
   $('#dialGroupModalMask').onclick=function(e){if(e.target===$('#dialGroupModalMask'))closeDialGroupModal();};
-  $('#dialGroupSave').onclick=saveDialGroup;$('#dialGroupDelete').onclick=deleteDialGroup;
+  $('#dialGroupSave').onclick=saveDialGroup;$('#dialGroupDelete').onclick=function(){if(editingDialGroupId)requestDeleteDialGroup(editingDialGroupId);};
   $('#dialGroupName').onkeydown=function(e){if(e.key==='Enter')saveDialGroup();};
   $('#hmDialGroup').onchange=function(){var gid=this.value;$('#hmDialSlot').value=String(firstFreeDialSlot(gid));};
   $('#habitList').onclick=function(e){
     var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;
-    if(tab){activeDialGroupId=tab.getAttribute('data-dial-group');renderHome();return;}
+    if(tab){var id=tab.getAttribute('data-dial-group');if(id!==activeDialGroupId){activeDialGroupId=id;renderHome();}return;}
     if(e.target.closest&&e.target.closest('#dialAddInline,#addDialBtn')){openDialGroupModal();return;}
     var create=e.target.closest?e.target.closest('[data-dial-create]'):null;if(create){openDialGroupModal();return;}
     var setup=e.target.closest?e.target.closest('[data-dial-setup]'):null;if(setup){openHabitModal(null,setup.getAttribute('data-group-id'),parseInt(setup.getAttribute('data-dial-setup'),10));return;}
     var edit=e.target.closest?e.target.closest('[data-habit-edit]'):null;if(edit){openHabitModal(edit.getAttribute('data-habit-edit'));return;}
     var stamp=e.target.closest?e.target.closest('[data-habit-checkin]'):null;if(stamp){stampHabitFromDial(stamp,stamp.getAttribute('data-habit-checkin'));return;}
   };
+  $('#habitList').addEventListener('dblclick',function(e){var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;e.preventDefault();openDialGroupModal(tab.getAttribute('data-dial-group'));});
+  $('#habitList').addEventListener('contextmenu',function(e){var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;e.preventDefault();requestDeleteDialGroup(tab.getAttribute('data-dial-group'));});
+  var dialHold=null;
+  $('#habitList').addEventListener('pointerdown',function(e){
+    var tab=e.target.closest?e.target.closest('[data-dial-group]'):null;if(!tab||!tab.classList.contains('active'))return;
+    var id=tab.getAttribute('data-dial-group');dialHold={x:e.clientX,y:e.clientY,id:id,fired:false,timer:setTimeout(function(){if(!dialHold)return;dialHold.fired=true;tab.classList.add('holding');requestDeleteDialGroup(id);},650)};
+  });
+  $('#habitList').addEventListener('pointermove',function(e){if(!dialHold)return;if(Math.abs(e.clientX-dialHold.x)>8||Math.abs(e.clientY-dialHold.y)>8){clearTimeout(dialHold.timer);dialHold=null;}});
+  function finishDialHold(){if(dialHold){clearTimeout(dialHold.timer);dialHold=null;}}
+  $('#habitList').addEventListener('pointerup',finishDialHold);$('#habitList').addEventListener('pointercancel',finishDialHold);
   var rotaryDrag=null;
+  function clearSortMarks(){$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('dragging','drop-target');});$$('#habitList .rotary-dial').forEach(function(x){x.classList.remove('sorting');});}
   $('#habitList').addEventListener('pointerdown',function(e){
     var hole=e.target.closest?e.target.closest('.rotary-hole'):null;if(!hole)return;
-    var dial=hole.closest('.rotary-dial'),ring=dial.querySelector('.rotary-ring'),rect=dial.getBoundingClientRect();if(!ring)return;
-    var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx);
-    rotaryDrag={dial:dial,ring:ring,group:hole.closest('.rotary-dial').getAttribute('data-group-id'),slot:parseInt(hole.getAttribute('data-dial-slot'),10),prev:angle,total:0,moved:false,pointerId:e.pointerId};
-    ring.style.transition='none';ring.style.transform='rotate(0deg)';var gear=dial.querySelector('.rotary-gear');if(gear)gear.style.transition='none';
+    var dial=hole.closest('.rotary-dial'),ring=dial.querySelector('.rotary-ring'),gear=dial.querySelector('.rotary-gear'),rect=dial.getBoundingClientRect();if(!ring)return;
+    var cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx),groupId=dial.getAttribute('data-group-id'),slot=parseInt(hole.getAttribute('data-dial-slot'),10),habit=habitAtDialSlot(groupId,slot);
+    rotaryDrag={dial:dial,hole:hole,ring:ring,gear:gear,group:groupId,slot:slot,habitId:habit?habit.id:null,cx:cx,cy:cy,startX:e.clientX,startY:e.clientY,prev:angle,total:0,moved:false,mode:'pending',targetIndex:slot-1,timer:null};
+    var current=rotaryDrag;current.timer=setTimeout(function(){
+      if(!rotaryDrag||rotaryDrag!==current||current.mode!=='pending'||current.moved||!current.habitId)return;
+      current.mode='sort';current.hole.classList.add('dragging');current.dial.classList.add('sorting');try{navigator.vibrate&&navigator.vibrate(18);}catch(err){}
+    },420);
     closeHabitReveal();try{dial.setPointerCapture&&dial.setPointerCapture(e.pointerId);}catch(err){}e.preventDefault();
   });
   $('#habitList').addEventListener('pointermove',function(e){
-    if(!rotaryDrag)return;var dial=rotaryDrag.dial,rect=dial.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,angle=Math.atan2(e.clientY-cy,e.clientX-cx),delta=angle-rotaryDrag.prev;if(delta>Math.PI)delta-=Math.PI*2;if(delta<-Math.PI)delta+=Math.PI*2;rotaryDrag.prev=angle;
-    if(delta>0){rotaryDrag.total=Math.min(330,rotaryDrag.total+delta*180/Math.PI);rotaryDrag.moved=true;}
-    rotaryDrag.ring.style.transform='rotate('+rotaryDrag.total.toFixed(2)+'deg)';var gear=dial.querySelector('.rotary-gear');if(gear)gear.style.transform='rotate('+(-rotaryDrag.total*.28).toFixed(2)+'deg)';
-    if(rotaryDrag.total>12)e.preventDefault();
+    if(!rotaryDrag)return;var d=rotaryDrag,distance=Math.hypot(e.clientX-d.startX,e.clientY-d.startY);
+    if(d.mode==='pending'&&distance>6){clearTimeout(d.timer);d.mode='dial';d.moved=true;d.ring.style.transition='none';if(d.gear)d.gear.style.transition='none';}
+    if(d.mode==='sort'){
+      var group=dialGroupById(d.group),max=group?Math.max(0,group.habits.length-1):0,angle=Math.atan2(e.clientY-d.cy,e.clientX-d.cx)+Math.PI/2;if(angle<0)angle+=Math.PI*2;if(angle>=Math.PI*2)angle-=Math.PI*2;
+      var idx=Math.max(0,Math.min(max,Math.round(angle/(Math.PI*2)*10)%10));d.targetIndex=idx;$$('#habitList .rotary-hole').forEach(function(x){x.classList.remove('drop-target');});var target=d.dial.querySelector('.rotary-hole[data-dial-slot="'+(idx+1)+'"]');if(target&&target!==d.hole)target.classList.add('drop-target');e.preventDefault();return;
+    }
+    if(d.mode!=='dial')return;
+    var angle=Math.atan2(e.clientY-d.cy,e.clientX-d.cx),delta=angle-d.prev;if(delta>Math.PI)delta-=Math.PI*2;if(delta<-Math.PI)delta+=Math.PI*2;d.prev=angle;
+    if(delta>0){d.total=Math.min(330,d.total+delta*180/Math.PI);d.moved=true;}
+    d.ring.style.transform='rotate('+d.total.toFixed(2)+'deg)';if(d.gear)d.gear.style.transform='rotate('+(-d.total*.28).toFixed(2)+'deg)';if(d.total>12)e.preventDefault();
   });
-  function releaseRotaryDial(){
-    if(!rotaryDrag)return;var data=rotaryDrag;rotaryDrag=null;var ring=data.ring,gear=data.dial.querySelector('.rotary-gear');
-    ring.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';ring.style.transform='rotate(0deg)';if(gear){gear.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';gear.style.transform='rotate(0deg)';}
-    setTimeout(function(){showHabitReveal(data.group,data.slot);},790);
+  function finishRotary(e,cancelled){
+    if(!rotaryDrag)return;var d=rotaryDrag;rotaryDrag=null;clearTimeout(d.timer);
+    if(d.mode==='sort'){
+      clearSortMarks();if(!cancelled&&d.habitId&&d.targetIndex!==d.slot-1){var group=dialGroupById(d.group);if(group){group.habits.splice(d.slot-1,1);group.habits.splice(d.targetIndex,0,d.habitId);renumberDialGroup(group);save();renderHome();toast('数字顺序已更新');}}
+      return;
+    }
+    d.ring.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';d.ring.style.transform='rotate(0deg)';if(d.gear){d.gear.style.transition='transform .78s cubic-bezier(.18,.9,.22,1.12)';d.gear.style.transform='rotate(0deg)';}
+    if(!cancelled)setTimeout(function(){showHabitReveal(d.group,d.slot);},790);
   }
-  $('#habitList').addEventListener('pointerup',releaseRotaryDial);$('#habitList').addEventListener('pointercancel',releaseRotaryDial);
+  $('#habitList').addEventListener('pointerup',function(e){finishRotary(e,false);});$('#habitList').addEventListener('pointercancel',function(e){finishRotary(e,true);});
   $('#gradSection').onclick=function(e){
     var btn=e.target.closest?e.target.closest('[data-gact]'):null;
     if(!btn)return;
@@ -3798,6 +4119,10 @@ $('#logSaveBtn').onclick=saveLog;
   $('#importSkip').onclick=skipImport;
   $('#importModalMask').onclick=function(e){if(e.target===$('#importModalMask'))closeImport();};
   $('#guestBtn').onclick=enterGuest;
+  $('#themeTrigger').onclick=openThemeSheet;$('#themeClose').onclick=closeThemeSheet;
+  $('#themeMask').onclick=function(e){if(e.target===$('#themeMask'))closeThemeSheet();};
+  $$('.theme-card').forEach(function(card){card.onclick=function(){applyTheme(card.getAttribute('data-theme-choice'),true);};});
+  applyTheme(document.documentElement.getAttribute('data-theme')||'journal',false);
 }
 
 /* ---------- 启动 ---------- */
